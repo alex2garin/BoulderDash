@@ -63,29 +63,34 @@ public class LevelBuilder : MonoBehaviour {
     
     public List<Tile> ReadFile()
     {
-        List<Tile> newTiles = new List<Tile>();
-        string[] fileEntries = Directory.GetFiles("", "*.xls");
+        List<Tile> newTiles;
+        string[] fileEntries = Directory.GetFiles(".", "*.csv");
+        
 
-        if (fileEntries == null) return newTiles;
+        if (fileEntries == null) return null;
 
         string[] lines = File.ReadAllLines(fileEntries[0], Encoding.UTF8);
-
+        
         int x = 0;
         int y = 0;
 
-        foreach(var line in lines)
+        newTiles = new List<Tile>();
+
+        foreach (var line in lines)
         {
-            var symbols = line.Split(',');
+            var symbols = line.Split(';');
             foreach(var symbol in symbols)
             {
+                if (symbol!="")
                 newTiles.Add(new Tile(x, -y, symbol.ToCharArray()[0]));
                     
-                y++;
+                x++;
             }
-            x++;
+            y++;
+            x = 0;
         }
 
-
+        tiles = newTiles;
         return newTiles;
     }
 
@@ -197,7 +202,7 @@ public class LevelBuilder : MonoBehaviour {
     }
     private void Start()
     {
-        GenerateTestTileList();
+        if(ReadFile() == null) GenerateTestTileList();
         Build();
     }
 
