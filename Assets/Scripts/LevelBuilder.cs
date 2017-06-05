@@ -42,21 +42,38 @@ public static class Constants
 
 public class LevelBuilder : MonoBehaviour {
     //tiles;
-    public GameObject[] borders;
-    public GameObject[] walls;
-    public GameObject[] grounds;
-    public GameObject[] portals;
+    public Sprite[] borders;
+    public Sprite[] walls;
+    public Sprite[] grounds;
+    public Sprite[] portals;
     //moving objects
-    public GameObject[] stones;
-    public GameObject[] activeBombs;
-    public GameObject[] deactiveBombs;
-    public GameObject[] crystals;
-    public GameObject[] minerals;
-    public GameObject[] ballons;
+    public Sprite[] stones;
+    public Sprite[] activeBombs;
+    public Sprite[] deactiveBombs;
+    public Sprite[] crystals;
+    public Sprite[] minerals;
+    public Sprite[] ballons;
     //enemies
-    public GameObject[] enemies;
+    public Sprite[] enemies;
+    //player
+    public Sprite[] players;
 
-    public GameObject[] players;
+    //tiles;
+    public GameObject border;
+    public GameObject wall;
+    public GameObject ground;
+    public GameObject portal;
+    //moving objects
+    public GameObject stone;
+    public GameObject activeBomb;
+    public GameObject deactiveBomb;
+    public GameObject crystal;
+    public GameObject mineral;
+    public GameObject ballon;
+    //enemies
+    public GameObject enemy;
+    //player
+    public GameObject player;
 
 
     private List<Tile> tiles;
@@ -156,43 +173,58 @@ public class LevelBuilder : MonoBehaviour {
 
     public void Build()
     {
-        GameObject GOTile = grounds[0];
+        GameObject GOTile = ground;
         foreach(Tile tile in tiles)
         {
             switch(tile.tileType)
             {
                 case Constants.TileType.ActiveBomb:
-                    GOTile = activeBombs[Random.Range(0, activeBombs.Length)];
+                    GOTile = activeBomb;
+                    GOTile.GetComponent<SpriteRenderer>().sprite = activeBombs[Random.Range(0, activeBombs.Length)];
+                    break;
+                case Constants.TileType.Ballon:
+                    GOTile = ballon;
+                    GOTile.GetComponent<SpriteRenderer>().sprite = ballons[Random.Range(0, ballons.Length)];
                     break;
                 case Constants.TileType.Border:
-                    GOTile = borders[Random.Range(0, borders.Length)];
+                    GOTile = border;
+                    GOTile.GetComponent<SpriteRenderer>().sprite = borders[Random.Range(0, borders.Length)];
                     break;
                 case Constants.TileType.Crystal:
-                    GOTile = crystals[Random.Range(0, crystals.Length)];
+                    GOTile = crystal;
+                    GOTile.GetComponent<SpriteRenderer>().sprite = crystals[Random.Range(0, crystals.Length)];
                     break;
                 case Constants.TileType.DeactiveBomb:
-                    GOTile = deactiveBombs[Random.Range(0, deactiveBombs.Length)];
+                    GOTile = deactiveBomb;
+                    GOTile.GetComponent<SpriteRenderer>().sprite = deactiveBombs[Random.Range(0, deactiveBombs.Length)];
                     break;
                 case Constants.TileType.Enemy:
-                    GOTile = enemies[Random.Range(0, enemies.Length)];
+                    GOTile = enemy;
+                    GOTile.GetComponent<SpriteRenderer>().sprite = enemies[Random.Range(0, enemies.Length)];
                     break;
                 case Constants.TileType.Ground:
-                    GOTile = grounds[Random.Range(0, grounds.Length)];
+                    GOTile = ground;
+                    GOTile.GetComponent<SpriteRenderer>().sprite = grounds[Random.Range(0, grounds.Length)];
                     break;
                 case Constants.TileType.Mineral:
-                    GOTile = minerals[Random.Range(0, minerals.Length)];
+                    GOTile = mineral;
+                    GOTile.GetComponent<SpriteRenderer>().sprite = minerals[Random.Range(0, minerals.Length)];
                     break;
                 case Constants.TileType.Player:
-                    GOTile = players[Random.Range(0, players.Length)];
+                    GOTile = player;
+                    GOTile.GetComponent<SpriteRenderer>().sprite = players[Random.Range(0, players.Length)];
                     break;
                 case Constants.TileType.Portal:
-                    GOTile = portals[Random.Range(0, portals.Length)];
+                    GOTile = portal;
+                    GOTile.GetComponent<SpriteRenderer>().sprite = portals[Random.Range(0, portals.Length)];
                     break;
                 case Constants.TileType.Stone:
-                    GOTile = stones[Random.Range(0, stones.Length)];
+                    GOTile = stone;
+                    GOTile.GetComponent<SpriteRenderer>().sprite = stones[Random.Range(0, stones.Length)];
                     break;
                 case Constants.TileType.Wall:
-                    GOTile = walls[Random.Range(0, walls.Length)];
+                    GOTile = wall;
+                    GOTile.GetComponent<SpriteRenderer>().sprite = walls[Random.Range(0, walls.Length)];
                     break;
             }
 

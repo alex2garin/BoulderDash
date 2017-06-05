@@ -6,10 +6,11 @@ public class PlayerController : MonoBehaviour {
 
     public float moveTime = .1f;
     public LayerMask blockingLayer;
+    public LayerMask pickUpLayer;
 
     private Rigidbody2D rb2D;
     private float inverseMoveTime;
-    private bool isMoving;
+    [HideInInspector] private bool isMoving;
 
 
 	// Use this for initialization
@@ -41,11 +42,17 @@ public class PlayerController : MonoBehaviour {
             end += direction;
 
             Collider2D directionObject = Physics2D.OverlapBox(end, new Vector2(.9f, .9f), 0);
-
-            //if (directionObject != null && directionObject.gameObject.layer == 8)
+            
             if (directionObject != null && 1 << directionObject.gameObject.layer == blockingLayer.value)
             {
-                    return;
+                MovingObjectController MOCStone = directionObject.gameObject.GetComponent<MovingObjectController>();
+                if (MOCStone == null) return;
+                if (!MOCStone.Push(direction)) return;
+            }
+
+            if (directionObject != null && 1 << directionObject.gameObject.layer == pickUpLayer.value)
+            {
+                Destroy(directionObject.gameObject);
             }
 
             StartCoroutine(Move(end));
