@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour {
 
             float horizontalInput = Input.GetAxisRaw("Horizontal");
             float verticalInput = Input.GetAxisRaw("Vertical");
+
+            bool control = Input.GetKeyDown(KeyCode.LeftControl);
             Vector2 direction;
 
             if (horizontalInput != 0) direction = new Vector2(horizontalInput, 0f);
@@ -48,13 +50,15 @@ public class PlayerController : MonoBehaviour {
                 MovingObjectController MOCStone = directionObject.gameObject.GetComponent<MovingObjectController>();
                 if (MOCStone == null) return;
                 if (!MOCStone.Push(direction)) return;
+                else if (control) return;
             }
 
             if (directionObject != null && 1 << directionObject.gameObject.layer == pickUpLayer.value)
             {
                 Destroy(directionObject.gameObject);
+                if (control) return;
             }
-
+            
             StartCoroutine(Move(end));
 
 

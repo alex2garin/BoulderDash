@@ -75,14 +75,21 @@ public class LevelBuilder : MonoBehaviour {
     //player
     public GameObject player;
 
+    public int xMax = 7;
+    public int yMax = 7;
+    public int maxStones = 3;
+    public int maxGround = 7;
+
+   // [HideInInspector] public GameObject playerGO;
 
     private List<Tile> tiles;
     
     public List<Tile> ReadFile()
     {
         List<Tile> newTiles;
-        string[] fileEntries = Directory.GetFiles(".", "*.csv");
-        
+        string[] fileEntries = Directory.GetFiles(@"Assets\Levels", "*.csv");
+
+       // Debug.Log(fileEntries.Length);
 
         if (fileEntries == null) return null;
 
@@ -95,7 +102,7 @@ public class LevelBuilder : MonoBehaviour {
 
         foreach (var line in lines)
         {
-            var symbols = line.Split(';');
+            var symbols = line.Split(';',',');
             foreach(var symbol in symbols)
             {
                 if (symbol!="")
@@ -109,6 +116,77 @@ public class LevelBuilder : MonoBehaviour {
 
         tiles = newTiles;
         return newTiles;
+    }
+
+    public List<Tile> GenerateRandom()
+    {
+
+        List<Tile> freeTiles = new List<Tile>();
+        List<Tile> newTiles = new List<Tile>();
+        Tile newTile;
+        Tile player;
+
+        for (int x = 1; x <= xMax; x++)
+        {
+            for (int y = 1; y <= yMax; y++)
+            {
+                if (x == 1 || x == xMax || y == 1 || y == yMax)
+                {
+                    newTile = new Tile(x, y, Constants.TileType.Border);
+                    newTiles.Add(newTile);
+                }
+                else freeTiles.Add(new Tile(x, y, ' '));
+            }
+        }
+
+        
+        int index = Random.Range(0, freeTiles.Count);
+        player = freeTiles[index];
+        player.tileType = Constants.TileType.Player;
+        newTiles.Add(player);
+        freeTiles.RemoveAt(index);
+      //  Debug.Log("Player");
+       // Debug.Log(player.x);
+        //Debug.Log(player.y);
+        //Debug.Log(player.tileType);
+        if (player.y != yMax - 1)
+        {
+
+            newTile = freeTiles.Find(tile => tile.x == player.x && tile.y == player.y+1);
+
+          //  Debug.Log(newTile);
+            freeTiles.Remove(newTile);
+
+            newTile.tileType = Constants.TileType.Ground;
+            newTiles.Add(newTile);
+            maxGround--;
+        }
+        
+        while(maxStones>0)
+        {
+
+            index = Random.Range(0, freeTiles.Count);
+            newTile = freeTiles[index];
+            newTile.tileType = Constants.TileType.Stone;
+            newTiles.Add(newTile);
+            freeTiles.RemoveAt(index);
+            maxStones--;
+        }
+
+        while (maxGround > 0)
+        {
+
+            index = Random.Range(0, freeTiles.Count);
+            newTile = freeTiles[index];
+            newTile.tileType = Constants.TileType.Ground;
+            newTiles.Add(newTile);
+            freeTiles.RemoveAt(index);
+            maxGround--;
+        }
+        
+        tiles = newTiles;
+        return newTiles;
+
     }
 
     public List<Tile> GenerateTestTileList()
@@ -227,14 +305,15 @@ public class LevelBuilder : MonoBehaviour {
                     GOTile.GetComponent<SpriteRenderer>().sprite = walls[Random.Range(0, walls.Length)];
                     break;
             }
-
+          //  if (GOTile == player) playerGO = Instantiate(GOTile, new Vector3(tile.x, tile.y, 0f), Quaternion.identity);
+         //   else    
             Instantiate(GOTile, new Vector3(tile.x, tile.y, 0f), Quaternion.identity);
 
         }
     }
     private void Start()
     {
-        if(ReadFile() == null) GenerateTestTileList();
+        if (ReadFile() == null) GenerateRandom();//GenerateTestTileList();
         Build();
     }
 
