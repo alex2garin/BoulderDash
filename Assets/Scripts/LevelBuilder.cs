@@ -75,6 +75,8 @@ public class LevelBuilder : MonoBehaviour {
     //player
     public GameObject player;
 
+    public TextAsset fileLevel;
+
     public int xMax = 7;
     public int yMax = 7;
     public int maxStones = 3;
@@ -87,13 +89,15 @@ public class LevelBuilder : MonoBehaviour {
     public List<Tile> ReadFile()
     {
         List<Tile> newTiles;
-        string[] fileEntries = Directory.GetFiles(@"Assets\Levels", "*.csv");
+        //string[] fileEntries = Directory.GetFiles(@"Assets\Levels", "*.csv");
 
-       // Debug.Log(fileEntries.Length);
+        // Debug.Log(fileEntries.Length);
 
-        if (fileEntries == null) return null;
+        //if (fileEntries == null) return null;
+        if (fileLevel == null) return null;
 
-        string[] lines = File.ReadAllLines(fileEntries[0], Encoding.UTF8);
+        string[] lines = fileLevel.text.Split('\n');
+            //File.ReadAllLines(fileEntries[0], Encoding.UTF8);
         
         int x = 0;
         int y = 0;

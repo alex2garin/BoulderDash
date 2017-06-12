@@ -12,7 +12,7 @@ public class MovingObjectController : MonoBehaviour {
     private float inverseMoveTime;
     private Rigidbody2D rb2D;
     private BoxCollider2D bc2D;
-    private bool rollDelaye = true;
+    //private bool rollDelaye = true;
 
 	// Use this for initialization
 	void Start () {
@@ -38,53 +38,60 @@ public class MovingObjectController : MonoBehaviour {
             }
             
             MovingObjectController movingObject = down.gameObject.GetComponent<MovingObjectController>();
-            Debug.Log(movingObject);
+            //Debug.Log(movingObject);
             if (movingObject != null  && movingObject.IsMoving == true)
             {
                 return;
             }
-            
-            
-            Collider2D left = Physics2D.OverlapBox(transform.position + new Vector3(-1f, 0f, 0f), new Vector2(.9f, .9f), 0f);
-            if (left == null)
-            {
-                Collider2D leftDown = Physics2D.OverlapBox(transform.position + new Vector3(-1f, -1f, 0f), new Vector2(.9f, .9f), 0f);
-                if (leftDown == null)
-                {
 
-                    Collider2D up = Physics2D.OverlapBox(transform.position + new Vector3(0f, 1f, 0f), new Vector2(.9f, .9f), 0f);
-                    Collider2D upleft = Physics2D.OverlapBox(transform.position + new Vector3(-1f, 1f, 0f), new Vector2(.9f, .9f), 0f);
-                    if ((up == null || up.gameObject.GetComponent<MovingObjectController>() == null)
-                        &&(upleft == null || upleft.gameObject.GetComponent<MovingObjectController>() == null))
+            if (movingObject != null)
+            {
+                Collider2D left = Physics2D.OverlapBox(transform.position + new Vector3(-1f, 0f, 0f), new Vector2(.9f, .9f), 0f);
+                if (left == null)
+                {
+                    Collider2D leftDown = Physics2D.OverlapBox(transform.position + new Vector3(-1f, -1f, 0f), new Vector2(.9f, .9f), 0f);
+                    if (leftDown == null)
                     {
 
-                        isMoving = true;
-                        StartCoroutine(Move(transform.position + new Vector3(-1f, 0f, 0f)));
-                        return;
+                        //Collider2D up = Physics2D.OverlapBox(transform.position + new Vector3(0f, 1f, 0f), new Vector2(.9f, .9f), 0f);
+                        Collider2D upleft = Physics2D.OverlapBox(transform.position + new Vector3(-1f, 1f, 0f), new Vector2(.9f, .9f), 0f);
+                        if// ((up == null || up.gameObject.GetComponent<MovingObjectController>() == null)
+                             (upleft == null || upleft.gameObject.GetComponent<MovingObjectController>() == null)
+                        {
+                            if (!movingObject.WillYouMove())
+                            {
+                                isMoving = true;
+                                StartCoroutine(Move(transform.position + new Vector3(-1f, 0f, 0f)));
+                                return;
+                            }
+                        }
+                    }
+                }
+
+
+                Collider2D right = Physics2D.OverlapBox(transform.position + new Vector3(1f, 0f, 0f), new Vector2(.9f, .9f), 0f);
+                if (right == null)
+                {
+                    Collider2D rightDown = Physics2D.OverlapBox(transform.position + new Vector3(1f, -1f, 0f), new Vector2(.9f, .9f), 0f);
+                    if (rightDown == null)
+                    {
+
+                        //Collider2D up = Physics2D.OverlapBox(transform.position + new Vector3(0f, 1f, 0f), new Vector2(.9f, .9f), 0f);
+                        Collider2D upright = Physics2D.OverlapBox(transform.position + new Vector3(1f, 1f, 0f), new Vector2(.9f, .9f), 0f);
+                        if// ((up == null || up.gameObject.GetComponent<MovingObjectController>() == null)
+                             (upright == null || upright.gameObject.GetComponent<MovingObjectController>() == null)
+                        {
+
+                            if (!movingObject.WillYouMove())
+                            {
+                                isMoving = true;
+                                StartCoroutine(Move(transform.position + new Vector3(1f, 0f, 0f)));
+                                return;
+                            }
+                        }
                     }
                 }
             }
-
-            
-            Collider2D right = Physics2D.OverlapBox(transform.position + new Vector3(1f, 0f, 0f), new Vector2(.9f, .9f), 0f);
-            if (right == null)
-            {
-                Collider2D rightDown = Physics2D.OverlapBox(transform.position + new Vector3(1f, -1f, 0f), new Vector2(.9f, .9f), 0f);
-                if (rightDown == null)
-                {
-
-                    Collider2D up = Physics2D.OverlapBox(transform.position + new Vector3(0f, 1f, 0f), new Vector2(.9f, .9f), 0f);
-                    Collider2D upright = Physics2D.OverlapBox(transform.position + new Vector3(1f, 1f, 0f), new Vector2(.9f, .9f), 0f);
-                    if ((up == null || up.gameObject.GetComponent<MovingObjectController>() == null)
-                        && (upright == null || upright.gameObject.GetComponent<MovingObjectController>() == null))
-                    {
-                        isMoving = true;
-                        StartCoroutine(Move(transform.position + new Vector3(1f, 0f, 0f)));
-                        return;
-                    }
-                }
-            }
-            
         }
     }
     /*
@@ -118,7 +125,7 @@ public class MovingObjectController : MonoBehaviour {
         float sqrRemainingDistance = (end - transform.position).sqrMagnitude;
 
         //While that distance is greater than a very small amount (Epsilon, almost zero):
-        while (sqrRemainingDistance > float.Epsilon)
+        while (sqrRemainingDistance > float.Epsilon && end!=transform.position)
         {
             bc2D.offset = (end - transform.position) / 2;
 
@@ -157,6 +164,42 @@ public class MovingObjectController : MonoBehaviour {
             }
             return false;
         }
+        return false;
+    }
+
+    public bool WillYouMove()
+    {
+        if (isMoving) return true;
+        Collider2D down = Physics2D.OverlapBox(transform.position + new Vector3(0f, -1f, 0f), new Vector2(.9f, .9f), 0f);
+        if (down == null) return true;
+        MovingObjectController MOCDown = down.gameObject.GetComponent<MovingObjectController>();
+        if (MOCDown == null) return false;
+        if (MOCDown.WillYouMove()) return true;
+
+        Collider2D left = Physics2D.OverlapBox(transform.position + new Vector3(-1f, 0f, 0f), new Vector2(.9f, .9f), 0f);
+        if (left == null)
+        {
+            Collider2D leftDown = Physics2D.OverlapBox(transform.position + new Vector3(-1f, -1f, 0f), new Vector2(.9f, .9f), 0f);
+            if (leftDown == null)
+            {
+
+                Collider2D leftUp = Physics2D.OverlapBox(transform.position + new Vector3(-1f, 1f, 0f), new Vector2(.9f, .9f), 0f);
+                if (leftUp == null || leftUp.gameObject.GetComponent<MovingObjectController>() == null) return true;
+            }
+        }
+
+        Collider2D right = Physics2D.OverlapBox(transform.position + new Vector3(1f, 0f, 0f), new Vector2(.9f, .9f), 0f);
+        if (right == null)
+        {
+            Collider2D rightDown = Physics2D.OverlapBox(transform.position + new Vector3(1f, -1f, 0f), new Vector2(.9f, .9f), 0f);
+            if (rightDown == null)
+            {
+
+                Collider2D rightUp = Physics2D.OverlapBox(transform.position + new Vector3(1f, 1f, 0f), new Vector2(.9f, .9f), 0f);
+                if (rightUp == null || rightUp.gameObject.GetComponent<MovingObjectController>() == null) return true;
+            }
+        }
+
         return false;
     }
 }
