@@ -263,6 +263,7 @@ public class LevelBuilder : MonoBehaviour {
                 case Constants.TileType.ActiveBomb:
                     GOTile = activeBomb;
                     GOTile.GetComponent<SpriteRenderer>().sprite = activeBombs[Random.Range(0, activeBombs.Length)];
+                    //GOTile.GetComponent<BombController>().SetActive(true);
                     break;
                 case Constants.TileType.Ballon:
                     GOTile = ballon;
@@ -279,6 +280,7 @@ public class LevelBuilder : MonoBehaviour {
                 case Constants.TileType.DeactiveBomb:
                     GOTile = deactiveBomb;
                     GOTile.GetComponent<SpriteRenderer>().sprite = deactiveBombs[Random.Range(0, deactiveBombs.Length)];
+                    //GOTile.GetComponent<BombController>().SetActive(false);
                     break;
                 case Constants.TileType.Enemy:
                     GOTile = enemy;

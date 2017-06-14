@@ -149,6 +149,12 @@ public class MovingObjectController : MonoBehaviour {
         }
         isMoving = false;
         bc2D.offset = new Vector2(0f,0f);
+
+        if(falling)
+        {
+            BombController bomb = gameObject.GetComponent<BombController>();
+            if (bomb!=null && bomb.IsActive) bomb.Explode();
+        }
     }
     
     public bool Push(Vector3 direction)

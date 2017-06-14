@@ -4,27 +4,44 @@ using UnityEngine;
 
 public class BombController : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
+    public Sprite activeBombSprite;
+    public Sprite deactiveBombSprite;
+
+    public bool IsActive { get { return isActive; } }
+
+    private bool isActive;
+    private SpriteRenderer sr;
+
+    // Use this for initialization
+    void Start () {
+        sr = GetComponent<SpriteRenderer>();
+        if (sr.sprite == activeBombSprite) isActive = true;
+        else isActive = false;
+        //Debug.Log("Start");
+        //Debug.Log(sr);
 	}
 	
-	// Update is called once per frame
-	void Update () {
-        bool explode = false;
-        Collider2D[] objects = Physics2D.OverlapBoxAll(transform.position, new Vector2(2f, 2f), 0f);
-        foreach(var objectCollider2D in objects)
+    public void Explode()
+    {
+
+        if (!isActive) return;
+        Collider2D[] surround = Physics2D.OverlapBoxAll(transform.position, new Vector2(2f, 2f), 0f);
+        foreach (var objectCollider2D in surround)
         {
-            if (objectCollider2D.gameObject.CompareTag("Respawn"))
-            {
-                explode = true;
-                break;
-            }
+            if(objectCollider2D.gameObject.CompareTag("Bomb") && objectCollider2D.gameObject != gameObject)     objectCollider2D.gameObject.GetComponent<BombController>().Explode();
+             
+            DestroyByExplosion objectToDestroy = objectCollider2D.gameObject.GetComponent<DestroyByExplosion>();
+            if (objectToDestroy != null) objectToDestroy.ToDestroyByExplosion();
         }
-        if(explode)
-        {
-            Destroy(gameObject);
-            foreach (var objectCollider2D in objects) Destroy(objectCollider2D.gameObject);
-        }
-	}
+    }
+
+    public void SetActive( bool isActiveFlag)
+    {
+        if (isActiveFlag) sr.sprite = activeBombSprite;
+        else sr.sprite = deactiveBombSprite;
+        isActive = isActiveFlag;
+    }
+
+  
+
 }
