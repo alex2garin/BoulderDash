@@ -159,13 +159,14 @@ public class MovingObjectController : MonoBehaviour {
     
     public bool Push(Vector3 direction)
     {
+        Vector3 fixedDirection = new Vector3(direction.x, 0f, 0f);
         if (!isMoving)
         {
-            Collider2D side = Physics2D.OverlapBox(transform.position + direction, new Vector2(.9f, .9f), 0f);
+            Collider2D side = Physics2D.OverlapBox(transform.position + fixedDirection, new Vector2(.9f, .9f), 0f);
             if (side == null)
             {
                 isMoving = true;
-                StartCoroutine(Move(transform.position + direction));
+                StartCoroutine(Move(transform.position + fixedDirection));
                 return true;
             }
             return false;
