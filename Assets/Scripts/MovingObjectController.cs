@@ -11,22 +11,22 @@ public class MovingObjectController : MonoBehaviour {
     private bool isMoving;
     private float inverseMoveTime;
     private Rigidbody2D rb2D;
-    private BoxCollider2D bc2D;
-    //private bool rollDelaye = true;
+    private CircleCollider2D cc2D;
+    private Rotator rotor;
 
 	// Use this for initialization
 	void Start () {
         rb2D = GetComponent<Rigidbody2D>();
-        bc2D = GetComponent<BoxCollider2D>();
+        cc2D = GetComponent<CircleCollider2D>();
         isMoving = false;
         inverseMoveTime = 1f / sideMoveTime;
+        rotor = GetComponentInChildren<Rotator>();
     }
 	
 	void Update ()
     {
         if (!isMoving)
         {
-            bc2D.offset = new Vector2(0f, 0f);
 
             Collider2D down = Physics2D.OverlapBox(transform.position + new Vector3(0f, -1f, 0f),new Vector2(.9f,.9f),0f);
             if (down == null)
@@ -38,7 +38,6 @@ public class MovingObjectController : MonoBehaviour {
             }
             
             MovingObjectController movingObject = down.gameObject.GetComponent<MovingObjectController>();
-            //Debug.Log(movingObject);
             if (movingObject != null  && movingObject.IsMoving == true)
             {
                 return;
@@ -52,11 +51,9 @@ public class MovingObjectController : MonoBehaviour {
                     Collider2D leftDown = Physics2D.OverlapBox(transform.position + new Vector3(-1f, -1f, 0f), new Vector2(.9f, .9f), 0f);
                     if (leftDown == null)
                     {
-
-                        //Collider2D up = Physics2D.OverlapBox(transform.position + new Vector3(0f, 1f, 0f), new Vector2(.9f, .9f), 0f);
+                        
                         Collider2D upleft = Physics2D.OverlapBox(transform.position + new Vector3(-1f, 1f, 0f), new Vector2(.9f, .9f), 0f);
-                        if// ((up == null || up.gameObject.GetComponent<MovingObjectController>() == null)
-                             (upleft == null || upleft.gameObject.GetComponent<MovingObjectController>() == null)
+                        if (upleft == null || upleft.gameObject.GetComponent<MovingObjectController>() == null)
                         {
                             if (!movingObject.WillYouMove())
                             {
@@ -75,11 +72,8 @@ public class MovingObjectController : MonoBehaviour {
                     Collider2D rightDown = Physics2D.OverlapBox(transform.position + new Vector3(1f, -1f, 0f), new Vector2(.9f, .9f), 0f);
                     if (rightDown == null)
                     {
-
-                        //Collider2D up = Physics2D.OverlapBox(transform.position + new Vector3(0f, 1f, 0f), new Vector2(.9f, .9f), 0f);
                         Collider2D upright = Physics2D.OverlapBox(transform.position + new Vector3(1f, 1f, 0f), new Vector2(.9f, .9f), 0f);
-                        if// ((up == null || up.gameObject.GetComponent<MovingObjectController>() == null)
-                             (upright == null || upright.gameObject.GetComponent<MovingObjectController>() == null)
+                        if (upright == null || upright.gameObject.GetComponent<MovingObjectController>() == null)
                         {
 
                             if (!movingObject.WillYouMove())
@@ -94,41 +88,21 @@ public class MovingObjectController : MonoBehaviour {
             }
         }
     }
-    /*
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-       // Debug.Log("This is collision");
-       // Debug.Log(collision.gameObject);
-        IsMoving = false;
-        rb2D.gravityScale = 0;
-        rb2D.velocity = new Vector2(0f, 0f);
-      //  Debug.Log(transform.position.x);
-      //  Debug.Log(transform.position.y);
-        transform.position = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), 0f);
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-      //  Debug.Log("This is trigger");
-        IsMoving = false;
-        rb2D.gravityScale = 0;
-        rb2D.velocity = new Vector2(0f, 0f);
-     //   Debug.Log(transform.position.x);
-     //   Debug.Log(transform.position.y);
-        transform.position = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), 0f);
-    }*/
-
 
     private IEnumerator Move(Vector3 end, bool falling = false)
     {
-
+        if(rotor!=null)
+        {
+            StartCoroutine(rotor.Rotate(Rotator.GetRotationSide(end - transform.position)));
+        }
 
         float sqrRemainingDistance = (end - transform.position).sqrMagnitude;
 
         //While that distance is greater than a very small amount (Epsilon, almost zero):
         while (sqrRemainingDistance > float.Epsilon && end!=transform.position)
         {
-            bc2D.offset = (end - transform.position) / 2;
-
+            cc2D.offset = (end - transform.position) / 2;
+        
             if (falling)
             {
                 Collider2D down = Physics2D.OverlapBox(transform.position + new Vector3(0f, -1f, 0f), new Vector2(.9f, .9f), 0f);
@@ -148,13 +122,14 @@ public class MovingObjectController : MonoBehaviour {
             yield return null;
         }
         isMoving = false;
-        bc2D.offset = new Vector2(0f,0f);
+        cc2D.offset = new Vector2(0f, 0f);
 
-        if(falling)
+        if (falling)
         {
             BombController bomb = gameObject.GetComponent<BombController>();
             if (bomb!=null && bomb.IsActive) bomb.Explode();
         }
+        if (rotor != null) rotor.StopRotation();
     }
     
     public bool Push(Vector3 direction)

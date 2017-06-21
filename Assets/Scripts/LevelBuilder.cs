@@ -304,7 +304,8 @@ public class LevelBuilder : MonoBehaviour {
                     break;
                 case Constants.TileType.Stone:
                     GOTile = stone;
-                    GOTile.GetComponent<SpriteRenderer>().sprite = stones[Random.Range(0, stones.Length)];
+                    GOTile.GetComponentInChildren<SpriteRenderer>().sprite = stones[Random.Range(0, stones.Length)];
+                    //GOTile.GetComponent<SpriteRenderer>().sprite = stones[Random.Range(0, stones.Length)];
                     break;
                 case Constants.TileType.Wall:
                     GOTile = wall;
