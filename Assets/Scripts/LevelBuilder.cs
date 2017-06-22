@@ -81,23 +81,19 @@ public class LevelBuilder : MonoBehaviour {
     public int yMax = 7;
     public int maxStones = 3;
     public int maxGround = 7;
-
-   // [HideInInspector] public GameObject playerGO;
+    public int maxActiveBomb = 1;
+    public int maxDeactiveBomb = 2;
+    public int maxCrystal = 3;
+    
 
     private List<Tile> tiles;
     
     public List<Tile> ReadFile()
     {
         List<Tile> newTiles;
-        //string[] fileEntries = Directory.GetFiles(@"Assets\Levels", "*.csv");
-
-        // Debug.Log(fileEntries.Length);
-
-        //if (fileEntries == null) return null;
         if (fileLevel == null) return null;
 
         string[] lines = fileLevel.text.Split('\n');
-            //File.ReadAllLines(fileEntries[0], Encoding.UTF8);
         
         int x = 0;
         int y = 0;
@@ -149,16 +145,11 @@ public class LevelBuilder : MonoBehaviour {
         player.tileType = Constants.TileType.Player;
         newTiles.Add(player);
         freeTiles.RemoveAt(index);
-      //  Debug.Log("Player");
-       // Debug.Log(player.x);
-        //Debug.Log(player.y);
-        //Debug.Log(player.tileType);
         if (player.y != yMax - 1)
         {
 
             newTile = freeTiles.Find(tile => tile.x == player.x && tile.y == player.y+1);
-
-          //  Debug.Log(newTile);
+            
             freeTiles.Remove(newTile);
 
             newTile.tileType = Constants.TileType.Ground;
@@ -168,8 +159,8 @@ public class LevelBuilder : MonoBehaviour {
         
         while(maxStones>0)
         {
-
-            index = Random.Range(0, freeTiles.Count);
+            if (freeTiles.Count == 0) break; 
+            index = Random.Range(0, freeTiles.Count-1);
             newTile = freeTiles[index];
             newTile.tileType = Constants.TileType.Stone;
             newTiles.Add(newTile);
@@ -180,79 +171,53 @@ public class LevelBuilder : MonoBehaviour {
         while (maxGround > 0)
         {
 
-            index = Random.Range(0, freeTiles.Count);
+            if (freeTiles.Count == 0) break;
+            index = Random.Range(0, freeTiles.Count-1);
             newTile = freeTiles[index];
             newTile.tileType = Constants.TileType.Ground;
             newTiles.Add(newTile);
             freeTiles.RemoveAt(index);
             maxGround--;
         }
-        
+
+        while( maxCrystal > 0)
+        {
+            if (freeTiles.Count == 0) break;
+            index = Random.Range(0, freeTiles.Count - 1);
+            newTile = freeTiles[index];
+            newTile.tileType = Constants.TileType.Crystal;
+            newTiles.Add(newTile);
+            freeTiles.RemoveAt(index);
+            maxCrystal--;
+        }
+
+        while (maxActiveBomb > 0)
+        {
+            if (freeTiles.Count == 0) break;
+            index = Random.Range(0, freeTiles.Count - 1);
+            newTile = freeTiles[index];
+            newTile.tileType = Constants.TileType.ActiveBomb;
+            newTiles.Add(newTile);
+            freeTiles.RemoveAt(index);
+            maxActiveBomb--;
+        }
+
+        while (maxDeactiveBomb > 0)
+        {
+            if (freeTiles.Count == 0) break;
+            index = Random.Range(0, freeTiles.Count - 1);
+            newTile = freeTiles[index];
+            newTile.tileType = Constants.TileType.DeactiveBomb;
+            newTiles.Add(newTile);
+            freeTiles.RemoveAt(index);
+            maxDeactiveBomb--;
+        }
+
         tiles = newTiles;
         return newTiles;
 
     }
-
-    public List<Tile> GenerateTestTileList()
-    {
-        List<Tile> testList = new List<Tile>();
-        /*
-        XXXXXX
-        XESMAX
-        XWWWXX
-        X   KX
-        XPDGOX
-        XXXXXX
-        */
-        
-
-        testList.Add(new Tile(0, 0, Constants.TileType.Border));
-        testList.Add(new Tile(1, 0, Constants.TileType.Border));
-        testList.Add(new Tile(2, 0, Constants.TileType.Border));
-        testList.Add(new Tile(3, 0, Constants.TileType.Border));
-        testList.Add(new Tile(4, 0, Constants.TileType.Border));
-        testList.Add(new Tile(5, 0, Constants.TileType.Border));
-
-        testList.Add(new Tile(0, 1, Constants.TileType.Border));
-        testList.Add(new Tile(2, 2, Constants.TileType.Player));
-        /*
-        testList.Add(new Tile(2, 1, Constants.TileType.DeactiveBomb));
-        testList.Add(new Tile(3, 1, Constants.TileType.Ground));
-        testList.Add(new Tile(4, 1, Constants.TileType.Portal));*/
-        testList.Add(new Tile(5, 1, Constants.TileType.Border));
-
-        testList.Add(new Tile(0, 2, Constants.TileType.Border));
-        //        testList.Add(new Tile(1, 2, player));
-        //        testList.Add(new Tile(2, 2, deactiveBomb));
-        //        testList.Add(new Tile(3, 2, ground));
-      //  testList.Add(new Tile(4, 2, Constants.TileType.Crystal));
-        testList.Add(new Tile(5, 2, Constants.TileType.Border));
-
-        testList.Add(new Tile(0, 3, Constants.TileType.Border));
-    //    testList.Add(new Tile(1, 3, Constants.TileType.Wall));
-    //    testList.Add(new Tile(2, 3, Constants.TileType.Wall));
-    //    testList.Add(new Tile(3, 3, Constants.TileType.Wall));
-    //    testList.Add(new Tile(4, 3, Constants.TileType.Border));
-        testList.Add(new Tile(5, 3, Constants.TileType.Border));
-
-        testList.Add(new Tile(0, 4, Constants.TileType.Border));
-    //    testList.Add(new Tile(1, 4, Constants.TileType.Enemy));
-    //    testList.Add(new Tile(2, 4, Constants.TileType.Stone));
-    //    testList.Add(new Tile(3, 4, Constants.TileType.Mineral));
-     //   testList.Add(new Tile(4, 4, Constants.TileType.ActiveBomb));
-        testList.Add(new Tile(5, 4, Constants.TileType.Border));
-
-        testList.Add(new Tile(0, 5, Constants.TileType.Border));
-        testList.Add(new Tile(1, 5, Constants.TileType.Border));
-        testList.Add(new Tile(2, 5, Constants.TileType.Border));
-        testList.Add(new Tile(3, 5, Constants.TileType.Border));
-        testList.Add(new Tile(4, 5, Constants.TileType.Border));
-        testList.Add(new Tile(5, 5, Constants.TileType.Border));
-
-        tiles = testList;
-        return testList;
-    }
-
+    
     public void Build()
     {
         GameObject GOTile = ground;

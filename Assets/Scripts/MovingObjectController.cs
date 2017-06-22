@@ -11,13 +11,14 @@ public class MovingObjectController : MonoBehaviour {
     private bool isMoving;
     private float inverseMoveTime;
     private Rigidbody2D rb2D;
-    private CircleCollider2D cc2D;
+    //private CircleCollider2D cc2D;
+    private Collider2D cc2D;
     private Rotator rotor;
 
 	// Use this for initialization
 	void Start () {
         rb2D = GetComponent<Rigidbody2D>();
-        cc2D = GetComponent<CircleCollider2D>();
+        cc2D = GetComponent<Collider2D>();
         isMoving = false;
         inverseMoveTime = 1f / sideMoveTime;
         rotor = GetComponentInChildren<Rotator>();
@@ -101,6 +102,7 @@ public class MovingObjectController : MonoBehaviour {
         //While that distance is greater than a very small amount (Epsilon, almost zero):
         while (sqrRemainingDistance > float.Epsilon && end!=transform.position)
         {
+
             cc2D.offset = (end - transform.position) / 2;
         
             if (falling)
@@ -137,14 +139,17 @@ public class MovingObjectController : MonoBehaviour {
         Vector3 fixedDirection = new Vector3(direction.x, 0f, 0f);
         if (!isMoving)
         {
-            Collider2D side = Physics2D.OverlapBox(transform.position + fixedDirection, new Vector2(.9f, .9f), 0f);
-            if (side == null)
+            if (Physics2D.OverlapBox(transform.position + new Vector3(0f, -1f, 0f), new Vector2(.9f, .9f), 0f) != null)
             {
-                isMoving = true;
-                StartCoroutine(Move(transform.position + fixedDirection));
-                return true;
+                Collider2D side = Physics2D.OverlapBox(transform.position + fixedDirection, new Vector2(.9f, .9f), 0f);
+                if (side == null)
+                {
+                    isMoving = true;
+                    StartCoroutine(Move(transform.position + fixedDirection));
+                    return true;
+                }
+                return false;
             }
-            return false;
         }
         return false;
     }
