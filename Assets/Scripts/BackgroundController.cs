@@ -15,22 +15,19 @@ public class BackgroundController : MonoBehaviour {
 
     void Start()
     {
-        //		target = GameObject.FindWithTag("Player").transform;
+            
+        	target = GameObject.FindWithTag("Player").transform;
+            transform.position = target.position;
 
     }
 
     void LateUpdate()
     {
-        if (target == null)
-        {
-            target = GameObject.FindWithTag("Player").transform;
-        }
-        else
-        {
 
-            //Vector3 pos = new Vector3 (Mathf.Clamp (target.position.x, xMix, xMax), Mathf.Clamp (target.position.y, yMix, yMax), depth);
+        
+
             Vector3 pos = new Vector3(target.position.x, target.position.y, depth);
             transform.position = Vector3.Lerp(transform.position, pos, speed * Time.deltaTime);
-        }
+        
     }
 }

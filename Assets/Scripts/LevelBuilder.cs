@@ -58,6 +58,8 @@ public class LevelBuilder : MonoBehaviour {
     //player
     public Sprite[] players;
 
+    public Sprite[] backgrounds;
+
     //tiles;
     public GameObject border;
     public GameObject wall;
@@ -74,6 +76,8 @@ public class LevelBuilder : MonoBehaviour {
     public GameObject enemy;
     //player
     public GameObject player;
+
+    public GameObject background;
 
     public TextAsset fileLevel;
 
@@ -220,8 +224,12 @@ public class LevelBuilder : MonoBehaviour {
     
     public void Build()
     {
-        GameObject GOTile = ground;
-        foreach(Tile tile in tiles)
+        GameObject GOTile = background;
+        GOTile.GetComponent<SpriteRenderer>().sprite = backgrounds[Random.Range(0, backgrounds.Length)];
+        GameObject newObject = Instantiate(GOTile, new Vector3(0f, 0f, 0f), Quaternion.identity);
+        newObject.transform.SetParent(gameObject.transform);
+
+        foreach (Tile tile in tiles)
         {
             switch(tile.tileType)
             {
@@ -276,16 +284,15 @@ public class LevelBuilder : MonoBehaviour {
                     GOTile = wall;
                     GOTile.GetComponent<SpriteRenderer>().sprite = walls[Random.Range(0, walls.Length)];
                     break;
-            }
-          //  if (GOTile == player) playerGO = Instantiate(GOTile, new Vector3(tile.x, tile.y, 0f), Quaternion.identity);
-         //   else    
-            Instantiate(GOTile, new Vector3(tile.x, tile.y, 0f), Quaternion.identity);
+            }  
+            newObject = Instantiate(GOTile, new Vector3(tile.x, tile.y, 0f), Quaternion.identity);
+            newObject.transform.SetParent(gameObject.transform);
 
         }
     }
-    private void Start()
+    private void Awake()
     {
-        if (ReadFile() == null) GenerateRandom();//GenerateTestTileList();
+        if (ReadFile() == null) GenerateRandom();
         Build();
     }
 

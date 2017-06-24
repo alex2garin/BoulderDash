@@ -6,6 +6,8 @@ public class Rotator : MonoBehaviour {
 
     public float rotationSpeed = 20f;
 
+    public bool IsRotating { get { return isRotating; } }
+
     private SpriteRenderer sr;
     private bool isRotating = false;
 
@@ -21,6 +23,7 @@ public class Rotator : MonoBehaviour {
     public IEnumerator Rotate(RotationSide side)
     {
         isRotating = true;
+        //float time = 0;
         int sign = 0;
         if (side == RotationSide.left) sign = 1;
         else if (side == RotationSide.right) sign = -1;
@@ -28,9 +31,10 @@ public class Rotator : MonoBehaviour {
         
         while (isRotating)
         {
-            sr.transform.Rotate(new Vector3(0f, 0f, sign * rotationSpeed));//* Time.deltaTime);
+            sr.transform.Rotate(new Vector3(0f, 0f, sign * rotationSpeed) * Time.deltaTime);
             yield return null;
         }
+        //Debug.Log(time);
     }
 
     public void StopRotation()

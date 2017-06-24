@@ -5,6 +5,8 @@ using UnityEngine;
 public class MovingObjectController : MonoBehaviour {
 
     public float sideMoveTime = 0.2f;
+    public bool canRoll = false;
+    public float rotationSpeed = 20f;
 
     public bool IsMoving { get { return isMoving; } }
 
@@ -13,15 +15,20 @@ public class MovingObjectController : MonoBehaviour {
     private Rigidbody2D rb2D;
     //private CircleCollider2D cc2D;
     private Collider2D cc2D;
-    private Rotator rotor;
+    private SpriteRenderer childSprite;
+    //private Rotator rotor;
 
-	// Use this for initialization
-	void Start () {
+
+    public enum RotationSide { left, right, norotation };
+
+    // Use this for initialization
+    void Start () {
         rb2D = GetComponent<Rigidbody2D>();
         cc2D = GetComponent<Collider2D>();
         isMoving = false;
         inverseMoveTime = 1f / sideMoveTime;
-        rotor = GetComponentInChildren<Rotator>();
+        //rotor = GetComponentInChildren<Rotator>();
+        if (canRoll) childSprite = GetComponentInChildren<SpriteRenderer>();
     }
 	
 	void Update ()
@@ -90,11 +97,23 @@ public class MovingObjectController : MonoBehaviour {
         }
     }
 
+
+    private static RotationSide GetRotationSide(Vector3 direction)
+    {
+        if (direction.x < 0) return RotationSide.left;
+        else if (direction.x > 0) return RotationSide.right;
+        else return RotationSide.norotation;
+
+    }
+
     private IEnumerator Move(Vector3 end, bool falling = false)
     {
-        if(rotor!=null)
+        int sign = 0;
+        if (canRoll)
         {
-            StartCoroutine(rotor.Rotate(Rotator.GetRotationSide(end - transform.position)));
+            RotationSide side = GetRotationSide(end - transform.position);
+            if (side == RotationSide.left) sign = 1;
+            else if (side == RotationSide.right) sign = -1;
         }
 
         float sqrRemainingDistance = (end - transform.position).sqrMagnitude;
@@ -117,13 +136,15 @@ public class MovingObjectController : MonoBehaviour {
             //Call MovePosition on attached Rigidbody2D and move it to the calculated position.
             rb2D.MovePosition(newPostion);
 
+            if(canRoll && sign!=0) childSprite.transform.Rotate(new Vector3(0f, 0f, sign * rotationSpeed) * Time.deltaTime);
+
             //Recalculate the remaining distance after moving.
             sqrRemainingDistance = (transform.position - end).sqrMagnitude;
 
             //Return and loop until sqrRemainingDistance is close enough to zero to end the function
             yield return null;
         }
-        isMoving = false;
+        //if (rotor != null) rotor.StopRotation();
         cc2D.offset = new Vector2(0f, 0f);
 
         if (falling)
@@ -131,7 +152,7 @@ public class MovingObjectController : MonoBehaviour {
             BombController bomb = gameObject.GetComponent<BombController>();
             if (bomb!=null && bomb.IsActive) bomb.Explode();
         }
-        if (rotor != null) rotor.StopRotation();
+        isMoving = false;
     }
     
     public bool Push(Vector3 direction)
