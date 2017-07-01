@@ -17,6 +17,7 @@ public class BackgroundController : MonoBehaviour {
     {
             
         	target = GameObject.FindWithTag("Player").transform;
+        if (target!=null)
             transform.position = target.position;
 
     }
@@ -24,10 +25,11 @@ public class BackgroundController : MonoBehaviour {
     void LateUpdate()
     {
 
-        
 
+        if (target != null)
+        { 
             Vector3 pos = new Vector3(target.position.x, target.position.y, depth);
-            transform.position = Vector3.Lerp(transform.position, pos, speed * Time.deltaTime);
-        
+        transform.position = Vector3.Lerp(transform.position, pos, speed * Time.deltaTime);
+        }
     }
 }

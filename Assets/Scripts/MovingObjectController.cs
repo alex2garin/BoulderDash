@@ -150,7 +150,7 @@ public class MovingObjectController : MonoBehaviour {
         if (falling)
         {
             BombController bomb = gameObject.GetComponent<BombController>();
-            if (bomb!=null && bomb.IsActive) bomb.Explode();
+            if (bomb!=null && bomb.IsActive) bomb.ReadyToExplode();
         }
         isMoving = false;
     }

@@ -15,6 +15,6 @@ public class CameraController : MonoBehaviour {
 	void Update ()
     {
         if (player==null) player = FindObjectOfType<PlayerController>();
-        else transform.position = player.gameObject.transform.position + new Vector3(0f,0f,-10f);
+        else if(player!=null) transform.position = player.gameObject.transform.position + new Vector3(0f,0f,-10f);
     }
 }
