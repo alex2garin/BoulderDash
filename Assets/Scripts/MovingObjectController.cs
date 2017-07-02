@@ -9,7 +9,6 @@ public class MovingObjectController : MonoBehaviour {
     public float rotationSpeed = 20f;
 
     public bool IsMoving { get { return isMoving; } }
-
     private bool isMoving;
     private float inverseMoveTime;
     private Rigidbody2D rb2D;
@@ -17,6 +16,7 @@ public class MovingObjectController : MonoBehaviour {
     private Collider2D cc2D;
     private SpriteRenderer childSprite;
     //private Rotator rotor;
+    private float angularSpeed;
 
 
     public enum RotationSide { left, right, norotation };
@@ -29,10 +29,12 @@ public class MovingObjectController : MonoBehaviour {
         inverseMoveTime = 1f / sideMoveTime;
         //rotor = GetComponentInChildren<Rotator>();
         if (canRoll) childSprite = GetComponentInChildren<SpriteRenderer>();
+        angularSpeed = rotationSpeed / sideMoveTime;
     }
 	
 	void Update ()
     {
+  //      if (canRoll) childSprite.transform.Rotate(new Vector3(0f, 0f, rotationSpeed) * Time.deltaTime);
         if (!isMoving)
         {
 
@@ -106,15 +108,51 @@ public class MovingObjectController : MonoBehaviour {
 
     }
 
-    private IEnumerator Move(Vector3 end, bool falling = false)
+    private float ConvertAngle(float angle)
     {
+        if (angle < -180) return angle + 180f;
+        else if (angle > 180) return angle - 180f;
+        else return angle;
+    }
+
+
+    private IEnumerator Rotate(RotationSide side)
+    {
+        
+        float angle = 0;
         int sign = 0;
-        if (canRoll)
-        {
-            RotationSide side = GetRotationSide(end - transform.position);
+            //RotationSide side = GetRotationSide(end - transform.position);
             if (side == RotationSide.left) sign = 1;
             else if (side == RotationSide.right) sign = -1;
+        if (!canRoll || sign == 0) yield break;
+
+        float endAngle = childSprite.transform.rotation.eulerAngles.z + sign * rotationSpeed;
+
+        Debug.Log(rotationSpeed);
+        Debug.Log(angle);
+        while (angle < rotationSpeed)
+        {
+            Debug.Log(angle);
+            angle += angularSpeed * Time.deltaTime;
+            if( angle >= rotationSpeed) childSprite.transform.rotation = Quaternion.Euler(0f, 0f, endAngle);
+            else childSprite.transform.Rotate(new Vector3(0f, 0f, sign * angularSpeed) * Time.deltaTime);
+            yield return null;
         }
+        
+        Debug.Log(angle);
+    }
+
+    private IEnumerator Move(Vector3 end, bool falling = false)
+    {
+        /*
+        int sign = 0;
+        if (canRoll)
+        {*/
+         //   RotationSide side = GetRotationSide(end - transform.position);
+        StartCoroutine(Rotate(GetRotationSide(end - transform.position)));
+         /*   if (side == RotationSide.left) sign = 1;
+            else if (side == RotationSide.right) sign = -1;
+        }*/
 
         float sqrRemainingDistance = (end - transform.position).sqrMagnitude;
 
@@ -136,7 +174,7 @@ public class MovingObjectController : MonoBehaviour {
             //Call MovePosition on attached Rigidbody2D and move it to the calculated position.
             rb2D.MovePosition(newPostion);
 
-            if(canRoll && sign!=0) childSprite.transform.Rotate(new Vector3(0f, 0f, sign * rotationSpeed) * Time.deltaTime);
+           // if(canRoll && sign!=0) childSprite.transform.Rotate(new Vector3(0f, 0f, sign * angularSpeed) * Time.deltaTime);
 
             //Recalculate the remaining distance after moving.
             sqrRemainingDistance = (transform.position - end).sqrMagnitude;
