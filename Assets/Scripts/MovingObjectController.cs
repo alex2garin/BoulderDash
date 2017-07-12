@@ -17,6 +17,7 @@ public class MovingObjectController : MonoBehaviour {
     private SpriteRenderer childSprite;
     //private Rotator rotor;
     private float angularSpeed;
+    private BombController bomb;
 
 
     public enum RotationSide { left, right, norotation };
@@ -30,9 +31,10 @@ public class MovingObjectController : MonoBehaviour {
         //rotor = GetComponentInChildren<Rotator>();
         if (canRoll) childSprite = GetComponentInChildren<SpriteRenderer>();
         angularSpeed = rotationSpeed / sideMoveTime;
+        bomb = gameObject.GetComponent<BombController>();
     }
 	
-	void Update ()
+	void FixedUpdate()
     {
   //      if (canRoll) childSprite.transform.Rotate(new Vector3(0f, 0f, rotationSpeed) * Time.deltaTime);
         if (!isMoving)
@@ -127,19 +129,17 @@ public class MovingObjectController : MonoBehaviour {
         if (!canRoll || sign == 0) yield break;
 
         float endAngle = childSprite.transform.rotation.eulerAngles.z + sign * rotationSpeed;
-
-        Debug.Log(rotationSpeed);
-        Debug.Log(angle);
+        
         while (angle < rotationSpeed)
         {
-            Debug.Log(angle);
+            //Debug.Log(angle);
             angle += angularSpeed * Time.deltaTime;
             if( angle >= rotationSpeed) childSprite.transform.rotation = Quaternion.Euler(0f, 0f, endAngle);
             else childSprite.transform.Rotate(new Vector3(0f, 0f, sign * angularSpeed) * Time.deltaTime);
             yield return null;
         }
         
-        Debug.Log(angle);
+        //Debug.Log(angle);
     }
 
     private IEnumerator Move(Vector3 end, bool falling = false)
@@ -187,8 +187,18 @@ public class MovingObjectController : MonoBehaviour {
 
         if (falling)
         {
-            BombController bomb = gameObject.GetComponent<BombController>();
-            if (bomb!=null && bomb.IsActive) bomb.ReadyToExplode();
+            Collider2D down = Physics2D.OverlapBox(transform.position + new Vector3(0f, -1f, 0f), new Vector2(.9f, .9f), 0f);
+            if(down!=null)
+            {
+                BombController downBomb = GetComponent<BombController>();
+                if (downBomb != null) downBomb.ReadyToExplode();
+            }
+
+            if (bomb != null && bomb.IsActive)
+            {
+                bomb.ReadyToExplode();
+                yield break;
+            }
         }
         isMoving = false;
     }

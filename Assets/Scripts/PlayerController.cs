@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
@@ -11,22 +12,42 @@ public class PlayerController : MonoBehaviour {
     private Rigidbody2D rb2D;
     private BoxCollider2D bc2D;
     private float inverseMoveTime;
-    [HideInInspector] private bool isMoving;
+    private bool isMoving;
 
+    private int bombs = 0;
+    private int crystals = 0;
+    private int minerals = 0;
+    private int oxygen = 0;
 
-	// Use this for initialization
-	void Start () {
+    private Vector3 newDirection;
+
+    private Text crystalText;
+    private Text bombText;
+    private Text mineralText;
+    private Text oxygenText;
+
+    // Use this for initialization
+    void Start () {
 
         inverseMoveTime = 1f / moveTime;
         rb2D = GetComponent<Rigidbody2D>();
         bc2D = GetComponent<BoxCollider2D>();
         isMoving = false;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-        if(!isMoving)
+        crystalText = GameObject.Find("Crystals").GetComponent<Text>();
+        mineralText = GameObject.Find("Minerals").GetComponent<Text>();
+        bombText = GameObject.Find("Bombs").GetComponent<Text>();
+        oxygenText = GameObject.Find("Oxygen").GetComponent<Text>();
+        //Debug.Log(oxygenText);
+    }
+    
+
+    // Update is called once per frame
+    void FixedUpdate() {
+
+       
+        
+
+        if (!isMoving)
         {
 
             float horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -65,34 +86,77 @@ public class PlayerController : MonoBehaviour {
 
                     if (!MOCStone.Push(direction)) return;
                     else if (control) return;
-
+                
             }
 
             if (directionObject != null && 1 << directionObject.gameObject.layer == pickUpLayer.value)
             {
+                if (directionObject.gameObject.CompareTag("Ballon")) PickUpOxygen();
+                else if (directionObject.gameObject.CompareTag("Bomb")) PickUpBomb();
+                else if (directionObject.gameObject.CompareTag("Crystal")) PickUpCrystals();
+                else if (directionObject.gameObject.CompareTag("Mineral")) PickUpMinerals();
+
                 Destroy(directionObject.gameObject);
                 if (control) return;
             }
-            //Debug.Log("Can Move");
             StartCoroutine(Move(end));
-
-
         }
+        else
+        {
+            float horizontalInput = Input.GetAxisRaw("Horizontal");
+            float verticalInput = Input.GetAxisRaw("Vertical");
+            
+            Vector2 direction;
 
+            if (horizontalInput != 0) direction = new Vector2(horizontalInput, 0f);
+            else if (verticalInput != 0) direction = new Vector2(0f, verticalInput);
+            else direction = Vector2.zero;
 
+            newDirection = direction;
+        }
 	}
 
     private IEnumerator Move(Vector3 end)
     {
         isMoving = true;
         float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
-
+        Vector3 currentDirection = (end - transform.position);
+        //Debug.Log(currentDirection);
         //While that distance is greater than a very small amount (Epsilon, almost zero):
         while (sqrRemainingDistance > float.Epsilon && end != transform.position)
         {
-            bc2D.offset = (end - transform.position) / 2;
             //Find a new position proportionally closer to the end, based on the moveTime
             Vector3 newPostion = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
+           
+            if (newPostion == end && currentDirection == newDirection)
+            {
+                Collider2D directionObject = Physics2D.OverlapBox(end + newDirection, new Vector2(.9f, .9f), 0);
+
+                if (directionObject == null)
+                {
+                    Collider2D directionUp = Physics2D.OverlapBox(end + newDirection + new Vector3(0f, 1f, 0f), new Vector2(.9f, .9f), 0);
+                    if (directionUp != null)
+                    {
+                        MovingObjectController moverUp = directionUp.gameObject.GetComponent<MovingObjectController>();
+                        if (moverUp == null || !moverUp.IsMoving)
+                        {
+                            end += newDirection;
+                            newPostion = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
+                        }
+                    }
+                    else
+                    {
+                        end += newDirection;
+                        newPostion = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
+                    }
+                        
+                }
+
+                
+                
+            }
+
+            bc2D.offset = (end - transform.position) / 2;
 
             //Call MovePosition on attached Rigidbody2D and move it to the calculated position.
             rb2D.MovePosition(newPostion);
@@ -103,8 +167,37 @@ public class PlayerController : MonoBehaviour {
             //Return and loop until sqrRemainingDistance is close enough to zero to end the function
             yield return null;
         }
+
+
+
         bc2D.offset = new Vector2(0f, 0f);
         isMoving = false;
     }
+
+    public void PickUpBomb()
+    {
+        bombs++;
+        bombText.text = "Bombs: " + bombs;
+    }
+
+    public void PickUpMinerals()
+    {
+        minerals++;
+        mineralText.text = "Minerals: " + minerals;
+    }
+
+    public void PickUpOxygen()
+    {
+        oxygen++;
+        oxygenText.text = "Oxygen: " + oxygen;
+    }
+
+    public void PickUpCrystals()
+    {
+        crystals++;
+        crystalText.text = "Crystals: " + crystals;
+    }
+
+
 }
 

@@ -231,7 +231,8 @@ public class LevelBuilder : MonoBehaviour {
 
         foreach (Tile tile in tiles)
         {
-            switch(tile.tileType)
+            GOTile = null;
+            switch (tile.tileType)
             {
                 case Constants.TileType.ActiveBomb:
                     GOTile = activeBomb;
@@ -284,10 +285,14 @@ public class LevelBuilder : MonoBehaviour {
                     GOTile = wall;
                     GOTile.GetComponent<SpriteRenderer>().sprite = walls[Random.Range(0, walls.Length)];
                     break;
-            }  
-            newObject = Instantiate(GOTile, new Vector3(tile.x, tile.y, 0f), Quaternion.identity);
-            newObject.transform.SetParent(gameObject.transform);
-
+       
+                
+            }
+            if (GOTile != null)
+            {
+                newObject = Instantiate(GOTile, new Vector3(tile.x, tile.y, 0f), Quaternion.identity);
+                newObject.transform.SetParent(gameObject.transform);
+            }
         }
     }
     private void Awake()

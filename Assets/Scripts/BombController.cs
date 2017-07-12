@@ -6,7 +6,8 @@ public class BombController : MonoBehaviour {
 
     public Sprite activeBombSprite;
     public Sprite deactiveBombSprite;
-    public float waitSecondsBeforeExplode = 5f;
+    public float explosionLengthTime = 1f;
+    public float destroyDelayTime = 0.5f;
 
     public bool IsActive { get { return isActive; } }
 
@@ -30,10 +31,13 @@ public class BombController : MonoBehaviour {
 
     private IEnumerator AnimationDelay()
     {
-
         animator.SetTrigger("Explode");
-        yield return new WaitForSeconds(2f);
+
+        yield return new WaitForSeconds(explosionLengthTime);
         Explode();
+
+        yield return new WaitForSeconds(destroyDelayTime - explosionLengthTime);
+        Destroy(gameObject);
     }
         
 	
@@ -43,13 +47,12 @@ public class BombController : MonoBehaviour {
         foreach (var objectCollider2D in surround)
         {
 
-            if (objectCollider2D.gameObject.CompareTag("Bomb") && objectCollider2D.gameObject != gameObject) objectCollider2D.gameObject.GetComponent<BombController>().WaitAndExplode();
+            if (objectCollider2D.gameObject.CompareTag("Bomb") && objectCollider2D.gameObject != gameObject) objectCollider2D.gameObject.GetComponent<BombController>().ReadyToExplode();
             if (objectCollider2D.gameObject.CompareTag("Bomb")) continue;
 
             DestroyByExplosion objectToDestroy = objectCollider2D.gameObject.GetComponent<DestroyByExplosion>();
             if (objectToDestroy != null) objectToDestroy.ToDestroyByExplosion();
         }
-        Destroy(gameObject);
     }
 
     public void SetActive( bool isActiveFlag)
@@ -58,19 +61,7 @@ public class BombController : MonoBehaviour {
         else sr.sprite = deactiveBombSprite;
         isActive = isActiveFlag;
     }
-
-    private IEnumerator WaitBeforeExplode()
-    {
-        yield return new WaitForSeconds(waitSecondsBeforeExplode);
-        ReadyToExplode();
-
-    }
     
-    public void WaitAndExplode()
-    {
-        StartCoroutine(WaitBeforeExplode());
-    }
-
 
   
 

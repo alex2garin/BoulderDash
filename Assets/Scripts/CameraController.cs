@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate()
     {
         if (player==null) player = FindObjectOfType<PlayerController>();
         else if(player!=null) transform.position = player.gameObject.transform.position + new Vector3(0f,0f,-10f);
