@@ -14,6 +14,7 @@ public class BombController : MonoBehaviour {
     private bool isActive;
     private SpriteRenderer sr;
     private Animator animator;
+    
 
     // Use this for initialization
     void Start () {
@@ -26,6 +27,7 @@ public class BombController : MonoBehaviour {
 
     public void ReadyToExplode()
     {
+//        Debug.Log("ready to explode is called");
         StartCoroutine(AnimationDelay());
     }
 

@@ -190,8 +190,10 @@ public class MovingObjectController : MonoBehaviour {
             Collider2D down = Physics2D.OverlapBox(transform.position + new Vector3(0f, -1f, 0f), new Vector2(.9f, .9f), 0f);
             if(down!=null)
             {
-                BombController downBomb = GetComponent<BombController>();
-                if (downBomb != null) downBomb.ReadyToExplode();
+//                Debug.Log("down not null");
+                BombController downBomb = down.GetComponent<BombController>();
+//                Debug.Log(downBomb);
+                if (downBomb != null && downBomb.IsActive) downBomb.ReadyToExplode();
             }
 
             if (bomb != null && bomb.IsActive)

@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour {
     public float moveTime = .1f;
     public LayerMask blockingLayer;
     public LayerMask pickUpLayer;
+    public float secondsForOxygenBallon = 0.1f;
+
 
     private Rigidbody2D rb2D;
     private BoxCollider2D bc2D;
@@ -18,6 +20,47 @@ public class PlayerController : MonoBehaviour {
     private int crystals = 0;
     private int minerals = 0;
     private int oxygen = 0;
+
+    public int Bombs
+    {
+        get { return bombs; }
+        set
+        {
+            bombs = Bombs;
+            bombText.text = "Bombs: " + bombs;
+        }
+    }
+
+    public int Crystals
+    {
+        get { return crystals; }
+        set
+        {
+            crystals = Crystals;
+            crystalText.text = "Oxygen: " + crystals;
+        }
+    }
+
+    public int Minerals
+    {
+        get { return minerals; }
+        set
+        {
+            minerals = Minerals;
+            mineralText.text = "Oxygen: " + minerals;
+        }
+    }
+
+    public int Oxygen
+    {
+        get { return oxygen; }
+        set
+        {
+            oxygen = Oxygen;
+            oxygenText.text = "Oxygen: " + oxygen;
+        }
+    }
+
 
     private Vector3 newDirection;
 
@@ -37,7 +80,8 @@ public class PlayerController : MonoBehaviour {
         mineralText = GameObject.Find("Minerals").GetComponent<Text>();
         bombText = GameObject.Find("Bombs").GetComponent<Text>();
         oxygenText = GameObject.Find("Oxygen").GetComponent<Text>();
-        //Debug.Log(oxygenText);
+
+        StartCoroutine(OxygenFlow());
     }
     
 
@@ -91,10 +135,10 @@ public class PlayerController : MonoBehaviour {
 
             if (directionObject != null && 1 << directionObject.gameObject.layer == pickUpLayer.value)
             {
-                if (directionObject.gameObject.CompareTag("Ballon")) PickUpOxygen();
-                else if (directionObject.gameObject.CompareTag("Bomb")) PickUpBomb();
-                else if (directionObject.gameObject.CompareTag("Crystal")) PickUpCrystals();
-                else if (directionObject.gameObject.CompareTag("Mineral")) PickUpMinerals();
+                if (directionObject.gameObject.CompareTag("Ballon")) Oxygen++;
+                else if (directionObject.gameObject.CompareTag("Bomb")) Bombs++;
+                else if (directionObject.gameObject.CompareTag("Crystal")) Crystals++;
+                else if (directionObject.gameObject.CompareTag("Mineral")) Minerals++;
 
                 Destroy(directionObject.gameObject);
                 if (control) return;
@@ -173,7 +217,7 @@ public class PlayerController : MonoBehaviour {
         bc2D.offset = new Vector2(0f, 0f);
         isMoving = false;
     }
-
+/*
     public void PickUpBomb()
     {
         bombs++;
@@ -196,6 +240,15 @@ public class PlayerController : MonoBehaviour {
     {
         crystals++;
         crystalText.text = "Crystals: " + crystals;
+    }
+    */
+    private IEnumerator OxygenFlow()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(secondsForOxygenBallon);
+            Oxygen--;
+        }
     }
 
 

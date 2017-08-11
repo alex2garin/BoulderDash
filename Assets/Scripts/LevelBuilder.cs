@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEngine;
+using System.Runtime.InteropServices;
 
 
 public class Tile
@@ -35,6 +36,240 @@ public static class Constants
         public const char Enemy = 'E';
         public const char Player = 'P';
         public const char Ballon = 'B';
+    }
+}
+
+public class StartingParameters
+{
+    [DllImport("kernel32", CharSet = CharSet.Unicode)]
+    private static extern int GetPrivateProfileString(string section, string key, string defaultValue, StringBuilder value, int size, string filePath);
+
+    public string filePath = Path.Combine(Application.dataPath, "config.ini");
+
+    public struct LevelGeneratorParams
+    {
+        public int xMax;
+        public int yMax;
+        public int stoneMax;
+        public int groundMax;
+        public int aBombMax;
+        public int dBombMax;
+        public int crystalMax;
+    }
+    public struct BackgroundParams
+    {
+        public float depth;
+        public float speed;
+    }
+    public struct BallonParams
+    {
+        public float moveTime;
+        public bool canRoll;
+        public float rotationSpeed;
+    }
+    public struct BombParams
+    {
+        public float moveTime;
+        public bool canRoll;
+        public float rotationSpeed;
+        public float explosionLenghtTime;
+        public float destroyDelayTime;
+    }
+    public struct CrystalParams
+    {
+        public float moveTime;
+        public bool canRoll;
+        public float rotationSpeed;
+    }
+    public struct MineralParams
+    {
+        public float moveTime;
+        public bool canRoll;
+        public float rotationSpeed;
+    }
+    public struct PlayerParams
+    {
+        public float moveTime;
+        public float secondsForOxygen;
+    }
+    public struct StoneParams
+    {
+        public float moveTime;
+        public bool canRoll;
+        public float rotationSpeed;
+    }
+
+    public LevelGeneratorParams levelGenerator;
+    public void SetLevelGeneratorValue()//string line)
+    {
+        var lineValue = new StringBuilder(255);
+
+        int length = GetPrivateProfileString("LevelGenerator", "xMax", "", lineValue, lineValue.Capacity, filePath);
+        Debug.Log(length);
+        Debug.Log(lineValue.ToString());
+        Debug.Log(filePath);
+        int.TryParse(lineValue.ToString(), out levelGenerator.xMax);
+
+        GetPrivateProfileString("LevelGenerator", "yMax", "", lineValue, lineValue.Capacity, filePath);
+        int.TryParse(lineValue.ToString(), out levelGenerator.yMax);
+
+        GetPrivateProfileString("LevelGenerator", "stoneMax", "", lineValue, lineValue.Capacity, filePath);
+        int.TryParse(lineValue.ToString(), out levelGenerator.stoneMax);
+
+        GetPrivateProfileString("LevelGenerator", "groundMax", "", lineValue, lineValue.Capacity, filePath);
+        int.TryParse(lineValue.ToString(), out levelGenerator.groundMax);
+
+        GetPrivateProfileString("LevelGenerator", "aBombMax", "", lineValue, lineValue.Capacity, filePath);
+        int.TryParse(lineValue.ToString(), out levelGenerator.aBombMax);
+
+        GetPrivateProfileString("LevelGenerator", "dBombMax", "", lineValue, lineValue.Capacity, filePath);
+        int.TryParse(lineValue.ToString(), out levelGenerator.dBombMax);
+
+        GetPrivateProfileString("LevelGenerator", "crystalMax", "", lineValue, lineValue.Capacity, filePath);
+        int.TryParse(lineValue.ToString(), out levelGenerator.crystalMax);
+
+        /*
+        if (line.Contains("xMax")) int.TryParse(line.TrimStart("xMax=".ToCharArray()), out levelGenerator.xMax);
+        if (line.Contains("yMax")) int.TryParse(line.TrimStart("yMax=".ToCharArray()), out levelGenerator.yMax);
+        if (line.Contains("stoneMax")) int.TryParse(line.TrimStart("stoneMax=".ToCharArray()), out levelGenerator.stoneMax);
+        if (line.Contains("groundMax")) int.TryParse(line.TrimStart("groundMax=".ToCharArray()), out levelGenerator.groundMax);
+        if (line.Contains("aBombMax")) int.TryParse(line.TrimStart("aBombMax=".ToCharArray()), out levelGenerator.aBombMax);
+        if (line.Contains("dBombMax")) int.TryParse(line.TrimStart("dBombMax=".ToCharArray()), out levelGenerator.dBombMax);
+        if (line.Contains("crystalMax")) int.TryParse(line.TrimStart("crystalMax=".ToCharArray()), out levelGenerator.crystalMax);
+        */
+    }
+
+    public BackgroundParams background;
+    public void SetBackgroundValue()//string line)
+    {
+        var lineValue = new StringBuilder(255);
+
+        GetPrivateProfileString("Background", "depth", "", lineValue, lineValue.Capacity, filePath);
+        float.TryParse(lineValue.ToString(), out background.depth);
+
+        GetPrivateProfileString("Background", "speed", "", lineValue, lineValue.Capacity, filePath);
+        float.TryParse(lineValue.ToString(), out background.speed);
+        
+        //if (line.Contains("depth")) float.TryParse(line.TrimStart("depth=".ToCharArray()), out background.depth);
+        //if (line.Contains("speed")) float.TryParse(line.TrimStart("speed=".ToCharArray()), out background.speed);
+    }
+
+    public BallonParams ballon;
+    public void SetBallonValue()//string line)
+    {
+        var lineValue = new StringBuilder(255);
+
+        GetPrivateProfileString("Ballon", "moveTime", "", lineValue, lineValue.Capacity, filePath);
+        float.TryParse(lineValue.ToString(), out ballon.moveTime);
+
+        GetPrivateProfileString("Ballon", "canRoll", "", lineValue, lineValue.Capacity, filePath);
+        bool.TryParse(lineValue.ToString(), out ballon.canRoll);
+
+        GetPrivateProfileString("Ballon", "rotationSpeed", "", lineValue, lineValue.Capacity, filePath);
+        float.TryParse(lineValue.ToString(), out ballon.rotationSpeed);
+
+        //if (line.Contains("moveTime")) float.TryParse(line.TrimStart("moveTime=".ToCharArray()), out ballon.moveTime);
+        //if (line.Contains("canRoll")) bool.TryParse(line.TrimStart("canRoll=".ToCharArray()), out ballon.canRoll);
+        //if (line.Contains("rotationSpeed")) float.TryParse(line.TrimStart("rotationSpeed=".ToCharArray()), out ballon.rotationSpeed);
+    }
+
+    public BombParams bomb;
+    public void SetBombValue()//string line)
+    {
+        var lineValue = new StringBuilder(255);
+
+        GetPrivateProfileString("Bomb", "moveTime", "", lineValue, lineValue.Capacity, filePath);
+        float.TryParse(lineValue.ToString(), out bomb.moveTime);
+
+        GetPrivateProfileString("Bomb", "canRoll", "", lineValue, lineValue.Capacity, filePath);
+        bool.TryParse(lineValue.ToString(), out bomb.canRoll);
+
+        GetPrivateProfileString("Bomb", "rotationSpeed", "", lineValue, lineValue.Capacity, filePath);
+        float.TryParse(lineValue.ToString(), out bomb.rotationSpeed);
+
+        GetPrivateProfileString("Bomb", "explosionLenghtTime", "", lineValue, lineValue.Capacity, filePath);
+        float.TryParse(lineValue.ToString(), out bomb.explosionLenghtTime);
+
+        GetPrivateProfileString("Bomb", "destroyDelayTime", "", lineValue, lineValue.Capacity, filePath);
+        float.TryParse(lineValue.ToString(), out bomb.destroyDelayTime);
+
+        //if (line.Contains("moveTime")) float.TryParse(line.TrimStart("moveTime=".ToCharArray()), out bomb.moveTime);
+        //if (line.Contains("canRoll")) bool.TryParse(line.TrimStart("canRoll=".ToCharArray()), out bomb.canRoll);
+        //if (line.Contains("rotationSpeed")) float.TryParse(line.TrimStart("rotationSpeed=".ToCharArray()), out bomb.rotationSpeed);
+        //if (line.Contains("explosionLenghtTime")) float.TryParse(line.TrimStart("explosionLenghtTime=".ToCharArray()), out bomb.explosionLenghtTime);
+        //if (line.Contains("destroyDelayTime")) float.TryParse(line.TrimStart("destroyDelayTime=".ToCharArray()), out bomb.destroyDelayTime);
+    }
+
+    public CrystalParams crystal;
+    public void SetCrystalValue()//string line)
+    {
+        var lineValue = new StringBuilder(255);
+
+        GetPrivateProfileString("Crystal", "moveTime", "", lineValue, lineValue.Capacity, filePath);
+        float.TryParse(lineValue.ToString(), out crystal.moveTime);
+
+        GetPrivateProfileString("Crystal", "canRoll", "", lineValue, lineValue.Capacity, filePath);
+        bool.TryParse(lineValue.ToString(), out crystal.canRoll);
+
+        GetPrivateProfileString("Crystal", "rotationSpeed", "", lineValue, lineValue.Capacity, filePath);
+        float.TryParse(lineValue.ToString(), out crystal.rotationSpeed);
+
+        //if (line.Contains("moveTime")) float.TryParse(line.TrimStart("moveTime=".ToCharArray()), out crystal.moveTime);
+        //if (line.Contains("canRoll")) bool.TryParse(line.TrimStart("canRoll=".ToCharArray()), out crystal.canRoll);
+        //if (line.Contains("rotationSpeed")) float.TryParse(line.TrimStart("rotationSpeed=".ToCharArray()), out crystal.rotationSpeed);
+    }
+
+    public MineralParams mineral;
+    public void SetMineralValue()//string line)
+    {
+        var lineValue = new StringBuilder(255);
+
+        GetPrivateProfileString("Mineral", "moveTime", "", lineValue, lineValue.Capacity, filePath);
+        float.TryParse(lineValue.ToString(), out mineral.moveTime);
+
+        GetPrivateProfileString("Mineral", "canRoll", "", lineValue, lineValue.Capacity, filePath);
+        bool.TryParse(lineValue.ToString(), out mineral.canRoll);
+
+        GetPrivateProfileString("Mineral", "rotationSpeed", "", lineValue, lineValue.Capacity, filePath);
+        float.TryParse(lineValue.ToString(), out mineral.rotationSpeed);
+
+        //if (line.Contains("moveTime")) float.TryParse(line.TrimStart("moveTime=".ToCharArray()), out mineral.moveTime);
+        //if (line.Contains("canRoll")) bool.TryParse(line.TrimStart("canRoll=".ToCharArray()), out mineral.canRoll);
+        //if (line.Contains("rotationSpeed")) float.TryParse(line.TrimStart("rotationSpeed=".ToCharArray()), out mineral.rotationSpeed);
+    }
+
+    public PlayerParams player;
+    public void SetPlayerValue()//string line)
+    {
+        var lineValue = new StringBuilder(255);
+
+        GetPrivateProfileString("Player", "moveTime", "", lineValue, lineValue.Capacity, filePath);
+        float.TryParse(lineValue.ToString(), out player.moveTime);
+
+        GetPrivateProfileString("Player", "secondsForOxygen", "", lineValue, lineValue.Capacity, filePath);
+        float.TryParse(lineValue.ToString(), out player.secondsForOxygen);
+
+        //if (line.Contains("moveTime")) float.TryParse(line.TrimStart("moveTime=".ToCharArray()), out player.moveTime);
+        //if (line.Contains("secondsForOxygen")) float.TryParse(line.TrimStart("secondsForOxygen=".ToCharArray()), out player.secondsForOxygen);
+    }
+
+    public StoneParams stone;
+    public void SetStoneValue()//string line)
+    {
+        var lineValue = new StringBuilder(255);
+
+        GetPrivateProfileString("Stone", "moveTime", "", lineValue, lineValue.Capacity, filePath);
+        float.TryParse(lineValue.ToString(), out stone.moveTime);
+
+        GetPrivateProfileString("Stone", "canRoll", "", lineValue, lineValue.Capacity, filePath);
+        bool.TryParse(lineValue.ToString(), out stone.canRoll);
+
+        GetPrivateProfileString("Stone", "rotationSpeed", "", lineValue, lineValue.Capacity, filePath);
+        float.TryParse(lineValue.ToString(), out stone.rotationSpeed);
+
+        //if (line.Contains("moveTime")) float.TryParse(line.TrimStart("moveTime=".ToCharArray()), out stone.moveTime);
+        //if (line.Contains("canRoll")) bool.TryParse(line.TrimStart("canRoll=".ToCharArray()), out stone.canRoll);
+        //if (line.Contains("rotationSpeed")) float.TryParse(line.TrimStart("rotationSpeed=".ToCharArray()), out stone.rotationSpeed);
     }
 }
 
@@ -80,6 +315,7 @@ public class LevelBuilder : MonoBehaviour {
     public GameObject background;
 
     public TextAsset fileLevel;
+    //public TextAsset ini;
 
     public int xMax = 7;
     public int yMax = 7;
@@ -91,7 +327,47 @@ public class LevelBuilder : MonoBehaviour {
     
 
     private List<Tile> tiles;
-    
+    public StartingParameters startingParams;
+
+    private StartingParameters ReadIni()
+    {
+
+        /*if (ini == null) return null;
+        string[] lines = ini.text.Split('\n');
+        string objectType = null;
+        StartingParameters param = new StartingParameters();
+
+        for (int i=0;i<lines.Length;i++)
+        {
+            if (lines[i] == "LevelGenerator" || lines[i] == "Background" || lines[i] == "Ballon" || lines[i] == "Bomb" || lines[i] == "Crystal" || lines[i] == "Mineral" || lines[i] == "Player" || lines[i] == "Stone") objectType = lines[i];
+            else if (objectType == "LevelGenerator") param.SetLevelGeneratorValue(lines[i]);
+            else if (objectType == "Background") param.SetBackgroundValue(lines[i]);
+            else if (objectType == "Ballon") param.SetBallonValue(lines[i]);
+            else if (objectType == "Bomb") param.SetBombValue(lines[i]);
+            else if (objectType == "Crystal") param.SetCrystalValue(lines[i]);
+            else if (objectType == "Mineral") param.SetMineralValue(lines[i]);
+            else if (objectType == "Player") param.SetPlayerValue(lines[i]);
+            else if (objectType == "Stone") param.SetStoneValue(lines[i]);
+        }
+        return param;*/
+
+     
+            StartingParameters param = new StartingParameters();
+            param.SetLevelGeneratorValue();
+            param.SetBackgroundValue();
+            param.SetBallonValue();
+            param.SetBombValue();
+            param.SetCrystalValue();
+            param.SetMineralValue();
+            param.SetPlayerValue();
+            param.SetStoneValue();
+
+        //Debug.Log(param);
+        return param;
+
+
+    }
+
     public List<Tile> ReadFile()
     {
         List<Tile> newTiles;
@@ -297,6 +573,72 @@ public class LevelBuilder : MonoBehaviour {
     }
     private void Awake()
     {
+        
+        
+        startingParams = ReadIni();
+        if (startingParams !=null)
+        {/*
+            
+            xMax = startingParams.levelGenerator.xMax;
+            yMax = startingParams.levelGenerator.yMax;
+            maxDeactiveBomb = startingParams.levelGenerator.dBombMax;
+            maxActiveBomb = startingParams.levelGenerator.aBombMax;
+            maxCrystal = startingParams.levelGenerator.crystalMax;
+            maxGround = startingParams.levelGenerator.groundMax;
+            maxStones = startingParams.levelGenerator.stoneMax;
+            BackgroundController bc = background.GetComponent<BackgroundController>();
+            Debug.Log(bc);*/
+
+            xMax = startingParams.levelGenerator.xMax;
+            yMax = startingParams.levelGenerator.yMax;
+            maxDeactiveBomb = startingParams.levelGenerator.dBombMax;
+            maxActiveBomb = startingParams.levelGenerator.aBombMax;
+            maxCrystal = startingParams.levelGenerator.crystalMax;
+            maxGround = startingParams.levelGenerator.groundMax;
+            maxStones = startingParams.levelGenerator.stoneMax;
+
+            BackgroundController bc = background.GetComponent<BackgroundController>();
+            bc.depth = startingParams.background.depth;
+            bc.speed = startingParams.background.speed;
+
+            MovingObjectController ballonMOC = ballon.GetComponent<MovingObjectController>();
+            ballonMOC.canRoll = startingParams.ballon.canRoll;
+            ballonMOC.rotationSpeed = startingParams.ballon.rotationSpeed;
+            ballonMOC.sideMoveTime = startingParams.ballon.moveTime;
+
+            MovingObjectController BombMOC = activeBomb.GetComponent<MovingObjectController>();
+            BombMOC.canRoll = startingParams.bomb.canRoll;
+            BombMOC.rotationSpeed = startingParams.bomb.rotationSpeed;
+            BombMOC.sideMoveTime = startingParams.bomb.moveTime;
+            BombController bombCtrl = activeBomb.GetComponent<BombController>();
+            bombCtrl.destroyDelayTime = startingParams.bomb.destroyDelayTime;
+            bombCtrl.explosionLengthTime = startingParams.bomb.explosionLenghtTime;
+            /*
+			BombMOC = deactiveBomb.GetComponent<MovingObjectController> ();
+			BombMOC.canRoll = startingParams.bomb.canRoll;
+			BombMOC.rotationSpeed = startingParams.bomb.rotationSpeed;
+			BombMOC.sideMoveTime = startingParams.bomb.moveTime;
+*/
+            MovingObjectController crystalMOC = crystal.GetComponent<MovingObjectController>();
+            crystalMOC.canRoll = startingParams.crystal.canRoll;
+            crystalMOC.rotationSpeed = startingParams.crystal.rotationSpeed;
+            crystalMOC.sideMoveTime = startingParams.crystal.moveTime;
+
+            MovingObjectController mineralMOC = mineral.GetComponent<MovingObjectController>();
+            mineralMOC.canRoll = startingParams.mineral.canRoll;
+            mineralMOC.rotationSpeed = startingParams.mineral.rotationSpeed;
+            mineralMOC.sideMoveTime = startingParams.mineral.moveTime;
+
+            PlayerController playerCtrl = player.GetComponent<PlayerController>();
+            playerCtrl.moveTime = startingParams.player.moveTime;
+            playerCtrl.secondsForOxygenBallon = startingParams.player.secondsForOxygen;
+
+            MovingObjectController stoneMOC = stone.GetComponent<MovingObjectController>();
+            stoneMOC.canRoll = startingParams.stone.canRoll;
+            stoneMOC.rotationSpeed = startingParams.stone.rotationSpeed;
+            stoneMOC.sideMoveTime = startingParams.stone.moveTime;
+
+        }
         if (ReadFile() == null) GenerateRandom();
         Build();
     }
