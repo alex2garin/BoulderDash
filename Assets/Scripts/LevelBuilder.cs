@@ -5,7 +5,6 @@ using System.Text;
 using UnityEngine;
 using System.Runtime.InteropServices;
 
-
 public class Tile
 {
     public int x;
@@ -104,29 +103,49 @@ public class StartingParameters
     {
         var lineValue = new StringBuilder(255);
 
-        int length = GetPrivateProfileString("LevelGenerator", "xMax", "", lineValue, lineValue.Capacity, filePath);
-        Debug.Log(length);
-        Debug.Log(lineValue.ToString());
-        Debug.Log(filePath);
+        //int length = 
+        GetPrivateProfileString("LevelGenerator", "xMax", "", lineValue, lineValue.Capacity, filePath);
         int.TryParse(lineValue.ToString(), out levelGenerator.xMax);
+        //Debug.Log(length);
+        //Debug.Log(lineValue.ToString());
+        //Debug.Log(filePath);
+        //Debug.Log(levelGenerator.xMax);
 
+        lineValue = new StringBuilder(255);
         GetPrivateProfileString("LevelGenerator", "yMax", "", lineValue, lineValue.Capacity, filePath);
         int.TryParse(lineValue.ToString(), out levelGenerator.yMax);
+        //Debug.Log(lineValue.ToString());
+        //Debug.Log(levelGenerator.yMax);
 
+        lineValue = new StringBuilder(255);
         GetPrivateProfileString("LevelGenerator", "stoneMax", "", lineValue, lineValue.Capacity, filePath);
         int.TryParse(lineValue.ToString(), out levelGenerator.stoneMax);
+        //Debug.Log(lineValue.ToString());
+        //Debug.Log(levelGenerator.stoneMax);
 
+        lineValue = new StringBuilder(255);
         GetPrivateProfileString("LevelGenerator", "groundMax", "", lineValue, lineValue.Capacity, filePath);
         int.TryParse(lineValue.ToString(), out levelGenerator.groundMax);
+        // Debug.Log(lineValue.ToString());
+        //Debug.Log(levelGenerator.groundMax);
 
+        lineValue = new StringBuilder(255);
         GetPrivateProfileString("LevelGenerator", "aBombMax", "", lineValue, lineValue.Capacity, filePath);
         int.TryParse(lineValue.ToString(), out levelGenerator.aBombMax);
+        //Debug.Log(lineValue.ToString());
+        //Debug.Log(levelGenerator.aBombMax);
 
+        lineValue = new StringBuilder(255);
         GetPrivateProfileString("LevelGenerator", "dBombMax", "", lineValue, lineValue.Capacity, filePath);
         int.TryParse(lineValue.ToString(), out levelGenerator.dBombMax);
+        //Debug.Log(lineValue.ToString());
+        //Debug.Log(levelGenerator.dBombMax);
 
+        lineValue = new StringBuilder(255);
         GetPrivateProfileString("LevelGenerator", "crystalMax", "", lineValue, lineValue.Capacity, filePath);
         int.TryParse(lineValue.ToString(), out levelGenerator.crystalMax);
+        //Debug.Log(lineValue.ToString());
+        //Debug.Log(levelGenerator.crystalMax);
 
         /*
         if (line.Contains("xMax")) int.TryParse(line.TrimStart("xMax=".ToCharArray()), out levelGenerator.xMax);
@@ -144,8 +163,8 @@ public class StartingParameters
     {
         var lineValue = new StringBuilder(255);
 
-        GetPrivateProfileString("Background", "depth", "", lineValue, lineValue.Capacity, filePath);
-        float.TryParse(lineValue.ToString(), out background.depth);
+        //GetPrivateProfileString("Background", "depth", "", lineValue, lineValue.Capacity, filePath);
+        //float.TryParse(lineValue.ToString(), out background.depth);
 
         GetPrivateProfileString("Background", "speed", "", lineValue, lineValue.Capacity, filePath);
         float.TryParse(lineValue.ToString(), out background.speed);
@@ -162,9 +181,11 @@ public class StartingParameters
         GetPrivateProfileString("Ballon", "moveTime", "", lineValue, lineValue.Capacity, filePath);
         float.TryParse(lineValue.ToString(), out ballon.moveTime);
 
+        lineValue = new StringBuilder(255);
         GetPrivateProfileString("Ballon", "canRoll", "", lineValue, lineValue.Capacity, filePath);
         bool.TryParse(lineValue.ToString(), out ballon.canRoll);
 
+        lineValue = new StringBuilder(255);
         GetPrivateProfileString("Ballon", "rotationSpeed", "", lineValue, lineValue.Capacity, filePath);
         float.TryParse(lineValue.ToString(), out ballon.rotationSpeed);
 
@@ -181,15 +202,19 @@ public class StartingParameters
         GetPrivateProfileString("Bomb", "moveTime", "", lineValue, lineValue.Capacity, filePath);
         float.TryParse(lineValue.ToString(), out bomb.moveTime);
 
+        lineValue = new StringBuilder(255);
         GetPrivateProfileString("Bomb", "canRoll", "", lineValue, lineValue.Capacity, filePath);
         bool.TryParse(lineValue.ToString(), out bomb.canRoll);
 
+        lineValue = new StringBuilder(255);
         GetPrivateProfileString("Bomb", "rotationSpeed", "", lineValue, lineValue.Capacity, filePath);
         float.TryParse(lineValue.ToString(), out bomb.rotationSpeed);
 
+        lineValue = new StringBuilder(255);
         GetPrivateProfileString("Bomb", "explosionLenghtTime", "", lineValue, lineValue.Capacity, filePath);
         float.TryParse(lineValue.ToString(), out bomb.explosionLenghtTime);
 
+        lineValue = new StringBuilder(255);
         GetPrivateProfileString("Bomb", "destroyDelayTime", "", lineValue, lineValue.Capacity, filePath);
         float.TryParse(lineValue.ToString(), out bomb.destroyDelayTime);
 
@@ -208,9 +233,11 @@ public class StartingParameters
         GetPrivateProfileString("Crystal", "moveTime", "", lineValue, lineValue.Capacity, filePath);
         float.TryParse(lineValue.ToString(), out crystal.moveTime);
 
+        lineValue = new StringBuilder(255);
         GetPrivateProfileString("Crystal", "canRoll", "", lineValue, lineValue.Capacity, filePath);
         bool.TryParse(lineValue.ToString(), out crystal.canRoll);
 
+        lineValue = new StringBuilder(255);
         GetPrivateProfileString("Crystal", "rotationSpeed", "", lineValue, lineValue.Capacity, filePath);
         float.TryParse(lineValue.ToString(), out crystal.rotationSpeed);
 
@@ -227,9 +254,11 @@ public class StartingParameters
         GetPrivateProfileString("Mineral", "moveTime", "", lineValue, lineValue.Capacity, filePath);
         float.TryParse(lineValue.ToString(), out mineral.moveTime);
 
+        lineValue = new StringBuilder(255);
         GetPrivateProfileString("Mineral", "canRoll", "", lineValue, lineValue.Capacity, filePath);
         bool.TryParse(lineValue.ToString(), out mineral.canRoll);
 
+        lineValue = new StringBuilder(255);
         GetPrivateProfileString("Mineral", "rotationSpeed", "", lineValue, lineValue.Capacity, filePath);
         float.TryParse(lineValue.ToString(), out mineral.rotationSpeed);
 
@@ -246,6 +275,7 @@ public class StartingParameters
         GetPrivateProfileString("Player", "moveTime", "", lineValue, lineValue.Capacity, filePath);
         float.TryParse(lineValue.ToString(), out player.moveTime);
 
+        lineValue = new StringBuilder(255);
         GetPrivateProfileString("Player", "secondsForOxygen", "", lineValue, lineValue.Capacity, filePath);
         float.TryParse(lineValue.ToString(), out player.secondsForOxygen);
 
@@ -261,9 +291,11 @@ public class StartingParameters
         GetPrivateProfileString("Stone", "moveTime", "", lineValue, lineValue.Capacity, filePath);
         float.TryParse(lineValue.ToString(), out stone.moveTime);
 
+        lineValue = new StringBuilder(255);
         GetPrivateProfileString("Stone", "canRoll", "", lineValue, lineValue.Capacity, filePath);
         bool.TryParse(lineValue.ToString(), out stone.canRoll);
 
+        lineValue = new StringBuilder(255);
         GetPrivateProfileString("Stone", "rotationSpeed", "", lineValue, lineValue.Capacity, filePath);
         float.TryParse(lineValue.ToString(), out stone.rotationSpeed);
 
@@ -281,6 +313,43 @@ public class LevelBuilder : MonoBehaviour {
     public Sprite[] walls;
     public Sprite[] grounds;
     public Sprite[] portals;
+    public Sprite borderUpLeftCorner;
+    public Sprite borderUpRightCorner;
+    public Sprite borderDownLeftCorner;
+    public Sprite borderDownRightCorner;
+    public Sprite wallUpLeftCorner;
+    public Sprite wallUpRightCorner;
+    public Sprite wallDownLeftCorner;
+    public Sprite wallDownRightCorner;
+    public Sprite groundUpLeftCorner;
+    public Sprite groundUpRightCorner;
+    public Sprite groundDownLeftCorner;
+    public Sprite groundDownRightCorner;
+    public Sprite borderBorderLeft;
+    public Sprite borderBorderRight;
+    public Sprite borderBorderUp;
+    public Sprite borderBorderDown;
+    public Sprite borderBorderLeftGR;
+    public Sprite borderBorderRightGR;
+    public Sprite borderBorderUpGR;
+    public Sprite borderBorderDownGR;
+    public Sprite wallBorderLeft;
+    public Sprite wallBorderRight;
+    public Sprite wallBorderUp;
+    public Sprite wallBorderDown;
+    public Sprite wallBorderLeftGR;
+    public Sprite wallBorderRightGR;
+    public Sprite wallBorderUpGR;
+    public Sprite wallBorderDownGR;
+    public Sprite groundBorderLeft;
+    public Sprite groundBorderRight;
+    public Sprite groundBorderUp;
+    public Sprite groundBorderDown;
+    public Sprite groundBorderLeftGR;
+    public Sprite groundBorderRightGR;
+    public Sprite groundBorderUpGR;
+    public Sprite groundBorderDownGR;
+
     //moving objects
     public Sprite[] stones;
     public Sprite[] activeBombs;
@@ -300,6 +369,18 @@ public class LevelBuilder : MonoBehaviour {
     public GameObject wall;
     public GameObject ground;
     public GameObject portal;
+    public GameObject tileBorderLeft;
+    public GameObject tileBorderRight;
+    public GameObject tileBorderUp;
+    public GameObject tileBorderDown;
+    public GameObject tileBorderLeftGR;
+    public GameObject tileBorderRightGR;
+    public GameObject tileBorderUpGR;
+    public GameObject tileBorderDownGR;
+    public GameObject tileCornerUpLeft;
+    public GameObject tileCornerUpRight;
+    public GameObject tileCornerDownLeft;
+    public GameObject tileCornerDownRight;
     //moving objects
     public GameObject stone;
     public GameObject activeBomb;
@@ -328,6 +409,8 @@ public class LevelBuilder : MonoBehaviour {
 
     private List<Tile> tiles;
     public StartingParameters startingParams;
+
+
 
     private StartingParameters ReadIni()
     {
@@ -497,7 +580,464 @@ public class LevelBuilder : MonoBehaviour {
         return newTiles;
 
     }
-    
+
+    private void SetBordersAndAngles(Tile thisTile, GameObject thisGO)
+    {
+
+        //if (thisTile.tileType == Constants.TileType.Border)
+        //{
+        //    tileBorderLeft.GetComponent<SpriteRenderer>().sprite = borderBorderLeft;
+        //    tileBorderRight.GetComponent<SpriteRenderer>().sprite = borderBorderRight;
+        //    tileBorderUp.GetComponent<SpriteRenderer>().sprite = borderBorderUp;
+        //    tileBorderDown.GetComponent<SpriteRenderer>().sprite = borderBorderDown;
+        //    tileBorderLeftGR.GetComponent<SpriteRenderer>().sprite = borderBorderLeftGR;
+        //    tileBorderRightGR.GetComponent<SpriteRenderer>().sprite = borderBorderRightGR;
+        //    tileBorderUpGR.GetComponent<SpriteRenderer>().sprite = borderBorderUpGR;
+        //    tileBorderDownGR.GetComponent<SpriteRenderer>().sprite = borderBorderDownGR;
+
+        //    tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = borderUpLeftCorner;
+        //    tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = borderUpRightCorner;
+        //    tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = borderDownLeftCorner;
+        //    tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = borderDownRightCorner;
+        //}
+        //else if (thisTile.tileType == Constants.TileType.Wall)
+        //{
+        //    tileBorderLeft.GetComponent<SpriteRenderer>().sprite = wallBorderLeft;
+        //    tileBorderRight.GetComponent<SpriteRenderer>().sprite = wallBorderRight;
+        //    tileBorderUp.GetComponent<SpriteRenderer>().sprite = wallBorderUp;
+        //    tileBorderDown.GetComponent<SpriteRenderer>().sprite = wallBorderDown;
+        //    tileBorderLeftGR.GetComponent<SpriteRenderer>().sprite = wallBorderLeftGR;
+        //    tileBorderRightGR.GetComponent<SpriteRenderer>().sprite = wallBorderRightGR;
+        //    tileBorderUpGR.GetComponent<SpriteRenderer>().sprite = wallBorderUpGR;
+        //    tileBorderDownGR.GetComponent<SpriteRenderer>().sprite = wallBorderDownGR;
+
+        //    tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = wallUpLeftCorner;
+        //    tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = wallUpRightCorner;
+        //    tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = wallDownLeftCorner;
+        //    tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = wallDownRightCorner;
+        //}
+        //else if (thisTile.tileType == Constants.TileType.Ground)
+        //{
+        //    tileBorderLeft.GetComponent<SpriteRenderer>().sprite = groundBorderLeft;
+        //    tileBorderRight.GetComponent<SpriteRenderer>().sprite = groundBorderRight;
+        //    tileBorderUp.GetComponent<SpriteRenderer>().sprite = groundBorderUp;
+        //    tileBorderDown.GetComponent<SpriteRenderer>().sprite = groundBorderDown;
+        //    tileBorderLeftGR.GetComponent<SpriteRenderer>().sprite = groundBorderLeftGR;
+        //    tileBorderRightGR.GetComponent<SpriteRenderer>().sprite = groundBorderRightGR;
+        //    tileBorderUpGR.GetComponent<SpriteRenderer>().sprite = groundBorderUpGR;
+        //    tileBorderDownGR.GetComponent<SpriteRenderer>().sprite = groundBorderDownGR;
+
+        //    tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = groundUpLeftCorner;
+        //    tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = groundUpRightCorner;
+        //    tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = groundDownLeftCorner;
+        //    tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = groundDownRightCorner;
+        //}
+        
+
+
+        /////////////////////////////////////////////////////
+        var leftNeighour = tiles.Find(item =>  (item.x == thisTile.x - 1) && (item.y == thisTile.y ) );
+        if (leftNeighour == null)
+        {
+            if (thisTile.tileType == Constants.TileType.Border)
+            {
+                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = borderBorderLeft;
+            }
+            else if (thisTile.tileType == Constants.TileType.Wall)
+            {
+                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = wallBorderLeft;
+            }
+            else if (thisTile.tileType == Constants.TileType.Ground)
+            {
+                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = groundBorderLeft;
+            }
+            Instantiate(tileBorderLeft, thisGO.transform.position + new Vector3(-0.5f, 0f, 0f), Quaternion.identity, thisGO.transform);
+        }
+        else if (leftNeighour.tileType == Constants.TileType.Border)
+        {
+
+        }
+        else if (leftNeighour.tileType == Constants.TileType.Wall)
+        {
+            if (thisTile.tileType == Constants.TileType.Border)
+            {
+                if (thisTile.tileType == Constants.TileType.Border)
+                {
+                    tileBorderLeftGR.GetComponent<SpriteRenderer>().sprite = borderBorderLeftGR;
+                }
+                else if (thisTile.tileType == Constants.TileType.Wall)
+                {
+                    tileBorderLeftGR.GetComponent<SpriteRenderer>().sprite = wallBorderLeftGR;
+                }
+                else if (thisTile.tileType == Constants.TileType.Ground)
+                {
+                    tileBorderLeftGR.GetComponent<SpriteRenderer>().sprite = groundBorderLeftGR;
+                }
+                Instantiate(tileBorderLeftGR, thisGO.transform.position + new Vector3(-0.5f, 0f, 0f), Quaternion.identity, thisGO.transform);
+            }
+        }
+        else if (leftNeighour.tileType == Constants.TileType.Ground)
+        {
+            if (thisTile.tileType == Constants.TileType.Wall || thisTile.tileType == Constants.TileType.Border)
+            {
+                if (thisTile.tileType == Constants.TileType.Border)
+                {
+                    tileBorderLeftGR.GetComponent<SpriteRenderer>().sprite = borderBorderLeftGR;
+                }
+                else if (thisTile.tileType == Constants.TileType.Wall)
+                {
+                    tileBorderLeftGR.GetComponent<SpriteRenderer>().sprite = wallBorderLeftGR;
+                }
+                else if (thisTile.tileType == Constants.TileType.Ground)
+                {
+                    tileBorderLeftGR.GetComponent<SpriteRenderer>().sprite = groundBorderLeftGR;
+                }
+                Instantiate(tileBorderLeftGR, thisGO.transform.position + new Vector3(-0.5f, 0f, 0f), Quaternion.identity, thisGO.transform);
+            }
+        }
+        else
+        {
+            if (thisTile.tileType == Constants.TileType.Border)
+            {
+                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = borderBorderLeft;
+            }
+            else if (thisTile.tileType == Constants.TileType.Wall)
+            {
+                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = wallBorderLeft;
+            }
+            else if (thisTile.tileType == Constants.TileType.Ground)
+            {
+                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = groundBorderLeft;
+            }
+            Instantiate(tileBorderLeft, thisGO.transform.position + new Vector3(-0.5f, 0f, 0f), Quaternion.identity, thisGO.transform);
+        }
+
+        /////////////////////////////////////////////////////
+        var rightNeighour = tiles.Find(item => (item.x == thisTile.x + 1) && (item.y == thisTile.y));
+        if (rightNeighour == null)
+        {
+            if (thisTile.tileType == Constants.TileType.Border)
+            {
+                tileBorderRight.GetComponent<SpriteRenderer>().sprite = borderBorderRight;
+            }
+            else if (thisTile.tileType == Constants.TileType.Wall)
+            {
+                tileBorderRight.GetComponent<SpriteRenderer>().sprite = wallBorderRight;
+            }
+            else if (thisTile.tileType == Constants.TileType.Ground)
+            {
+                tileBorderRight.GetComponent<SpriteRenderer>().sprite = groundBorderRight;
+            }
+            Instantiate(tileBorderRight, thisGO.transform.position + new Vector3(0.5f, 0f, 0f), Quaternion.identity, thisGO.transform);
+        }
+        else if (rightNeighour.tileType == Constants.TileType.Border)
+        {
+
+        }
+        else if (rightNeighour.tileType == Constants.TileType.Wall)
+        {
+            if (thisTile.tileType == Constants.TileType.Border)
+            {
+                if (thisTile.tileType == Constants.TileType.Border)
+                {
+                    tileBorderRightGR.GetComponent<SpriteRenderer>().sprite = borderBorderRightGR;
+                }
+                else if (thisTile.tileType == Constants.TileType.Wall)
+                {
+                    tileBorderRightGR.GetComponent<SpriteRenderer>().sprite = wallBorderRightGR;
+                }
+                else if (thisTile.tileType == Constants.TileType.Ground)
+                {
+                    tileBorderRightGR.GetComponent<SpriteRenderer>().sprite = groundBorderRightGR;
+                }
+                Instantiate(tileBorderRightGR, thisGO.transform.position + new Vector3(0.5f, 0f, 0f), Quaternion.identity, thisGO.transform);
+            }
+        }
+        else if (rightNeighour.tileType == Constants.TileType.Ground)
+        {
+            if (thisTile.tileType == Constants.TileType.Wall || thisTile.tileType == Constants.TileType.Border)
+            {
+                if (thisTile.tileType == Constants.TileType.Border)
+                {
+                    tileBorderRightGR.GetComponent<SpriteRenderer>().sprite = borderBorderRightGR;
+                }
+                else if (thisTile.tileType == Constants.TileType.Wall)
+                {
+                    tileBorderRightGR.GetComponent<SpriteRenderer>().sprite = wallBorderRightGR;
+                }
+                else if (thisTile.tileType == Constants.TileType.Ground)
+                {
+                    tileBorderRightGR.GetComponent<SpriteRenderer>().sprite = groundBorderRightGR;
+                }
+                Instantiate(tileBorderRightGR, thisGO.transform.position + new Vector3(0.5f, 0f, 0f), Quaternion.identity, thisGO.transform);
+            }
+        }
+        else Instantiate(tileBorderRight, thisGO.transform.position + new Vector3(0.5f, 0f, 0f), Quaternion.identity, thisGO.transform);
+
+        /////////////////////////////////////////////////////
+        var upNeighour = tiles.Find(item => (item.x == thisTile.x ) && (item.y == thisTile.y + 1));
+        if (upNeighour == null)
+        {
+            if (thisTile.tileType == Constants.TileType.Border)
+            {
+                tileBorderUp.GetComponent<SpriteRenderer>().sprite = borderBorderUp;
+            }
+            else if (thisTile.tileType == Constants.TileType.Wall)
+            {
+                tileBorderUp.GetComponent<SpriteRenderer>().sprite = wallBorderUp;
+            }
+            else if (thisTile.tileType == Constants.TileType.Ground)
+            {
+                tileBorderUp.GetComponent<SpriteRenderer>().sprite = groundBorderUp;
+            }
+            Instantiate(tileBorderUp, thisGO.transform.position + new Vector3(0f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
+        }
+        else if (upNeighour.tileType == Constants.TileType.Border)
+        {
+
+        }
+        else if (upNeighour.tileType == Constants.TileType.Wall)
+        {
+            if (thisTile.tileType == Constants.TileType.Border)
+            {
+                if (thisTile.tileType == Constants.TileType.Border)
+                {
+                    tileBorderUpGR.GetComponent<SpriteRenderer>().sprite = borderBorderUpGR;
+                }
+                else if (thisTile.tileType == Constants.TileType.Wall)
+                {
+                    tileBorderUpGR.GetComponent<SpriteRenderer>().sprite = wallBorderUpGR;
+                }
+                else if (thisTile.tileType == Constants.TileType.Ground)
+                {
+                    tileBorderUpGR.GetComponent<SpriteRenderer>().sprite = groundBorderUpGR;
+                }
+                Instantiate(tileBorderUpGR, thisGO.transform.position + new Vector3(0f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
+            }
+        }
+        else if (upNeighour.tileType == Constants.TileType.Ground)
+        {
+            if (thisTile.tileType == Constants.TileType.Wall || thisTile.tileType == Constants.TileType.Border)
+            {
+                if (thisTile.tileType == Constants.TileType.Border)
+                {
+                    tileBorderUpGR.GetComponent<SpriteRenderer>().sprite = borderBorderUpGR;
+                }
+                else if (thisTile.tileType == Constants.TileType.Wall)
+                {
+                    tileBorderUpGR.GetComponent<SpriteRenderer>().sprite = wallBorderUpGR;
+                }
+                else if (thisTile.tileType == Constants.TileType.Ground)
+                {
+                    tileBorderUpGR.GetComponent<SpriteRenderer>().sprite = groundBorderUpGR;
+                }
+                Instantiate(tileBorderUpGR, thisGO.transform.position + new Vector3(0f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
+            }
+        }
+        else
+        {
+            if (thisTile.tileType == Constants.TileType.Border)
+            {
+                tileBorderUp.GetComponent<SpriteRenderer>().sprite = borderBorderUp;
+            }
+            else if (thisTile.tileType == Constants.TileType.Wall)
+            {
+                tileBorderUp.GetComponent<SpriteRenderer>().sprite = wallBorderUp;
+            }
+            else if (thisTile.tileType == Constants.TileType.Ground)
+            {
+                tileBorderUp.GetComponent<SpriteRenderer>().sprite = groundBorderUp;
+            }
+            Instantiate(tileBorderUp, thisGO.transform.position + new Vector3(0f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
+        }
+
+        /////////////////////////////////////////////////////
+        var downNeighour = tiles.Find(item => (item.x == thisTile.x) && (item.y == thisTile.y - 1));
+        if (downNeighour == null)
+        {
+            if (thisTile.tileType == Constants.TileType.Border)
+            {
+                tileBorderDown.GetComponent<SpriteRenderer>().sprite = borderBorderDown;
+            }
+            else if (thisTile.tileType == Constants.TileType.Wall)
+            {
+                tileBorderDown.GetComponent<SpriteRenderer>().sprite = wallBorderDown;
+            }
+            else if (thisTile.tileType == Constants.TileType.Ground)
+            {
+                tileBorderDown.GetComponent<SpriteRenderer>().sprite = groundBorderDown;
+            }
+            Instantiate(tileBorderDown, thisGO.transform.position + new Vector3(0f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
+        }
+        else if (downNeighour.tileType == Constants.TileType.Border)
+        {
+
+        }
+        else if (downNeighour.tileType == Constants.TileType.Wall)
+        {
+            if (thisTile.tileType == Constants.TileType.Border)
+            {
+                if (thisTile.tileType == Constants.TileType.Border)
+                {
+                    tileBorderDownGR.GetComponent<SpriteRenderer>().sprite = borderBorderDownGR;
+                }
+                else if (thisTile.tileType == Constants.TileType.Wall)
+                {
+                    tileBorderDownGR.GetComponent<SpriteRenderer>().sprite = wallBorderDownGR;
+                }
+                else if (thisTile.tileType == Constants.TileType.Ground)
+                {
+                    tileBorderDownGR.GetComponent<SpriteRenderer>().sprite = groundBorderDownGR;
+                }
+                Instantiate(tileBorderDownGR, thisGO.transform.position + new Vector3(0f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
+            }
+        }
+        else if (downNeighour.tileType == Constants.TileType.Ground)
+        {
+            if (thisTile.tileType == Constants.TileType.Wall || thisTile.tileType == Constants.TileType.Border)
+            {
+                if (thisTile.tileType == Constants.TileType.Border)
+                {
+                    tileBorderDownGR.GetComponent<SpriteRenderer>().sprite = borderBorderDownGR;
+                }
+                else if (thisTile.tileType == Constants.TileType.Wall)
+                {
+                    tileBorderDownGR.GetComponent<SpriteRenderer>().sprite = wallBorderDownGR;
+                }
+                else if (thisTile.tileType == Constants.TileType.Ground)
+                {
+                    tileBorderDownGR.GetComponent<SpriteRenderer>().sprite = groundBorderDownGR;
+                }
+                Instantiate(tileBorderDownGR, thisGO.transform.position + new Vector3(0f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
+            }
+        }
+        else Instantiate(tileBorderDown, thisGO.transform.position + new Vector3(0f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
+
+        /*********************************************************************************/
+
+        if (thisTile.tileType == Constants.TileType.Border)
+        {
+            tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = borderUpLeftCorner;
+        }
+        else if (thisTile.tileType == Constants.TileType.Wall)
+        {
+            tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = wallUpLeftCorner;
+        }
+        else if (thisTile.tileType == Constants.TileType.Ground)
+        {
+            tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = groundUpLeftCorner;
+        }
+        if (leftNeighour != null && upNeighour != null && leftNeighour.tileType == thisTile.tileType && upNeighour.tileType == thisTile.tileType)
+        {
+            var upLeftNeighbour = tiles.Find(item => (item.x == thisTile.x - 1) && (item.y == thisTile.y + 1));
+            if (upLeftNeighbour == null)
+                Instantiate(tileCornerUpLeft, thisGO.transform.position + new Vector3(-0.5f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
+            
+            else if (upLeftNeighbour.tileType == Constants.TileType.Border)
+            {
+
+            }
+            else if (upLeftNeighbour.tileType == Constants.TileType.Wall && thisTile.tileType == Constants.TileType.Border)
+                Instantiate(tileCornerUpLeft, thisGO.transform.position + new Vector3(-0.5f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
+            
+            else if (upLeftNeighbour.tileType == Constants.TileType.Ground && (thisTile.tileType == Constants.TileType.Border || thisTile.tileType == Constants.TileType.Wall))
+                Instantiate(tileCornerUpLeft, thisGO.transform.position + new Vector3(-0.5f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
+            
+            else Instantiate(tileCornerUpLeft, thisGO.transform.position + new Vector3(-0.5f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
+        }
+
+        /////////////////////////////////////////////////////////////
+        if (thisTile.tileType == Constants.TileType.Border)
+        {
+            tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = borderUpRightCorner;
+        }
+        else if (thisTile.tileType == Constants.TileType.Wall)
+        {
+            tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = wallUpRightCorner;
+        }
+        else if (thisTile.tileType == Constants.TileType.Ground)
+        {
+            tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = groundUpRightCorner;
+        }
+        if (rightNeighour != null && upNeighour != null && rightNeighour.tileType == thisTile.tileType && upNeighour.tileType == thisTile.tileType)
+        {
+            var upRightNeighbour = tiles.Find(item => (item.x == thisTile.x + 1) && (item.y == thisTile.y + 1));
+            if (upRightNeighbour == null)
+                Instantiate(tileCornerUpRight, thisGO.transform.position + new Vector3(0.5f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
+            else if (upRightNeighbour.tileType == Constants.TileType.Border)
+            {
+
+            }
+            else if (upRightNeighbour.tileType == Constants.TileType.Wall && thisTile.tileType == Constants.TileType.Border)
+                Instantiate(tileCornerUpRight, thisGO.transform.position + new Vector3(0.5f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
+            else if (upRightNeighbour.tileType == Constants.TileType.Ground && (thisTile.tileType == Constants.TileType.Border || thisTile.tileType == Constants.TileType.Wall))
+                Instantiate(tileCornerUpRight, thisGO.transform.position + new Vector3(0.5f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
+            else Instantiate(tileCornerUpRight, thisGO.transform.position + new Vector3(0.5f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
+        }
+
+        /////////////////////////////////////////////////////////////
+        if (thisTile.tileType == Constants.TileType.Border)
+        {
+            tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = borderDownLeftCorner;
+        }
+        else if (thisTile.tileType == Constants.TileType.Wall)
+        {
+            tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = wallDownLeftCorner;
+        }
+        else if (thisTile.tileType == Constants.TileType.Ground)
+        {
+            tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = groundDownLeftCorner;
+        }
+        if (leftNeighour != null && downNeighour != null && leftNeighour.tileType == thisTile.tileType && downNeighour.tileType == thisTile.tileType)
+        {
+            var downLeftNeighbour = tiles.Find(item => (item.x == thisTile.x - 1) && (item.y == thisTile.y - 1));
+            if (downLeftNeighbour == null)
+                Instantiate(tileCornerDownLeft, thisGO.transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
+            else if (downLeftNeighbour.tileType == Constants.TileType.Border)
+            {
+
+            }
+            else if (downLeftNeighbour.tileType == Constants.TileType.Wall && thisTile.tileType == Constants.TileType.Border)
+                Instantiate(tileCornerDownLeft, thisGO.transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
+            else if (downLeftNeighbour.tileType == Constants.TileType.Ground && (thisTile.tileType == Constants.TileType.Border || thisTile.tileType == Constants.TileType.Wall))
+                Instantiate(tileCornerDownLeft, thisGO.transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
+            else Instantiate(tileCornerDownLeft, thisGO.transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
+        }
+
+        /////////////////////////////////////////////////////////////
+        if (thisTile.tileType == Constants.TileType.Border)
+        {
+            tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = borderDownRightCorner;
+        }
+        else if (thisTile.tileType == Constants.TileType.Wall)
+        {
+            tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = wallDownRightCorner;
+        }
+        else if (thisTile.tileType == Constants.TileType.Ground)
+        {
+            tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = groundDownRightCorner;
+        }
+        if (rightNeighour != null && downNeighour != null && rightNeighour.tileType == thisTile.tileType && downNeighour.tileType == thisTile.tileType)
+        {
+            var downRightNeighbour = tiles.Find(item => (item.x == thisTile.x + 1) && (item.y == thisTile.y - 1));
+            if (downRightNeighbour == null)
+                Instantiate(tileCornerDownRight, thisGO.transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
+            else if (downRightNeighbour.tileType == Constants.TileType.Border)
+            {
+
+            }
+            else if (downRightNeighbour.tileType == Constants.TileType.Wall && thisTile.tileType == Constants.TileType.Border)
+                Instantiate(tileCornerDownRight, thisGO.transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
+            else if (downRightNeighbour.tileType == Constants.TileType.Ground && (thisTile.tileType == Constants.TileType.Border || thisTile.tileType == Constants.TileType.Wall))
+                Instantiate(tileCornerDownRight, thisGO.transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
+            else Instantiate(tileCornerDownRight, thisGO.transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
+        }
+        
+
+
+
+    }
+
     public void Build()
     {
         GameObject GOTile = background;
@@ -560,6 +1100,7 @@ public class LevelBuilder : MonoBehaviour {
                 case Constants.TileType.Wall:
                     GOTile = wall;
                     GOTile.GetComponent<SpriteRenderer>().sprite = walls[Random.Range(0, walls.Length)];
+                    
                     break;
        
                 
@@ -568,6 +1109,8 @@ public class LevelBuilder : MonoBehaviour {
             {
                 newObject = Instantiate(GOTile, new Vector3(tile.x, tile.y, 0f), Quaternion.identity);
                 newObject.transform.SetParent(gameObject.transform);
+                if (tile.tileType == Constants.TileType.Ground || tile.tileType == Constants.TileType.Border || tile.tileType == Constants.TileType.Wall)
+                    SetBordersAndAngles(tile, newObject);
             }
         }
     }
@@ -598,7 +1141,7 @@ public class LevelBuilder : MonoBehaviour {
             maxStones = startingParams.levelGenerator.stoneMax;
 
             BackgroundController bc = background.GetComponent<BackgroundController>();
-            bc.depth = startingParams.background.depth;
+            //bc.depth = startingParams.background.depth;
             bc.speed = startingParams.background.speed;
 
             MovingObjectController ballonMOC = ballon.GetComponent<MovingObjectController>();
