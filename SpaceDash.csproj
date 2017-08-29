@@ -87,6 +87,7 @@
     <Compile Include="Assets\Scripts\BackgroundController.cs" />
     <Compile Include="Assets\Scripts\BombController.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\CornersAndBordersController.cs" />
     <Compile Include="Assets\Scripts\DestroyByExplosion.cs" />
     <Compile Include="Assets\Scripts\GroundController.cs" />
     <Compile Include="Assets\Scripts\LevelBuilder.cs" />
