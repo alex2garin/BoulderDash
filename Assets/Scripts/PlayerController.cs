@@ -83,8 +83,8 @@ public class PlayerController : MonoBehaviour {
 
         StartCoroutine(OxygenFlow());
     }
-    
 
+    private bool switcher = false;
     // Update is called once per frame
     void FixedUpdate() {
 
@@ -93,12 +93,15 @@ public class PlayerController : MonoBehaviour {
 
         if (!isMoving)
         {
-
             float horizontalInput = Input.GetAxisRaw("Horizontal");
             float verticalInput = Input.GetAxisRaw("Vertical");
 
             bool control = Input.GetKey(KeyCode.LeftControl);
-            
+            if (switcher != control)
+            {
+                Debug.Log(control);
+                switcher = control;
+            }
             Vector2 direction;
 
             if (horizontalInput != 0) direction = new Vector2(horizontalInput, 0f);
@@ -130,7 +133,6 @@ public class PlayerController : MonoBehaviour {
 
                     if (!MOCStone.Push(direction)) return;
                     else if (control) return;
-                
             }
 
             if (directionObject != null && 1 << directionObject.gameObject.layer == pickUpLayer.value)
@@ -143,13 +145,19 @@ public class PlayerController : MonoBehaviour {
                 Destroy(directionObject.gameObject);
                 if (control) return;
             }
-            StartCoroutine(Move(end));
+
+            if (directionObject != null && directionObject.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            {
+                Destroy(directionObject.gameObject);
+                if (control) return;
+            }
+            if(!control) StartCoroutine(Move(end));
         }
         else
         {
             float horizontalInput = Input.GetAxisRaw("Horizontal");
             float verticalInput = Input.GetAxisRaw("Vertical");
-            
+
             Vector2 direction;
 
             if (horizontalInput != 0) direction = new Vector2(horizontalInput, 0f);
@@ -158,7 +166,7 @@ public class PlayerController : MonoBehaviour {
 
             newDirection = direction;
         }
-	}
+    }
 
     private IEnumerator Move(Vector3 end)
     {
@@ -217,6 +225,7 @@ public class PlayerController : MonoBehaviour {
         bc2D.offset = new Vector2(0f, 0f);
         isMoving = false;
     }
+    
 /*
     public void PickUpBomb()
     {

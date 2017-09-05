@@ -133,15 +133,15 @@ public class CornersAndBordersController : MonoBehaviour {
         }
         else if (leftNeighbour.CompareTag("Ground"))
         {
-            if (CompareTag("Wall") || CompareTag("Ground"))
+            if (CompareTag("Wall") || CompareTag("Border"))
             {
                 if (CompareTag("Wall"))
                 {
                     tileBorderLeft.GetComponent<SpriteRenderer>().sprite = wallBorderLeftGR;
                 }
-                else if (CompareTag("Ground"))
+                else if (CompareTag("Border"))
                 {
-                    tileBorderLeft.GetComponent<SpriteRenderer>().sprite = groundBorderLeftGR;
+                    tileBorderLeft.GetComponent<SpriteRenderer>().sprite = borderBorderLeftGR;
                 }
                 Instantiate(tileBorderLeft, transform.position + new Vector3(-0.5f, 0f, 0f), Quaternion.identity, transform);
             }
@@ -162,7 +162,7 @@ public class CornersAndBordersController : MonoBehaviour {
             }
             Instantiate(tileBorderLeft, transform.position + new Vector3(-0.5f, 0f, 0f), Quaternion.identity, transform);
         }
-        
+
         /////////////////////////////////////////////////////
         if (rightNeighbour == null)
         {
@@ -207,7 +207,22 @@ public class CornersAndBordersController : MonoBehaviour {
                 Instantiate(tileBorderRight, transform.position + new Vector3(0.5f, 0f, 0f), Quaternion.identity, transform);
             }
         }
-        else Instantiate(tileBorderRight, transform.position + new Vector3(0.5f, 0f, 0f), Quaternion.identity, transform);
+        else
+        {
+            if (CompareTag("Border"))
+            {
+                tileBorderRight.GetComponent<SpriteRenderer>().sprite = borderBorderRight;
+            }
+            else if (CompareTag("Wall"))
+            {
+                tileBorderRight.GetComponent<SpriteRenderer>().sprite = wallBorderRight;
+            }
+            else if (CompareTag("Ground"))
+            {
+                tileBorderRight.GetComponent<SpriteRenderer>().sprite = groundBorderRight;
+            }
+            Instantiate(tileBorderRight, transform.position + new Vector3(0.5f, 0f, 0f), Quaternion.identity, transform);
+        }
 
         /////////////////////////////////////////////////////
         if (upNeighbour == null)
@@ -311,14 +326,25 @@ public class CornersAndBordersController : MonoBehaviour {
                 {
                     tileBorderDown.GetComponent<SpriteRenderer>().sprite = wallBorderDownGR;
                 }
-                else if (CompareTag("Ground"))
-                {
-                    tileBorderDown.GetComponent<SpriteRenderer>().sprite = groundBorderDownGR;
-                }
                 Instantiate(tileBorderDown, transform.position + new Vector3(0f, -0.5f, 0f), Quaternion.identity, transform);
             }
         }
-        else Instantiate(tileBorderDown, transform.position + new Vector3(0f, -0.5f, 0f), Quaternion.identity, transform);
+        else
+        {
+            if (CompareTag("Border"))
+            {
+                tileBorderDown.GetComponent<SpriteRenderer>().sprite = borderBorderDown;
+            }
+            else if (CompareTag("Wall"))
+            {
+                tileBorderDown.GetComponent<SpriteRenderer>().sprite = wallBorderDown;
+            }
+            else if (CompareTag("Ground"))
+            {
+                tileBorderDown.GetComponent<SpriteRenderer>().sprite = groundBorderDown;
+            }
+            Instantiate(tileBorderDown, transform.position + new Vector3(0f, -0.5f, 0f), Quaternion.identity, transform);
+        }
 
         //////
         
@@ -349,7 +375,7 @@ public class CornersAndBordersController : MonoBehaviour {
             else if (upLeftNeighbour.CompareTag("Ground") && (CompareTag("Border") || CompareTag("Wall")))
                 Instantiate(tileCornerUpLeft, transform.position + new Vector3(-0.5f, 0.5f, 0f), Quaternion.identity, transform);
 
-            else Instantiate(tileCornerUpLeft, transform.position + new Vector3(-0.5f, 0.5f, 0f), Quaternion.identity, transform);
+            //else Instantiate(tileCornerUpLeft, transform.position + new Vector3(-0.5f, 0.5f, 0f), Quaternion.identity, transform);
         }
         
         /////////////////////////////////////////////////////////////
@@ -377,7 +403,7 @@ public class CornersAndBordersController : MonoBehaviour {
                 Instantiate(tileCornerUpRight, transform.position + new Vector3(0.5f, 0.5f, 0f), Quaternion.identity, transform);
             else if (upRightNeighbour.CompareTag("Ground") && (CompareTag("Border") || CompareTag("Wall")))
                 Instantiate(tileCornerUpRight, transform.position + new Vector3(0.5f, 0.5f, 0f), Quaternion.identity, transform);
-            else Instantiate(tileCornerUpRight, transform.position + new Vector3(0.5f, 0.5f, 0f), Quaternion.identity, transform);
+            //else Instantiate(tileCornerUpRight, transform.position + new Vector3(0.5f, 0.5f, 0f), Quaternion.identity, transform);
         }
 
         /////////////////////////////////////////////////////////////
@@ -405,7 +431,7 @@ public class CornersAndBordersController : MonoBehaviour {
                 Instantiate(tileCornerDownLeft, transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, transform);
             else if (downLeftNeighbour.CompareTag("Ground") && (CompareTag("Border") || CompareTag("Wall")))
                 Instantiate(tileCornerDownLeft, transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, transform);
-            else Instantiate(tileCornerDownLeft, transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, transform);
+            //else Instantiate(tileCornerDownLeft, transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, transform);
         }
 
         /////////////////////////////////////////////////////////////
@@ -433,7 +459,7 @@ public class CornersAndBordersController : MonoBehaviour {
                 Instantiate(tileCornerDownRight, transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, transform);
             else if (downRightNeighbour.CompareTag("Ground") && (CompareTag("Border") || CompareTag("Wall")))
                 Instantiate(tileCornerDownRight, transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, transform);
-            else Instantiate(tileCornerDownRight, transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, transform);
+            //else Instantiate(tileCornerDownRight, transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, transform);
         }
 
         

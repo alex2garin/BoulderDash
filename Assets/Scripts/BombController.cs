@@ -45,7 +45,7 @@ public class BombController : MonoBehaviour {
 	
     private void Explode()
     {
-
+        
         Collider2D[] surround = Physics2D.OverlapBoxAll(transform.position, new Vector2(2f, 2f), 0f);
         foreach (var objectCollider2D in surround)
         {
@@ -56,12 +56,13 @@ public class BombController : MonoBehaviour {
             DestroyByExplosion objectToDestroy = objectCollider2D.gameObject.GetComponent<DestroyByExplosion>();
             if (objectToDestroy != null) objectToDestroy.ToDestroyByExplosion();
         }
-        var neighbours = Physics2D.OverlapBoxAll(transform.position, new Vector2(3f, 3f), 0f);
+        var neighbours = Physics2D.OverlapBoxAll(transform.position, new Vector2(4f, 4f), 0f);
         foreach (var neighbour in neighbours)
         {
             CornersAndBordersController cabc = neighbour.gameObject.GetComponent<CornersAndBordersController>();
             if (cabc != null) cabc.needToUpdate = true;
         }
+
     }
 
     public void SetActive( bool isActiveFlag)
