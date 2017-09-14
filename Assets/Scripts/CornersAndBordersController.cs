@@ -362,20 +362,12 @@ public class CornersAndBordersController : MonoBehaviour {
         }
         if (leftNeighbour != null && upNeighbour != null && leftNeighbour.CompareTag(gameObject.tag) && upNeighbour.CompareTag(gameObject.tag))
         {
-            if (upLeftNeighbour == null)
+            if (CompareTag("Border") && (upLeftNeighbour == null || !upLeftNeighbour.CompareTag("Border")))
                 Instantiate(tileCornerUpLeft, transform.position + new Vector3(-0.5f, 0.5f, 0f), Quaternion.identity, transform);
-
-            else if (upLeftNeighbour.CompareTag("Border"))
-            {
-
-            }
-            else if (upLeftNeighbour.CompareTag("Wall") && CompareTag("Border"))
+            else if (CompareTag("Wall") && (upLeftNeighbour == null || (!upLeftNeighbour.CompareTag("Border") && !upLeftNeighbour.CompareTag("Wall"))))
                 Instantiate(tileCornerUpLeft, transform.position + new Vector3(-0.5f, 0.5f, 0f), Quaternion.identity, transform);
-
-            else if (upLeftNeighbour.CompareTag("Ground") && (CompareTag("Border") || CompareTag("Wall")))
+            else if (CompareTag("Ground") && (upLeftNeighbour == null || (!upLeftNeighbour.CompareTag("Border") && !upLeftNeighbour.CompareTag("Wall") && !upLeftNeighbour.CompareTag("Ground"))))
                 Instantiate(tileCornerUpLeft, transform.position + new Vector3(-0.5f, 0.5f, 0f), Quaternion.identity, transform);
-
-            //else Instantiate(tileCornerUpLeft, transform.position + new Vector3(-0.5f, 0.5f, 0f), Quaternion.identity, transform);
         }
         
         /////////////////////////////////////////////////////////////
@@ -393,17 +385,12 @@ public class CornersAndBordersController : MonoBehaviour {
         }
         if (rightNeighbour != null && upNeighbour != null && rightNeighbour.CompareTag(gameObject.tag) && upNeighbour.CompareTag(gameObject.tag))
         {
-            if (upRightNeighbour == null)
+            if (CompareTag("Border") && (upRightNeighbour == null || !upRightNeighbour.CompareTag("Border")))
                 Instantiate(tileCornerUpRight, transform.position + new Vector3(0.5f, 0.5f, 0f), Quaternion.identity, transform);
-            else if (upRightNeighbour.CompareTag("Border"))
-            {
-
-            }
-            else if (upRightNeighbour.CompareTag("Wall") && CompareTag("Border"))
+            else if (CompareTag("Wall") && (upRightNeighbour == null || (!upRightNeighbour.CompareTag("Border") && !upRightNeighbour.CompareTag("Wall"))))
                 Instantiate(tileCornerUpRight, transform.position + new Vector3(0.5f, 0.5f, 0f), Quaternion.identity, transform);
-            else if (upRightNeighbour.CompareTag("Ground") && (CompareTag("Border") || CompareTag("Wall")))
+            else if (CompareTag("Ground") && (upRightNeighbour == null || (!upRightNeighbour.CompareTag("Border") && !upRightNeighbour.CompareTag("Wall") && !upRightNeighbour.CompareTag("Ground"))))
                 Instantiate(tileCornerUpRight, transform.position + new Vector3(0.5f, 0.5f, 0f), Quaternion.identity, transform);
-            //else Instantiate(tileCornerUpRight, transform.position + new Vector3(0.5f, 0.5f, 0f), Quaternion.identity, transform);
         }
 
         /////////////////////////////////////////////////////////////
@@ -421,17 +408,12 @@ public class CornersAndBordersController : MonoBehaviour {
         }
         if (leftNeighbour != null && downNeighbour != null && leftNeighbour.CompareTag(gameObject.tag) && downNeighbour.CompareTag(gameObject.tag))
         {
-            if (downLeftNeighbour == null)
+            if (CompareTag("Border") && (downLeftNeighbour == null || !downLeftNeighbour.CompareTag("Border")))
                 Instantiate(tileCornerDownLeft, transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, transform);
-            else if (downLeftNeighbour.CompareTag("Border"))
-            {
-
-            }
-            else if (downLeftNeighbour.CompareTag("Wall") && CompareTag("Border"))
+            else if (CompareTag("Wall") && (downLeftNeighbour == null || (!downLeftNeighbour.CompareTag("Border") && !downLeftNeighbour.CompareTag("Wall"))))
                 Instantiate(tileCornerDownLeft, transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, transform);
-            else if (downLeftNeighbour.CompareTag("Ground") && (CompareTag("Border") || CompareTag("Wall")))
+            else if (CompareTag("Ground") && (downLeftNeighbour == null || (!downLeftNeighbour.CompareTag("Border") && !downLeftNeighbour.CompareTag("Wall") && !downLeftNeighbour.CompareTag("Ground"))))
                 Instantiate(tileCornerDownLeft, transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, transform);
-            //else Instantiate(tileCornerDownLeft, transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, transform);
         }
 
         /////////////////////////////////////////////////////////////
@@ -449,19 +431,98 @@ public class CornersAndBordersController : MonoBehaviour {
         }
         if (rightNeighbour != null && downNeighbour != null && rightNeighbour.CompareTag(gameObject.tag) && downNeighbour.CompareTag(gameObject.tag))
         {
-            if (downRightNeighbour == null)
+            if (CompareTag("Border") && (downRightNeighbour == null || !downRightNeighbour.CompareTag("Border")))
                 Instantiate(tileCornerDownRight, transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, transform);
-            else if (downRightNeighbour.CompareTag("Border"))
-            {
-
-            }
-            else if (downRightNeighbour.CompareTag("Wall") && CompareTag("Border"))
+            else if (CompareTag("Wall") && (downRightNeighbour == null || (!downRightNeighbour.CompareTag("Border") && !downRightNeighbour.CompareTag("Wall"))))
                 Instantiate(tileCornerDownRight, transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, transform);
-            else if (downRightNeighbour.CompareTag("Ground") && (CompareTag("Border") || CompareTag("Wall")))
+            else if (CompareTag("Ground") && (downRightNeighbour == null || (!downRightNeighbour.CompareTag("Border") && !downRightNeighbour.CompareTag("Wall") && !downRightNeighbour.CompareTag("Ground"))))
                 Instantiate(tileCornerDownRight, transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, transform);
-            //else Instantiate(tileCornerDownRight, transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, transform);
         }
 
-        
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        if ((rightNeighbour == null || !rightNeighbour.CompareTag(gameObject.tag)) && (downNeighbour == null || !downNeighbour.CompareTag(gameObject.tag)))
+        {
+            if (CompareTag("Border") && downRightNeighbour != null && downRightNeighbour.CompareTag(gameObject.tag))
+            {
+                tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = borderUpRightCorner;
+                Instantiate(tileCornerUpRight, transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, transform);
+
+                tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = borderDownLeftCorner;
+                Instantiate(tileCornerDownLeft, transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, transform);
+            }
+            else if (CompareTag("Wall") && downRightNeighbour != null && downRightNeighbour.CompareTag(gameObject.tag))
+            {
+                if (rightNeighbour == null || !rightNeighbour.CompareTag("Border"))
+                {
+                    tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = wallUpRightCorner;
+                    Instantiate(tileCornerUpRight, transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, transform);
+                }
+
+                if (downNeighbour == null || !downNeighbour.CompareTag("Border"))
+                {
+                    tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = wallDownLeftCorner;
+                    Instantiate(tileCornerDownLeft, transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, transform);
+                }
+            }
+            else if (CompareTag("Ground") && downRightNeighbour != null && downRightNeighbour.CompareTag(gameObject.tag))
+            {
+                if (rightNeighbour == null || (!rightNeighbour.CompareTag("Border") && !rightNeighbour.CompareTag("Wall")))
+                {
+                    tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = groundUpRightCorner;
+                    Instantiate(tileCornerUpRight, transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, transform);
+                }
+
+                if (downNeighbour == null || (!downNeighbour.CompareTag("Border") && !downNeighbour.CompareTag("Wall")))
+                {
+                    tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = groundDownLeftCorner;
+                    Instantiate(tileCornerDownLeft, transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, transform);
+                }
+            }
+
+        }
+
+        if ((leftNeighbour == null || !leftNeighbour.CompareTag(gameObject.tag)) && (downNeighbour == null || !downNeighbour.CompareTag(gameObject.tag)))
+        {
+            //var downLeftNeighbour = tiles.Find(item => (item.x == thisTile.x - 1) && (item.y == thisTile.y - 1));
+            if (CompareTag("Border") && downLeftNeighbour != null && downLeftNeighbour.CompareTag(gameObject.tag))
+            {
+                tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = borderUpLeftCorner;
+                Instantiate(tileCornerUpLeft, transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, transform);
+
+                tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = borderDownRightCorner;
+                Instantiate(tileCornerDownRight, transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, transform);
+            }
+            else if (CompareTag("Wall") && downLeftNeighbour != null && downLeftNeighbour.CompareTag(gameObject.tag))
+            {
+                if (leftNeighbour == null || !leftNeighbour.CompareTag("Border"))
+                {
+                    tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = wallUpLeftCorner;
+                    Instantiate(tileCornerUpLeft, transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, transform);
+                }
+
+                if (downNeighbour == null || !downNeighbour.CompareTag("Border"))
+                {
+                    tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = wallDownLeftCorner;
+                    Instantiate(tileCornerDownRight, transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, transform);
+                }
+            }
+            else if (CompareTag("Ground") && downLeftNeighbour != null && downLeftNeighbour.CompareTag(gameObject.tag))
+            {
+                if (leftNeighbour == null || (!leftNeighbour.CompareTag("Border") && !leftNeighbour.CompareTag("Wall")))
+                {
+                    tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = groundUpLeftCorner;
+                    Instantiate(tileCornerUpLeft, transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, transform);
+                }
+
+                if (downNeighbour == null || (!downNeighbour.CompareTag("Border") && !downNeighbour.CompareTag("Wall")))
+                {
+                    tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = groundDownLeftCorner;
+                    Instantiate(tileCornerDownRight, transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, transform);
+                }
+            }
+
+        }
+
     }
 }

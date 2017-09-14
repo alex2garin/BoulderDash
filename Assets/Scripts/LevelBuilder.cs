@@ -45,16 +45,6 @@ public class StartingParameters
 
     public string filePath = Path.Combine(Application.dataPath, "config.ini");
 
-    public struct LevelGeneratorParams
-    {
-        public int xMax;
-        public int yMax;
-        public int stoneMax;
-        public int groundMax;
-        public int aBombMax;
-        public int dBombMax;
-        public int crystalMax;
-    }
     public struct BackgroundParams
     {
         public float depth;
@@ -65,6 +55,7 @@ public class StartingParameters
         public float moveTime;
         public bool canRoll;
         public float rotationSpeed;
+        public bool canKill;
     }
     public struct BombParams
     {
@@ -73,18 +64,21 @@ public class StartingParameters
         public float rotationSpeed;
         public float explosionLenghtTime;
         public float destroyDelayTime;
+        public bool canKill;
     }
     public struct CrystalParams
     {
         public float moveTime;
         public bool canRoll;
         public float rotationSpeed;
+        public bool canKill;
     }
     public struct MineralParams
     {
         public float moveTime;
         public bool canRoll;
         public float rotationSpeed;
+        public bool canKill;
     }
     public struct PlayerParams
     {
@@ -96,8 +90,9 @@ public class StartingParameters
         public float moveTime;
         public bool canRoll;
         public float rotationSpeed;
+        public bool canKill;
     }
-
+    /*
     public LevelGeneratorParams levelGenerator;
     public void SetLevelGeneratorValue()//string line)
     {
@@ -147,17 +142,10 @@ public class StartingParameters
         //Debug.Log(lineValue.ToString());
         //Debug.Log(levelGenerator.crystalMax);
 
-        /*
-        if (line.Contains("xMax")) int.TryParse(line.TrimStart("xMax=".ToCharArray()), out levelGenerator.xMax);
-        if (line.Contains("yMax")) int.TryParse(line.TrimStart("yMax=".ToCharArray()), out levelGenerator.yMax);
-        if (line.Contains("stoneMax")) int.TryParse(line.TrimStart("stoneMax=".ToCharArray()), out levelGenerator.stoneMax);
-        if (line.Contains("groundMax")) int.TryParse(line.TrimStart("groundMax=".ToCharArray()), out levelGenerator.groundMax);
-        if (line.Contains("aBombMax")) int.TryParse(line.TrimStart("aBombMax=".ToCharArray()), out levelGenerator.aBombMax);
-        if (line.Contains("dBombMax")) int.TryParse(line.TrimStart("dBombMax=".ToCharArray()), out levelGenerator.dBombMax);
-        if (line.Contains("crystalMax")) int.TryParse(line.TrimStart("crystalMax=".ToCharArray()), out levelGenerator.crystalMax);
-        */
+    
+        
     }
-
+    */
     public BackgroundParams background;
     public void SetBackgroundValue()//string line)
     {
@@ -189,6 +177,10 @@ public class StartingParameters
         GetPrivateProfileString("Ballon", "rotationSpeed", "", lineValue, lineValue.Capacity, filePath);
         float.TryParse(lineValue.ToString(), out ballon.rotationSpeed);
 
+        lineValue = new StringBuilder(255);
+        GetPrivateProfileString("Ballon", "canKill", "", lineValue, lineValue.Capacity, filePath);
+        bool.TryParse(lineValue.ToString(), out ballon.canKill);
+
         //if (line.Contains("moveTime")) float.TryParse(line.TrimStart("moveTime=".ToCharArray()), out ballon.moveTime);
         //if (line.Contains("canRoll")) bool.TryParse(line.TrimStart("canRoll=".ToCharArray()), out ballon.canRoll);
         //if (line.Contains("rotationSpeed")) float.TryParse(line.TrimStart("rotationSpeed=".ToCharArray()), out ballon.rotationSpeed);
@@ -218,6 +210,10 @@ public class StartingParameters
         GetPrivateProfileString("Bomb", "destroyDelayTime", "", lineValue, lineValue.Capacity, filePath);
         float.TryParse(lineValue.ToString(), out bomb.destroyDelayTime);
 
+        lineValue = new StringBuilder(255);
+        GetPrivateProfileString("Ballon", "canKill", "", lineValue, lineValue.Capacity, filePath);
+        bool.TryParse(lineValue.ToString(), out ballon.canKill);
+
         //if (line.Contains("moveTime")) float.TryParse(line.TrimStart("moveTime=".ToCharArray()), out bomb.moveTime);
         //if (line.Contains("canRoll")) bool.TryParse(line.TrimStart("canRoll=".ToCharArray()), out bomb.canRoll);
         //if (line.Contains("rotationSpeed")) float.TryParse(line.TrimStart("rotationSpeed=".ToCharArray()), out bomb.rotationSpeed);
@@ -241,6 +237,10 @@ public class StartingParameters
         GetPrivateProfileString("Crystal", "rotationSpeed", "", lineValue, lineValue.Capacity, filePath);
         float.TryParse(lineValue.ToString(), out crystal.rotationSpeed);
 
+        lineValue = new StringBuilder(255);
+        GetPrivateProfileString("Ballon", "canKill", "", lineValue, lineValue.Capacity, filePath);
+        bool.TryParse(lineValue.ToString(), out ballon.canKill);
+
         //if (line.Contains("moveTime")) float.TryParse(line.TrimStart("moveTime=".ToCharArray()), out crystal.moveTime);
         //if (line.Contains("canRoll")) bool.TryParse(line.TrimStart("canRoll=".ToCharArray()), out crystal.canRoll);
         //if (line.Contains("rotationSpeed")) float.TryParse(line.TrimStart("rotationSpeed=".ToCharArray()), out crystal.rotationSpeed);
@@ -261,6 +261,10 @@ public class StartingParameters
         lineValue = new StringBuilder(255);
         GetPrivateProfileString("Mineral", "rotationSpeed", "", lineValue, lineValue.Capacity, filePath);
         float.TryParse(lineValue.ToString(), out mineral.rotationSpeed);
+
+        lineValue = new StringBuilder(255);
+        GetPrivateProfileString("Ballon", "canKill", "", lineValue, lineValue.Capacity, filePath);
+        bool.TryParse(lineValue.ToString(), out ballon.canKill);
 
         //if (line.Contains("moveTime")) float.TryParse(line.TrimStart("moveTime=".ToCharArray()), out mineral.moveTime);
         //if (line.Contains("canRoll")) bool.TryParse(line.TrimStart("canRoll=".ToCharArray()), out mineral.canRoll);
@@ -298,6 +302,10 @@ public class StartingParameters
         lineValue = new StringBuilder(255);
         GetPrivateProfileString("Stone", "rotationSpeed", "", lineValue, lineValue.Capacity, filePath);
         float.TryParse(lineValue.ToString(), out stone.rotationSpeed);
+
+        lineValue = new StringBuilder(255);
+        GetPrivateProfileString("Ballon", "canKill", "", lineValue, lineValue.Capacity, filePath);
+        bool.TryParse(lineValue.ToString(), out ballon.canKill);
 
         //if (line.Contains("moveTime")) float.TryParse(line.TrimStart("moveTime=".ToCharArray()), out stone.moveTime);
         //if (line.Contains("canRoll")) bool.TryParse(line.TrimStart("canRoll=".ToCharArray()), out stone.canRoll);
@@ -436,7 +444,7 @@ public class LevelBuilder : MonoBehaviour {
 
      
             StartingParameters param = new StartingParameters();
-            param.SetLevelGeneratorValue();
+            //param.SetLevelGeneratorValue();
             param.SetBackgroundValue();
             param.SetBallonValue();
             param.SetBombValue();
@@ -636,8 +644,8 @@ public class LevelBuilder : MonoBehaviour {
 
 
         /////////////////////////////////////////////////////
-        var leftNeighour = tiles.Find(item =>  (item.x == thisTile.x - 1) && (item.y == thisTile.y ) );
-        if (leftNeighour == null)
+        var leftNeighbour = tiles.Find(item =>  (item.x == thisTile.x - 1) && (item.y == thisTile.y ) );
+        if (leftNeighbour == null)
         {
             if (thisTile.tileType == Constants.TileType.Border)
             {
@@ -653,11 +661,11 @@ public class LevelBuilder : MonoBehaviour {
             }
             Instantiate(tileBorderLeft, thisGO.transform.position + new Vector3(-0.5f, 0f, 0f), Quaternion.identity, thisGO.transform);
         }
-        else if (leftNeighour.tileType == Constants.TileType.Border)
+        else if (leftNeighbour.tileType == Constants.TileType.Border)
         {
 
         }
-        else if (leftNeighour.tileType == Constants.TileType.Wall)
+        else if (leftNeighbour.tileType == Constants.TileType.Wall)
         {
             if (thisTile.tileType == Constants.TileType.Border)
             {
@@ -665,7 +673,7 @@ public class LevelBuilder : MonoBehaviour {
                 Instantiate(tileBorderLeft, thisGO.transform.position + new Vector3(-0.5f, 0f, 0f), Quaternion.identity, thisGO.transform);
             }
         }
-        else if (leftNeighour.tileType == Constants.TileType.Ground)
+        else if (leftNeighbour.tileType == Constants.TileType.Ground)
         {
             if (thisTile.tileType == Constants.TileType.Wall || thisTile.tileType == Constants.TileType.Border)
             {
@@ -698,8 +706,8 @@ public class LevelBuilder : MonoBehaviour {
         }
 
         /////////////////////////////////////////////////////
-        var rightNeighour = tiles.Find(item => (item.x == thisTile.x + 1) && (item.y == thisTile.y));
-        if (rightNeighour == null)
+        var rightNeighbour = tiles.Find(item => (item.x == thisTile.x + 1) && (item.y == thisTile.y));
+        if (rightNeighbour == null)
         {
             if (thisTile.tileType == Constants.TileType.Border)
             {
@@ -715,11 +723,11 @@ public class LevelBuilder : MonoBehaviour {
             }
             Instantiate(tileBorderRight, thisGO.transform.position + new Vector3(0.5f, 0f, 0f), Quaternion.identity, thisGO.transform);
         }
-        else if (rightNeighour.tileType == Constants.TileType.Border)
+        else if (rightNeighbour.tileType == Constants.TileType.Border)
         {
 
         }
-        else if (rightNeighour.tileType == Constants.TileType.Wall)
+        else if (rightNeighbour.tileType == Constants.TileType.Wall)
         {
             if (thisTile.tileType == Constants.TileType.Border)
             {
@@ -727,7 +735,7 @@ public class LevelBuilder : MonoBehaviour {
                 Instantiate(tileBorderRight, thisGO.transform.position + new Vector3(0.5f, 0f, 0f), Quaternion.identity, thisGO.transform);
             }
         }
-        else if (rightNeighour.tileType == Constants.TileType.Ground)
+        else if (rightNeighbour.tileType == Constants.TileType.Ground)
         {
             if (thisTile.tileType == Constants.TileType.Wall || thisTile.tileType == Constants.TileType.Border)
             {
@@ -760,8 +768,8 @@ public class LevelBuilder : MonoBehaviour {
         }
 
         /////////////////////////////////////////////////////
-        var upNeighour = tiles.Find(item => (item.x == thisTile.x ) && (item.y == thisTile.y + 1));
-        if (upNeighour == null)
+        var upNeighbour = tiles.Find(item => (item.x == thisTile.x ) && (item.y == thisTile.y + 1));
+        if (upNeighbour == null)
         {
             if (thisTile.tileType == Constants.TileType.Border)
             {
@@ -777,11 +785,11 @@ public class LevelBuilder : MonoBehaviour {
             }
             Instantiate(tileBorderUp, thisGO.transform.position + new Vector3(0f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
         }
-        else if (upNeighour.tileType == Constants.TileType.Border)
+        else if (upNeighbour.tileType == Constants.TileType.Border)
         {
 
         }
-        else if (upNeighour.tileType == Constants.TileType.Wall)
+        else if (upNeighbour.tileType == Constants.TileType.Wall)
         {
             if (thisTile.tileType == Constants.TileType.Border)
             {
@@ -789,7 +797,7 @@ public class LevelBuilder : MonoBehaviour {
                 Instantiate(tileBorderUp, thisGO.transform.position + new Vector3(0f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
             }
         }
-        else if (upNeighour.tileType == Constants.TileType.Ground)
+        else if (upNeighbour.tileType == Constants.TileType.Ground)
         {
             if (thisTile.tileType == Constants.TileType.Wall || thisTile.tileType == Constants.TileType.Border)
             {
@@ -822,8 +830,8 @@ public class LevelBuilder : MonoBehaviour {
         }
 
         /////////////////////////////////////////////////////
-        var downNeighour = tiles.Find(item => (item.x == thisTile.x) && (item.y == thisTile.y - 1));
-        if (downNeighour == null)
+        var downNeighbour = tiles.Find(item => (item.x == thisTile.x) && (item.y == thisTile.y - 1));
+        if (downNeighbour == null)
         {
             if (thisTile.tileType == Constants.TileType.Border)
             {
@@ -839,11 +847,11 @@ public class LevelBuilder : MonoBehaviour {
             }
             Instantiate(tileBorderDown, thisGO.transform.position + new Vector3(0f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
         }
-        else if (downNeighour.tileType == Constants.TileType.Border)
+        else if (downNeighbour.tileType == Constants.TileType.Border)
         {
 
         }
-        else if (downNeighour.tileType == Constants.TileType.Wall)
+        else if (downNeighbour.tileType == Constants.TileType.Wall)
         {
             if (thisTile.tileType == Constants.TileType.Border)
             {
@@ -851,7 +859,7 @@ public class LevelBuilder : MonoBehaviour {
                 Instantiate(tileBorderDown, thisGO.transform.position + new Vector3(0f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
             }
         }
-        else if (downNeighour.tileType == Constants.TileType.Ground)
+        else if (downNeighbour.tileType == Constants.TileType.Ground)
         {
             if (thisTile.tileType == Constants.TileType.Wall || thisTile.tileType == Constants.TileType.Border)
             {
@@ -897,23 +905,15 @@ public class LevelBuilder : MonoBehaviour {
         {
             tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = groundUpLeftCorner;
         }
-        if (leftNeighour != null && upNeighour != null && leftNeighour.tileType == thisTile.tileType && upNeighour.tileType == thisTile.tileType)
+        if (leftNeighbour != null && upNeighbour != null && leftNeighbour.tileType == thisTile.tileType && upNeighbour.tileType == thisTile.tileType)
         {
             var upLeftNeighbour = tiles.Find(item => (item.x == thisTile.x - 1) && (item.y == thisTile.y + 1));
-            if (upLeftNeighbour == null)
+            if (thisTile.tileType == Constants.TileType.Border && (upLeftNeighbour == null || upLeftNeighbour.tileType != Constants.TileType.Border))
                 Instantiate(tileCornerUpLeft, thisGO.transform.position + new Vector3(-0.5f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
-            
-            else if (upLeftNeighbour.tileType == Constants.TileType.Border)
-            {
-
-            }
-            else if (upLeftNeighbour.tileType == Constants.TileType.Wall && thisTile.tileType == Constants.TileType.Border)
+            else if (thisTile.tileType == Constants.TileType.Wall && (upLeftNeighbour == null || (upLeftNeighbour.tileType != Constants.TileType.Border && upLeftNeighbour.tileType != Constants.TileType.Wall)))
                 Instantiate(tileCornerUpLeft, thisGO.transform.position + new Vector3(-0.5f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
-            
-            else if (upLeftNeighbour.tileType == Constants.TileType.Ground && (thisTile.tileType == Constants.TileType.Border || thisTile.tileType == Constants.TileType.Wall))
+            else if (thisTile.tileType == Constants.TileType.Ground && (upLeftNeighbour == null || (upLeftNeighbour.tileType != Constants.TileType.Border && upLeftNeighbour.tileType != Constants.TileType.Wall && upLeftNeighbour.tileType != Constants.TileType.Ground)))
                 Instantiate(tileCornerUpLeft, thisGO.transform.position + new Vector3(-0.5f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
-            
-            //else Instantiate(tileCornerUpLeft, thisGO.transform.position + new Vector3(-0.5f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
         }
 
         /////////////////////////////////////////////////////////////
@@ -929,20 +929,15 @@ public class LevelBuilder : MonoBehaviour {
         {
             tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = groundUpRightCorner;
         }
-        if (rightNeighour != null && upNeighour != null && rightNeighour.tileType == thisTile.tileType && upNeighour.tileType == thisTile.tileType)
+        if (rightNeighbour != null && upNeighbour != null && rightNeighbour.tileType == thisTile.tileType && upNeighbour.tileType == thisTile.tileType)
         {
             var upRightNeighbour = tiles.Find(item => (item.x == thisTile.x + 1) && (item.y == thisTile.y + 1));
-            if (upRightNeighbour == null)
+            if (thisTile.tileType == Constants.TileType.Border && (upRightNeighbour == null || upRightNeighbour.tileType != Constants.TileType.Border))
                 Instantiate(tileCornerUpRight, thisGO.transform.position + new Vector3(0.5f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
-            else if (upRightNeighbour.tileType == Constants.TileType.Border)
-            {
-
-            }
-            else if (upRightNeighbour.tileType == Constants.TileType.Wall && thisTile.tileType == Constants.TileType.Border)
+            else if (thisTile.tileType == Constants.TileType.Wall && (upRightNeighbour == null || (upRightNeighbour.tileType != Constants.TileType.Border && upRightNeighbour.tileType != Constants.TileType.Wall)))
                 Instantiate(tileCornerUpRight, thisGO.transform.position + new Vector3(0.5f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
-            else if (upRightNeighbour.tileType == Constants.TileType.Ground && (thisTile.tileType == Constants.TileType.Border || thisTile.tileType == Constants.TileType.Wall))
+            else if (thisTile.tileType == Constants.TileType.Ground && (upRightNeighbour == null || (upRightNeighbour.tileType != Constants.TileType.Border && upRightNeighbour.tileType != Constants.TileType.Wall && upRightNeighbour.tileType != Constants.TileType.Ground)))
                 Instantiate(tileCornerUpRight, thisGO.transform.position + new Vector3(0.5f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
-            //else Instantiate(tileCornerUpRight, thisGO.transform.position + new Vector3(0.5f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
         }
 
         /////////////////////////////////////////////////////////////
@@ -958,20 +953,15 @@ public class LevelBuilder : MonoBehaviour {
         {
             tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = groundDownLeftCorner;
         }
-        if (leftNeighour != null && downNeighour != null && leftNeighour.tileType == thisTile.tileType && downNeighour.tileType == thisTile.tileType)
+        if (leftNeighbour != null && downNeighbour != null && leftNeighbour.tileType == thisTile.tileType && downNeighbour.tileType == thisTile.tileType)
         {
             var downLeftNeighbour = tiles.Find(item => (item.x == thisTile.x - 1) && (item.y == thisTile.y - 1));
-            if (downLeftNeighbour == null)
+            if (thisTile.tileType == Constants.TileType.Border && (downLeftNeighbour == null || downLeftNeighbour.tileType != Constants.TileType.Border))
                 Instantiate(tileCornerDownLeft, thisGO.transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
-            else if (downLeftNeighbour.tileType == Constants.TileType.Border)
-            {
-
-            }
-            else if (downLeftNeighbour.tileType == Constants.TileType.Wall && thisTile.tileType == Constants.TileType.Border)
+            else if (thisTile.tileType == Constants.TileType.Wall && (downLeftNeighbour == null || (downLeftNeighbour.tileType != Constants.TileType.Border && downLeftNeighbour.tileType != Constants.TileType.Wall)))
                 Instantiate(tileCornerDownLeft, thisGO.transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
-            else if (downLeftNeighbour.tileType == Constants.TileType.Ground && (thisTile.tileType == Constants.TileType.Border || thisTile.tileType == Constants.TileType.Wall))
+            else if (thisTile.tileType == Constants.TileType.Ground && (downLeftNeighbour == null || (downLeftNeighbour.tileType != Constants.TileType.Border && downLeftNeighbour.tileType != Constants.TileType.Wall && downLeftNeighbour.tileType != Constants.TileType.Ground)))
                 Instantiate(tileCornerDownLeft, thisGO.transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
-            //else Instantiate(tileCornerDownLeft, thisGO.transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
         }
 
         /////////////////////////////////////////////////////////////
@@ -987,23 +977,101 @@ public class LevelBuilder : MonoBehaviour {
         {
             tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = groundDownRightCorner;
         }
-        if (rightNeighour != null && downNeighour != null && rightNeighour.tileType == thisTile.tileType && downNeighour.tileType == thisTile.tileType)
+        if (rightNeighbour != null && downNeighbour != null && rightNeighbour.tileType == thisTile.tileType && downNeighbour.tileType == thisTile.tileType)
         {
             var downRightNeighbour = tiles.Find(item => (item.x == thisTile.x + 1) && (item.y == thisTile.y - 1));
-            if (downRightNeighbour == null)
+            if (thisTile.tileType == Constants.TileType.Border && (downRightNeighbour == null || downRightNeighbour.tileType != Constants.TileType.Border))
                 Instantiate(tileCornerDownRight, thisGO.transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
-            else if (downRightNeighbour.tileType == Constants.TileType.Border)
-            {
-
-            }
-            else if (downRightNeighbour.tileType == Constants.TileType.Wall && thisTile.tileType == Constants.TileType.Border)
+            else if (thisTile.tileType == Constants.TileType.Wall && (downRightNeighbour == null || (downRightNeighbour.tileType != Constants.TileType.Border && downRightNeighbour.tileType != Constants.TileType.Wall)))
                 Instantiate(tileCornerDownRight, thisGO.transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
-            else if (downRightNeighbour.tileType == Constants.TileType.Ground && (thisTile.tileType == Constants.TileType.Border || thisTile.tileType == Constants.TileType.Wall))
+            else if (thisTile.tileType == Constants.TileType.Ground && (downRightNeighbour == null || (downRightNeighbour.tileType != Constants.TileType.Border && downRightNeighbour.tileType != Constants.TileType.Wall && downRightNeighbour.tileType != Constants.TileType.Ground)))
                 Instantiate(tileCornerDownRight, thisGO.transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
-            //else Instantiate(tileCornerDownRight, thisGO.transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
         }
-        
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        if ((rightNeighbour == null || rightNeighbour.tileType != thisTile.tileType) && (downNeighbour == null || downNeighbour.tileType != thisTile.tileType))
+        {
+            var downRightNeighbour = tiles.Find(item => (item.x == thisTile.x + 1) && (item.y == thisTile.y - 1));
+            if (thisTile.tileType == Constants.TileType.Border && downRightNeighbour != null && downRightNeighbour.tileType == thisTile.tileType)
+            {
+                tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = borderUpRightCorner;
+                Instantiate(tileCornerUpRight, thisGO.transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
+
+                tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = borderDownLeftCorner;
+                Instantiate(tileCornerDownLeft, thisGO.transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
+            }
+            else if (thisTile.tileType == Constants.TileType.Wall && downRightNeighbour != null && downRightNeighbour.tileType == thisTile.tileType)
+            {
+                if (rightNeighbour == null || rightNeighbour.tileType != Constants.TileType.Border)
+                {
+                    tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = wallUpRightCorner;
+                    Instantiate(tileCornerUpRight, thisGO.transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
+                }
+
+                if (downNeighbour == null || downNeighbour.tileType != Constants.TileType.Border)
+                {
+                    tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = wallDownLeftCorner;
+                    Instantiate(tileCornerDownLeft, thisGO.transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
+                }
+            }
+            else if (thisTile.tileType == Constants.TileType.Ground && downRightNeighbour != null && downRightNeighbour.tileType == thisTile.tileType)
+            {
+                if (rightNeighbour == null || (rightNeighbour.tileType != Constants.TileType.Border && rightNeighbour.tileType != Constants.TileType.Wall))
+                {
+                    tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = groundUpRightCorner;
+                    Instantiate(tileCornerUpRight, thisGO.transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
+                }
+
+                if (downNeighbour == null || (downNeighbour.tileType != Constants.TileType.Border && downNeighbour.tileType != Constants.TileType.Wall))
+                {
+                    tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = groundDownLeftCorner;
+                    Instantiate(tileCornerDownLeft, thisGO.transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
+                }
+            }
+
+        }
+
+        if ((leftNeighbour == null || leftNeighbour.tileType != thisTile.tileType) && (downNeighbour == null || downNeighbour.tileType != thisTile.tileType))
+        {
+            var downLeftNeighbour = tiles.Find(item => (item.x == thisTile.x - 1) && (item.y == thisTile.y - 1));
+            if (thisTile.tileType == Constants.TileType.Border && downLeftNeighbour != null && downLeftNeighbour.tileType == thisTile.tileType)
+            {
+                tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = borderUpLeftCorner;
+                Instantiate(tileCornerUpLeft, thisGO.transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
+
+                tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = borderDownRightCorner;
+                Instantiate(tileCornerDownRight, thisGO.transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
+            }
+            else if (thisTile.tileType == Constants.TileType.Wall && downLeftNeighbour != null && downLeftNeighbour.tileType == thisTile.tileType)
+            {
+                if (leftNeighbour == null || leftNeighbour.tileType != Constants.TileType.Border)
+                {
+                    tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = wallUpLeftCorner;
+                    Instantiate(tileCornerUpLeft, thisGO.transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
+                }
+
+                if (downNeighbour == null || downNeighbour.tileType != Constants.TileType.Border)
+                {
+                    tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = wallDownLeftCorner;
+                    Instantiate(tileCornerDownRight, thisGO.transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
+                }
+            }
+            else if (thisTile.tileType == Constants.TileType.Ground && downLeftNeighbour != null && downLeftNeighbour.tileType == thisTile.tileType)
+            {
+                if (leftNeighbour == null || (leftNeighbour.tileType != Constants.TileType.Border && leftNeighbour.tileType != Constants.TileType.Wall))
+                {
+                    tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = groundUpLeftCorner;
+                    Instantiate(tileCornerUpLeft, thisGO.transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
+                }
+
+                if (downNeighbour == null || (downNeighbour.tileType != Constants.TileType.Border && downNeighbour.tileType != Constants.TileType.Wall))
+                {
+                    tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = groundDownLeftCorner;
+                    Instantiate(tileCornerDownRight, thisGO.transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
+                }
+            }
+
+        }
 
 
     }
@@ -1090,8 +1158,8 @@ public class LevelBuilder : MonoBehaviour {
         
         startingParams = ReadIni();
         if (startingParams !=null)
-        {/*
-            
+        {
+            /*
             xMax = startingParams.levelGenerator.xMax;
             yMax = startingParams.levelGenerator.yMax;
             maxDeactiveBomb = startingParams.levelGenerator.dBombMax;
@@ -1100,8 +1168,10 @@ public class LevelBuilder : MonoBehaviour {
             maxGround = startingParams.levelGenerator.groundMax;
             maxStones = startingParams.levelGenerator.stoneMax;
             BackgroundController bc = background.GetComponent<BackgroundController>();
-            Debug.Log(bc);*/
+            Debug.Log(bc);
+            */
 
+            /*
             xMax = startingParams.levelGenerator.xMax;
             yMax = startingParams.levelGenerator.yMax;
             maxDeactiveBomb = startingParams.levelGenerator.dBombMax;
@@ -1109,6 +1179,7 @@ public class LevelBuilder : MonoBehaviour {
             maxCrystal = startingParams.levelGenerator.crystalMax;
             maxGround = startingParams.levelGenerator.groundMax;
             maxStones = startingParams.levelGenerator.stoneMax;
+            */
 
             BackgroundController bc = background.GetComponent<BackgroundController>();
             //bc.depth = startingParams.background.depth;
@@ -1118,11 +1189,13 @@ public class LevelBuilder : MonoBehaviour {
             ballonMOC.canRoll = startingParams.ballon.canRoll;
             ballonMOC.rotationSpeed = startingParams.ballon.rotationSpeed;
             ballonMOC.sideMoveTime = startingParams.ballon.moveTime;
+            ballonMOC.canKill = startingParams.ballon.canKill;
 
             MovingObjectController BombMOC = activeBomb.GetComponent<MovingObjectController>();
             BombMOC.canRoll = startingParams.bomb.canRoll;
             BombMOC.rotationSpeed = startingParams.bomb.rotationSpeed;
             BombMOC.sideMoveTime = startingParams.bomb.moveTime;
+            BombMOC.canKill = startingParams.bomb.canKill;
             BombController bombCtrl = activeBomb.GetComponent<BombController>();
             bombCtrl.destroyDelayTime = startingParams.bomb.destroyDelayTime;
             bombCtrl.explosionLengthTime = startingParams.bomb.explosionLenghtTime;
@@ -1136,11 +1209,13 @@ public class LevelBuilder : MonoBehaviour {
             crystalMOC.canRoll = startingParams.crystal.canRoll;
             crystalMOC.rotationSpeed = startingParams.crystal.rotationSpeed;
             crystalMOC.sideMoveTime = startingParams.crystal.moveTime;
+            crystalMOC.canKill = startingParams.crystal.canKill;
 
             MovingObjectController mineralMOC = mineral.GetComponent<MovingObjectController>();
             mineralMOC.canRoll = startingParams.mineral.canRoll;
             mineralMOC.rotationSpeed = startingParams.mineral.rotationSpeed;
             mineralMOC.sideMoveTime = startingParams.mineral.moveTime;
+            mineralMOC.canKill = startingParams.mineral.canKill;
 
             PlayerController playerCtrl = player.GetComponent<PlayerController>();
             playerCtrl.moveTime = startingParams.player.moveTime;
@@ -1150,6 +1225,7 @@ public class LevelBuilder : MonoBehaviour {
             stoneMOC.canRoll = startingParams.stone.canRoll;
             stoneMOC.rotationSpeed = startingParams.stone.rotationSpeed;
             stoneMOC.sideMoveTime = startingParams.stone.moveTime;
+            stoneMOC.canKill = startingParams.stone.canKill;
 
         }
         if (ReadFile() == null) GenerateRandom();

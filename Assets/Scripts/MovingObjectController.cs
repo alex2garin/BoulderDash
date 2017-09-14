@@ -7,6 +7,7 @@ public class MovingObjectController : MonoBehaviour {
     public float sideMoveTime = 0.2f;
     public bool canRoll = false;
     public float rotationSpeed = 20f;
+    public bool canKill = true;
 
     public bool IsMoving { get { return isMoving; } }
     private bool isMoving;
@@ -194,6 +195,8 @@ public class MovingObjectController : MonoBehaviour {
                 BombController downBomb = down.GetComponent<BombController>();
 //                Debug.Log(downBomb);
                 if (downBomb != null && downBomb.IsActive) downBomb.ReadyToExplode();
+
+                if (down.gameObject.CompareTag("Player") && canKill) Destroy(down.gameObject);
             }
 
             if (bomb != null && bomb.IsActive)
@@ -201,6 +204,8 @@ public class MovingObjectController : MonoBehaviour {
                 bomb.ReadyToExplode();
                 yield break;
             }
+
+
         }
         isMoving = false;
     }
