@@ -211,8 +211,8 @@ public class StartingParameters
         float.TryParse(lineValue.ToString(), out bomb.destroyDelayTime);
 
         lineValue = new StringBuilder(255);
-        GetPrivateProfileString("Ballon", "canKill", "", lineValue, lineValue.Capacity, filePath);
-        bool.TryParse(lineValue.ToString(), out ballon.canKill);
+        GetPrivateProfileString("Bomb", "canKill", "", lineValue, lineValue.Capacity, filePath);
+        bool.TryParse(lineValue.ToString(), out bomb.canKill);
 
         //if (line.Contains("moveTime")) float.TryParse(line.TrimStart("moveTime=".ToCharArray()), out bomb.moveTime);
         //if (line.Contains("canRoll")) bool.TryParse(line.TrimStart("canRoll=".ToCharArray()), out bomb.canRoll);
@@ -238,8 +238,8 @@ public class StartingParameters
         float.TryParse(lineValue.ToString(), out crystal.rotationSpeed);
 
         lineValue = new StringBuilder(255);
-        GetPrivateProfileString("Ballon", "canKill", "", lineValue, lineValue.Capacity, filePath);
-        bool.TryParse(lineValue.ToString(), out ballon.canKill);
+        GetPrivateProfileString("Crystal", "canKill", "", lineValue, lineValue.Capacity, filePath);
+        bool.TryParse(lineValue.ToString(), out crystal.canKill);
 
         //if (line.Contains("moveTime")) float.TryParse(line.TrimStart("moveTime=".ToCharArray()), out crystal.moveTime);
         //if (line.Contains("canRoll")) bool.TryParse(line.TrimStart("canRoll=".ToCharArray()), out crystal.canRoll);
@@ -263,8 +263,8 @@ public class StartingParameters
         float.TryParse(lineValue.ToString(), out mineral.rotationSpeed);
 
         lineValue = new StringBuilder(255);
-        GetPrivateProfileString("Ballon", "canKill", "", lineValue, lineValue.Capacity, filePath);
-        bool.TryParse(lineValue.ToString(), out ballon.canKill);
+        GetPrivateProfileString("Mineral", "canKill", "", lineValue, lineValue.Capacity, filePath);
+        bool.TryParse(lineValue.ToString(), out mineral.canKill);
 
         //if (line.Contains("moveTime")) float.TryParse(line.TrimStart("moveTime=".ToCharArray()), out mineral.moveTime);
         //if (line.Contains("canRoll")) bool.TryParse(line.TrimStart("canRoll=".ToCharArray()), out mineral.canRoll);
@@ -304,8 +304,8 @@ public class StartingParameters
         float.TryParse(lineValue.ToString(), out stone.rotationSpeed);
 
         lineValue = new StringBuilder(255);
-        GetPrivateProfileString("Ballon", "canKill", "", lineValue, lineValue.Capacity, filePath);
-        bool.TryParse(lineValue.ToString(), out ballon.canKill);
+        GetPrivateProfileString("Stone", "canKill", "", lineValue, lineValue.Capacity, filePath);
+        bool.TryParse(lineValue.ToString(), out stone.canKill);
 
         //if (line.Contains("moveTime")) float.TryParse(line.TrimStart("moveTime=".ToCharArray()), out stone.moveTime);
         //if (line.Contains("canRoll")) bool.TryParse(line.TrimStart("canRoll=".ToCharArray()), out stone.canRoll);

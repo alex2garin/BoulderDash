@@ -195,7 +195,7 @@ public class MovingObjectController : MonoBehaviour {
                 BombController downBomb = down.GetComponent<BombController>();
 //                Debug.Log(downBomb);
                 if (downBomb != null && downBomb.IsActive) downBomb.ReadyToExplode();
-
+                //Debug.Log(canKill);
                 if (down.gameObject.CompareTag("Player") && canKill) Destroy(down.gameObject);
             }
 
