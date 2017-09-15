@@ -503,7 +503,7 @@ public class CornersAndBordersController : MonoBehaviour {
 
                 if (downNeighbour == null || !downNeighbour.CompareTag("Border"))
                 {
-                    tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = wallDownLeftCorner;
+                    tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = wallDownRightCorner;
                     Instantiate(tileCornerDownRight, transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, transform);
                 }
             }
@@ -517,7 +517,7 @@ public class CornersAndBordersController : MonoBehaviour {
 
                 if (downNeighbour == null || (!downNeighbour.CompareTag("Border") && !downNeighbour.CompareTag("Wall")))
                 {
-                    tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = groundDownLeftCorner;
+                    tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = groundDownRightCorner;
                     Instantiate(tileCornerDownRight, transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, transform);
                 }
             }

@@ -1052,7 +1052,7 @@ public class LevelBuilder : MonoBehaviour {
 
                 if (downNeighbour == null || downNeighbour.tileType != Constants.TileType.Border)
                 {
-                    tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = wallDownLeftCorner;
+                    tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = wallDownRightCorner;
                     Instantiate(tileCornerDownRight, thisGO.transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
                 }
             }
@@ -1066,7 +1066,7 @@ public class LevelBuilder : MonoBehaviour {
 
                 if (downNeighbour == null || (downNeighbour.tileType != Constants.TileType.Border && downNeighbour.tileType != Constants.TileType.Wall))
                 {
-                    tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = groundDownLeftCorner;
+                    tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = groundDownRightCorner;
                     Instantiate(tileCornerDownRight, thisGO.transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
                 }
             }

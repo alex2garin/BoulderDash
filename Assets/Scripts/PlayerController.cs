@@ -184,7 +184,7 @@ public class PlayerController : MonoBehaviour {
             {
                 Collider2D directionObject = Physics2D.OverlapBox(end + newDirection, new Vector2(.9f, .9f), 0);
 
-                if (directionObject == null)
+                if (directionObject == null || directionObject.gameObject.CompareTag("Ground"))
                 {
                     Collider2D directionUp = Physics2D.OverlapBox(end + newDirection + new Vector3(0f, 1f, 0f), new Vector2(.9f, .9f), 0);
                     if (directionUp != null)
@@ -226,7 +226,7 @@ public class PlayerController : MonoBehaviour {
         isMoving = false;
     }
     
-/*
+
     public void PickUpBomb()
     {
         bombs++;
@@ -250,7 +250,7 @@ public class PlayerController : MonoBehaviour {
         crystals++;
         crystalText.text = "Crystals: " + crystals;
     }
-    */
+    
     private IEnumerator OxygenFlow()
     {
         while(true)
