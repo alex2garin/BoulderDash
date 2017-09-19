@@ -3,26 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BombController : MonoBehaviour {
-
-    public Sprite activeBombSprite;
-    public Sprite deactiveBombSprite;
+    
     public float explosionLengthTime = 1f;
     public float destroyDelayTime = 0.5f;
-
-    public bool IsActive { get { return isActive; } }
-
-    private bool isActive;
-    private SpriteRenderer sr;
-    private Animator animator;
+    public bool isActive;
     
 
+//    private SpriteRenderer sr;
+    private Animator animator;
+
+    private Rigidbody2D rb2D;
+    private BoxCollider2D BC2D;
+    private MovingObjectController MOC;
+
     // Use this for initialization
-    void Start () {
-        sr = GetComponent<SpriteRenderer>();
+    void Awake () {
+        //        sr = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-        if (sr.sprite == activeBombSprite) isActive = true;
-        else isActive = false;
-        animator.SetBool("isActive", isActive);
+        //animator.SetBool("isActive", isActive);
+        rb2D = GetComponent<Rigidbody2D>();
+        BC2D = GetComponent<BoxCollider2D>();
+        MOC = GetComponent<MovingObjectController>();
+
+        //Debug.Log(rb2D);
+    }
+
+    public void Planted()
+    {
+        MOC.enabled = false;
+        rb2D.Sleep();
+        BC2D.enabled = false;
+    }
+
+    public void Activate()
+    {
+        rb2D.WakeUp();
+        BC2D.enabled = true;
+        MOC.enabled = true;
     }
 
     public void ReadyToExplode()
@@ -65,12 +82,12 @@ public class BombController : MonoBehaviour {
 
     }
 
-    public void SetActive( bool isActiveFlag)
-    {
-        if (isActiveFlag) sr.sprite = activeBombSprite;
-        else sr.sprite = deactiveBombSprite;
-        isActive = isActiveFlag;
-    }
+    //public void SetActive( bool isActiveFlag)
+    //{
+    //    if (isActiveFlag) sr.sprite = activeBombSprite;
+    //    else sr.sprite = deactiveBombSprite;
+    //    isActive = isActiveFlag;
+    //}
     
 
   

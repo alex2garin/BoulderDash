@@ -194,12 +194,12 @@ public class MovingObjectController : MonoBehaviour {
 //                Debug.Log("down not null");
                 BombController downBomb = down.GetComponent<BombController>();
 //                Debug.Log(downBomb);
-                if (downBomb != null && downBomb.IsActive) downBomb.ReadyToExplode();
+                if (downBomb != null && downBomb.isActive) downBomb.ReadyToExplode();
                 //Debug.Log(canKill);
                 if (down.gameObject.CompareTag("Player") && canKill) Destroy(down.gameObject);
             }
 
-            if (bomb != null && bomb.IsActive)
+            if (bomb != null && bomb.isActive)
             {
                 bomb.ReadyToExplode();
                 yield break;

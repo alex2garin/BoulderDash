@@ -83,7 +83,8 @@ public class StartingParameters
     public struct PlayerParams
     {
         public float moveTime;
-        public float secondsForOxygen;
+        public int secondsForBallon;
+        public int startingSecondsOfOxygen;
     }
     public struct StoneParams
     {
@@ -280,8 +281,12 @@ public class StartingParameters
         float.TryParse(lineValue.ToString(), out player.moveTime);
 
         lineValue = new StringBuilder(255);
-        GetPrivateProfileString("Player", "secondsForOxygen", "", lineValue, lineValue.Capacity, filePath);
-        float.TryParse(lineValue.ToString(), out player.secondsForOxygen);
+        GetPrivateProfileString("Player", "secondsForBallon", "", lineValue, lineValue.Capacity, filePath);
+        int.TryParse(lineValue.ToString(), out player.secondsForBallon);
+
+        lineValue = new StringBuilder(255);
+        GetPrivateProfileString("Player", "startingSecondsOfOxygen", "", lineValue, lineValue.Capacity, filePath);
+        int.TryParse(lineValue.ToString(), out player.startingSecondsOfOxygen);
 
         //if (line.Contains("moveTime")) float.TryParse(line.TrimStart("moveTime=".ToCharArray()), out player.moveTime);
         //if (line.Contains("secondsForOxygen")) float.TryParse(line.TrimStart("secondsForOxygen=".ToCharArray()), out player.secondsForOxygen);
@@ -381,10 +386,6 @@ public class LevelBuilder : MonoBehaviour {
     public GameObject tileBorderRight;
     public GameObject tileBorderUp;
     public GameObject tileBorderDown;
-    //public GameObject tileBorderLeftGR;
-    //public GameObject tileBorderRightGR;
-    //public GameObject tileBorderUpGR;
-    //public GameObject tileBorderDownGR;
     public GameObject tileCornerUpLeft;
     public GameObject tileCornerUpRight;
     public GameObject tileCornerDownLeft;
@@ -1091,7 +1092,7 @@ public class LevelBuilder : MonoBehaviour {
                 case Constants.TileType.ActiveBomb:
                     GOTile = activeBomb;
                     GOTile.GetComponent<SpriteRenderer>().sprite = activeBombs[Random.Range(0, activeBombs.Length)];
-                    //GOTile.GetComponent<BombController>().SetActive(true);
+                    //GOTile.GetComponent<BombController>().IsActive = true;
                     break;
                 case Constants.TileType.Ballon:
                     GOTile = ballon;
@@ -1108,7 +1109,6 @@ public class LevelBuilder : MonoBehaviour {
                 case Constants.TileType.DeactiveBomb:
                     GOTile = deactiveBomb;
                     GOTile.GetComponent<SpriteRenderer>().sprite = deactiveBombs[Random.Range(0, deactiveBombs.Length)];
-                    //GOTile.GetComponent<BombController>().SetActive(false);
                     break;
                 case Constants.TileType.Enemy:
                     GOTile = enemy;
@@ -1133,7 +1133,6 @@ public class LevelBuilder : MonoBehaviour {
                 case Constants.TileType.Stone:
                     GOTile = stone;
                     GOTile.GetComponentInChildren<SpriteRenderer>().sprite = stones[Random.Range(0, stones.Length)];
-                    //GOTile.GetComponent<SpriteRenderer>().sprite = stones[Random.Range(0, stones.Length)];
                     break;
                 case Constants.TileType.Wall:
                     GOTile = wall;
@@ -1219,7 +1218,8 @@ public class LevelBuilder : MonoBehaviour {
 
             PlayerController playerCtrl = player.GetComponent<PlayerController>();
             playerCtrl.moveTime = startingParams.player.moveTime;
-            playerCtrl.secondsForOxygenBallon = startingParams.player.secondsForOxygen;
+            playerCtrl.secondsForBallon = startingParams.player.secondsForBallon;
+            playerCtrl.startingSecondsOfOxygen = startingParams.player.startingSecondsOfOxygen;
 
             MovingObjectController stoneMOC = stone.GetComponent<MovingObjectController>();
             stoneMOC.canRoll = startingParams.stone.canRoll;

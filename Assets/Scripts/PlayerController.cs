@@ -8,7 +8,9 @@ public class PlayerController : MonoBehaviour {
     public float moveTime = .1f;
     public LayerMask blockingLayer;
     public LayerMask pickUpLayer;
-    public float secondsForOxygenBallon = 0.1f;
+    public int secondsForBallon = 60;
+    public int startingSecondsOfOxygen = 60;
+    public GameObject bombGO;
 
 
     private Rigidbody2D rb2D;
@@ -21,45 +23,45 @@ public class PlayerController : MonoBehaviour {
     private int minerals = 0;
     private int oxygen = 0;
 
-    public int Bombs
-    {
-        get { return bombs; }
-        set
-        {
-            bombs = Bombs;
-            bombText.text = "Bombs: " + bombs;
-        }
-    }
+    //public int Bombs
+    //{
+    //    get { return bombs; }
+    //    set
+    //    {
+    //        bombs = Bombs;
+    //        bombText.text = "Bombs: " + bombs;
+    //    }
+    //}
 
-    public int Crystals
-    {
-        get { return crystals; }
-        set
-        {
-            crystals = Crystals;
-            crystalText.text = "Oxygen: " + crystals;
-        }
-    }
+    //public int Crystals
+    //{
+    //    get { return crystals; }
+    //    set
+    //    {
+    //        crystals = Crystals;
+    //        crystalText.text = "Oxygen: " + crystals;
+    //    }
+    //}
 
-    public int Minerals
-    {
-        get { return minerals; }
-        set
-        {
-            minerals = Minerals;
-            mineralText.text = "Oxygen: " + minerals;
-        }
-    }
+    //public int Minerals
+    //{
+    //    get { return minerals; }
+    //    set
+    //    {
+    //        minerals = Minerals;
+    //        mineralText.text = "Oxygen: " + minerals;
+    //    }
+    //}
 
-    public int Oxygen
-    {
-        get { return oxygen; }
-        set
-        {
-            oxygen = Oxygen;
-            oxygenText.text = "Oxygen: " + oxygen;
-        }
-    }
+    //public int Oxygen
+    //{
+    //    get { return oxygen; }
+    //    set
+    //    {
+    //        oxygen = Oxygen;
+    //        oxygenText.text = "Oxygen: " + oxygen;
+    //    }
+    //}
 
 
     private Vector3 newDirection;
@@ -69,8 +71,12 @@ public class PlayerController : MonoBehaviour {
     private Text mineralText;
     private Text oxygenText;
 
+    private GameObject plantedBomb;
+
     // Use this for initialization
     void Start () {
+
+        oxygen = startingSecondsOfOxygen;
 
         inverseMoveTime = 1f / moveTime;
         rb2D = GetComponent<Rigidbody2D>();
@@ -85,23 +91,49 @@ public class PlayerController : MonoBehaviour {
     }
 
     private bool switcher = false;
+
+    private void SetBomb()
+    {
+        if(bombs>0 && plantedBomb == null)
+        {
+
+            plantedBomb = Instantiate(bombGO, transform.position, Quaternion.identity);
+            plantedBomb.GetComponent<BombController>().Planted();
+//            plantedBomb.SetActive(false);
+
+            PickUpBomb(true);
+        }
+    }
+
     // Update is called once per frame
     void FixedUpdate() {
+        if (plantedBomb != null)
+        {
+            //Debug.Log((plantedBomb.transform.position - transform.position).sqrMagnitude);
+            if ((plantedBomb.transform.position - transform.position).sqrMagnitude >= 1)
+            {
+                plantedBomb.GetComponent<BombController>().Activate();
+                plantedBomb = null;
+            }
+        }
 
-       
-        
+
 
         if (!isMoving)
         {
             float horizontalInput = Input.GetAxisRaw("Horizontal");
             float verticalInput = Input.GetAxisRaw("Vertical");
 
+            
+
+
             bool control = Input.GetKey(KeyCode.LeftControl);
-            if (switcher != control)
-            {
-                Debug.Log(control);
-                switcher = control;
-            }
+            if (switcher != control) switcher = control;
+
+            bool space = Input.GetKey(KeyCode.Space);
+            if (space) SetBomb();
+
+
             Vector2 direction;
 
             if (horizontalInput != 0) direction = new Vector2(horizontalInput, 0f);
@@ -137,10 +169,10 @@ public class PlayerController : MonoBehaviour {
 
             if (directionObject != null && 1 << directionObject.gameObject.layer == pickUpLayer.value)
             {
-                if (directionObject.gameObject.CompareTag("Ballon")) Oxygen++;
-                else if (directionObject.gameObject.CompareTag("Bomb")) Bombs++;
-                else if (directionObject.gameObject.CompareTag("Crystal")) Crystals++;
-                else if (directionObject.gameObject.CompareTag("Mineral")) Minerals++;
+                if (directionObject.gameObject.CompareTag("Ballon")) PickUpOxygen();
+                else if (directionObject.gameObject.CompareTag("BombPickUp")) PickUpBomb();
+                else if (directionObject.gameObject.CompareTag("Crystal")) PickUpCrystals();
+                else if (directionObject.gameObject.CompareTag("Mineral")) PickUpMinerals();
 
                 Destroy(directionObject.gameObject);
                 if (control) return;
@@ -184,7 +216,7 @@ public class PlayerController : MonoBehaviour {
             {
                 Collider2D directionObject = Physics2D.OverlapBox(end + newDirection, new Vector2(.9f, .9f), 0);
 
-                if (directionObject == null || directionObject.gameObject.CompareTag("Ground"))
+                if (directionObject == null || directionObject.gameObject.CompareTag("Ground") || directionObject.gameObject.layer == LayerMask.NameToLayer("PickUp"))
                 {
                     Collider2D directionUp = Physics2D.OverlapBox(end + newDirection + new Vector3(0f, 1f, 0f), new Vector2(.9f, .9f), 0);
                     if (directionUp != null)
@@ -225,11 +257,12 @@ public class PlayerController : MonoBehaviour {
         bc2D.offset = new Vector2(0f, 0f);
         isMoving = false;
     }
-    
 
-    public void PickUpBomb()
+
+    public void PickUpBomb(bool remove = false)
     {
-        bombs++;
+        if (remove) bombs--;
+        else bombs++;
         bombText.text = "Bombs: " + bombs;
     }
 
@@ -241,7 +274,7 @@ public class PlayerController : MonoBehaviour {
 
     public void PickUpOxygen()
     {
-        oxygen++;
+        oxygen += secondsForBallon;
         oxygenText.text = "Oxygen: " + oxygen;
     }
 
@@ -255,8 +288,10 @@ public class PlayerController : MonoBehaviour {
     {
         while(true)
         {
-            yield return new WaitForSeconds(secondsForOxygenBallon);
-            Oxygen--;
+            yield return new WaitForSeconds(1f);
+            oxygen--;
+            oxygenText.text = "Oxygen: " + oxygen;
+            if (oxygen <= 0) Destroy(gameObject);
         }
     }
 
