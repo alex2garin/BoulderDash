@@ -1198,6 +1198,7 @@ public class LevelBuilder : MonoBehaviour {
             BombController bombCtrl = activeBomb.GetComponent<BombController>();
             bombCtrl.destroyDelayTime = startingParams.bomb.destroyDelayTime;
             bombCtrl.explosionLengthTime = startingParams.bomb.explosionLenghtTime;
+            //Debug.Log(bombCtrl.explosionLengthTime);
             /*
 			BombMOC = deactiveBomb.GetComponent<MovingObjectController> ();
 			BombMOC.canRoll = startingParams.bomb.canRoll;
@@ -1228,7 +1229,9 @@ public class LevelBuilder : MonoBehaviour {
             stoneMOC.canKill = startingParams.stone.canKill;
 
         }
-        if (ReadFile() == null) GenerateRandom();
+        if (ApplicationController.levelToLoad == ApplicationController.Level.level1) ReadFile();
+        else if (ApplicationController.levelToLoad == ApplicationController.Level.random) GenerateRandom();
+ //       if (ReadFile() == null) GenerateRandom();
         Build();
     }
 
