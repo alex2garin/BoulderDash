@@ -11,8 +11,9 @@ public class BackgroundController : MonoBehaviour {
     {
             
         target = GameObject.FindWithTag("Player").transform;
-        if (target!=null)
+        if (target != null)
             transform.position = target.position;
+       // Debug.Log(target);
 
     }
 

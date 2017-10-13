@@ -25,6 +25,8 @@ public class BombController : MonoBehaviour {
         BC2D = GetComponent<BoxCollider2D>();
         MOC = GetComponent<MovingObjectController>();
 
+
+
         //Debug.Log(rb2D);
     }
 
@@ -46,6 +48,8 @@ public class BombController : MonoBehaviour {
     {
         if (exploding) return;
         exploding = true;
+
+        MOC.enabled = false;
         //Debug.Log("ready to explode is called");
         //Debug.Log(gameObject);
         //Debug.Log(transform.position);
