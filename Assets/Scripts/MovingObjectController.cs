@@ -385,6 +385,7 @@ public class MovingObjectController : MonoBehaviour
     {
         isFalling = false;
         Collider2D down = Physics2D.OverlapBox(transform.position + new Vector3(0f, -1f, 0f), new Vector2(.9f, .9f), 0f);
+       
         if (down == null)
         {
 
@@ -573,7 +574,7 @@ public class MovingObjectController : MonoBehaviour
         cc2D.offset = new Vector2(0f, 0f);
         rb2D.MovePosition(destination);
 
-        if (falling && (destination - transform.position).sqrMagnitude <= float.Epsilon || destination == transform.position)
+        if (falling && ((destination - transform.position).sqrMagnitude <= float.Epsilon || destination == transform.position))
         {
             Collider2D down = Physics2D.OverlapBox(transform.position + new Vector3(0f, -1f, 0f), new Vector2(.9f, .9f), 0f);
             if (down != null)

@@ -34,13 +34,14 @@ public class BombController : MonoBehaviour {
     {
         MOC.enabled = false;
         rb2D.Sleep();
-        BC2D.enabled = false;
+    //    BC2D.enabled = false;
+        
     }
 
     public void Activate()
     {
         rb2D.WakeUp();
-        BC2D.enabled = true;
+    //    BC2D.enabled = true;
         MOC.enabled = true;
     }
 
