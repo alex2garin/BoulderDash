@@ -8,8 +8,14 @@ public class ApplicationController : MonoBehaviour {
 
     public static Level levelToLoad = Level.random;
 
-	// Use this for initialization
-	void Awake () {
+    private static int bombExplosionSortValue = 0;
+    public static int BombExplosionSortValue
+    {
+        get { return bombExplosionSortValue++; }
+    }
+
+    // Use this for initialization
+    void Awake () {
         DontDestroyOnLoad(this);
 	}
 	

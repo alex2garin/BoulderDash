@@ -15,6 +15,7 @@ public class BombController : MonoBehaviour {
     private Rigidbody2D rb2D;
     private BoxCollider2D BC2D;
     private MovingObjectController MOC;
+    
 
     // Use this for initialization
     void Awake () {
@@ -25,7 +26,9 @@ public class BombController : MonoBehaviour {
         BC2D = GetComponent<BoxCollider2D>();
         MOC = GetComponent<MovingObjectController>();
 
-
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        if (sr != null)
+            sr.sortingOrder = ApplicationController.BombExplosionSortValue;
 
         //Debug.Log(rb2D);
     }
