@@ -295,7 +295,7 @@ public class MovingObjectController : MonoBehaviour
     private Vector3 destination;
     private bool isFalling;
 
-
+    
     private Vector3 lastposition;
 
     public enum RotationSide { left, right, norotation };
@@ -447,28 +447,7 @@ public class MovingObjectController : MonoBehaviour
         return Vector3.zero;
     }
 
-    private IEnumerator Checker()
-    {
-        while(true)
-        {
-            if(IsMoving && (lastposition-transform.position).sqrMagnitude <=float.Epsilon)
-            {
-                Debug.Log(Time.time);
-                Debug.Log("position" + transform.position.ToString());
-                Debug.Log("destination " + destination);
-                Debug.Log("is position == destination in logic? " + ((destination - transform.position).sqrMagnitude <= float.Epsilon).ToString());
-                Debug.Log("isMoving flag" + isMoving.ToString());
-                Debug.Log("object" + gameObject.ToString());
-                Debug.Log("Collider offset" + cc2D.offset.ToString());
 
-            }
-
-            lastposition = transform.position;
-
-            yield return null;
-        }
-
-    }
 
     private void FixedUpdate()
     {
@@ -549,26 +528,63 @@ public class MovingObjectController : MonoBehaviour
 
     private void Move2(bool falling = false)
     {
+        //Collider2D down2 = Physics2D.OverlapBox(transform.position + new Vector3(0f, -1f, 0f), new Vector2(.9f, .9f), 0f);
+
+        //if (down2 != null && down2.CompareTag("Player"))
+        //{
+        //    PlayerController pl = down2.GetComponent<PlayerController>();
+        //    Debug.Log(pl);
+        //}
         //var end = destination;
         float sqrRemainingDistance = (destination - transform.position).sqrMagnitude;
+        if(CompareTag("debug"))
+        {
+            Debug.Log(transform.position);
+            Debug.Log(sqrRemainingDistance > float.Epsilon);
+            Debug.Log(destination != transform.position);
+        }
        
         if (sqrRemainingDistance > float.Epsilon && destination != transform.position)
         {
             Vector3 newPostion = Vector3.MoveTowards(transform.position, destination, inverseMoveTime * Time.deltaTime);
-            if (falling && ((newPostion - destination).sqrMagnitude <= float.Epsilon || destination == transform.position))
+            if (CompareTag("debug"))
+            {
+                Debug.Log(newPostion);
+                Debug.Log(falling);
+                Debug.Log((newPostion - destination).sqrMagnitude <= float.Epsilon);
+                Debug.Log(destination == newPostion);
+            }
+            if (falling && ((newPostion - destination).sqrMagnitude <= float.Epsilon || destination == newPostion))
             {
                 cc2D.offset = (destination - transform.position) / 2;
                 Collider2D down = Physics2D.OverlapBox(transform.position + new Vector3(0f, -1f, 0f), new Vector2(.9f, .9f), 0f);
+                if (CompareTag("debug"))
+                {
+                    Debug.Log(down);
+                }
+                //if (down != null && down.CompareTag("Player"))
+                //{
+                //    PlayerController pl = down.GetComponent<PlayerController>();
+                //    Debug.Log(pl);
+                //}
 
-             //   Debug.Log(down);
                 if (down == null)
                 {
                     destination = destination + new Vector3(0f, -1f, 0f);
                     newPostion = Vector3.MoveTowards(transform.position, destination, inverseMoveTime * Time.deltaTime);
                 }
+                //else
+                //{
+                //    if (down.gameObject.CompareTag("Player") && canKill) Destroy(down.gameObject);
+                //}
+            }
+            if (CompareTag("debug"))
+            {
+                Debug.Log(cc2D.offset);
             }
             cc2D.offset = (destination - transform.position) / 2;
             rb2D.MovePosition(newPostion);
+  //          Debug.Log("continue" + gameObject);
             return;
         }
         cc2D.offset = new Vector2(0f, 0f);
@@ -593,6 +609,15 @@ public class MovingObjectController : MonoBehaviour
 
         }
         isMoving = false;
+
+        //down2 = Physics2D.OverlapBox(transform.position + new Vector3(0f, -1f, 0f), new Vector2(.9f, .9f), 0f);
+        //Debug.Log(1 + transform.position.ToString() + gameObject + down2.gameObject);
+        //if (down2 != null && down2.CompareTag("Player"))
+        //{
+        //    PlayerController pl = down2.GetComponent<PlayerController>();
+        //    Debug.Log(pl);
+        //}
+ //       Debug.Log("end"+ gameObject + transform.position);
     }
 
     private IEnumerator Move6(Vector3 end, bool falling = false)

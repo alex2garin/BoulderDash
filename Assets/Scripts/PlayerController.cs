@@ -325,9 +325,53 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    private void debugger()
+    {
+        Collider2D upLeft = Physics2D.OverlapBox(transform.position + new Vector3(-1f, 1f), new Vector2(.9f, .9f), 0f);
+        Collider2D up = Physics2D.OverlapBox(transform.position + new Vector3(0f, 1f), new Vector2(.9f, .9f), 0f);
+        Collider2D upRight = Physics2D.OverlapBox(transform.position + new Vector3(1f, 1f), new Vector2(.9f, .9f), 0f);
+
+        if (
+            (upLeft == null || !upLeft.CompareTag("Stone")) &&
+            (up == null || !up.CompareTag("Stone")) &&
+            (upRight == null || !upRight.CompareTag("Stone"))
+            ) return;
+
+
+        if (upLeft != null && upLeft.CompareTag("Stone") && upLeft.GetComponent<MovingObjectController>().IsMoving)
+        {
+            Debug.Log("Player");
+            Debug.Log(transform.position);
+            Debug.Log(GetComponent<Collider2D>().offset);
+            Debug.Log("left");
+            Debug.Log(upLeft.transform.position);
+            Debug.Log(upLeft.offset);
+        }
+        if (up != null && up.CompareTag("Stone") && up.gameObject.GetComponent<MovingObjectController>().IsMoving)
+        {
+            Debug.Log("Player");
+            Debug.Log(transform.position);
+            Debug.Log(GetComponent<Collider2D>().offset);
+            Debug.Log("up");
+            Debug.Log(up.transform.position);
+            Debug.Log(up.offset);
+        }
+        if (upRight != null && upRight.CompareTag("Stone") && upRight.gameObject.GetComponent<MovingObjectController>().IsMoving)
+        {
+            Debug.Log("Player" + transform.position.ToString() + GetComponent<Collider2D>().offset.ToString());
+         //   Debug.Log(transform.position);
+         //   Debug.Log(GetComponent<Collider2D>().offset);
+            Debug.Log("right");
+            Debug.Log(upRight.transform.position);
+            Debug.Log(upRight.offset);
+        }
+
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
+     //   debugger();
         if (plantedBomb != null)
         {
             //Debug.Log((plantedBomb.transform.position - transform.position).sqrMagnitude);
@@ -403,12 +447,13 @@ public class PlayerController : MonoBehaviour {
 
             if (directionObject == null)
             {
-                Collider2D directionUp = Physics2D.OverlapBox(end + new Vector3(0f, 1f), new Vector2(.9f, .9f), 0);
-                if (directionUp != null)
-                {
-                    MovingObjectController moverUp = directionUp.gameObject.GetComponent<MovingObjectController>();
-                    if (moverUp != null && moverUp.IsMoving) return;
-                }
+                //Collider2D directionUp = Physics2D.OverlapBox(end + new Vector3(0f, 1f), new Vector2(.9f, .9f), 0);
+                //Debug.Log(directionUp);
+                //if (directionUp != null)
+                //{
+                //    MovingObjectController moverUp = directionUp.gameObject.GetComponent<MovingObjectController>();
+                //    if (moverUp != null && moverUp.IsMoving) return;
+                //}
             }
 
             if (directionObject != null && 1 << directionObject.gameObject.layer == blockingLayer.value)
