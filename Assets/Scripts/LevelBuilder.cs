@@ -4,15 +4,20 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 using System.Runtime.InteropServices;
-//using System;
+//using //System.Linq;
+
+
+
+
+
 
 public class Tile
 {
     public int x;
     public int y;
-    public char tileType;
+    public string tileType;
 
-    public Tile(int x, int y, char tileType)
+    public Tile(int x, int y, string tileType)
     {
         this.x = x;
         this.y = y;
@@ -24,19 +29,26 @@ public static class Constants
 {
     public struct TileType
     {
-        public const char Border = 'X';
-        public const char Wall = 'W';
-        public const char Ground = 'G';
-        public const char Portal = 'O';
-        public const char Stone = 'S';
-        public const char ActiveBomb = 'A';
-        public const char DeactiveBomb = 'D';
-        public const char Crystal = 'K';
-        public const char Mineral = 'M';
-        public const char Enemy = 'E';
-        public const char Player = 'P';
-        public const char Ballon = 'B';
+        public const string Border = "X";
+		public const string Wall = "W";
+        public const string Ground = "G";
+		public const string Portal = "O";
+		public const string Stone = "S";
+		public const string ActiveBomb = "A";
+		public const string DeactiveBomb = "D";
+		public const string Crystal = "K";
+		public const string Mineral = "M";
+		public const string Enemy = "E";
+		public const string Player = "P";
+		public const string Ballon = "B";
     }
+
+	public struct BiomType
+	{
+		public const string Earth = "E";
+		public const string Spaceship = "S";
+		public const string Asteroid = "A";
+	}
 }
 
 public class StartingParameters
@@ -94,73 +106,16 @@ public class StartingParameters
         public float rotationSpeed;
         public bool canKill;
     }
-    /*
-    public LevelGeneratorParams levelGenerator;
-    public void SetLevelGeneratorValue()//string line)
-    {
-        var lineValue = new StringBuilder(255);
 
-        //int length = 
-        GetPrivateProfileString("LevelGenerator", "xMax", "", lineValue, lineValue.Capacity, filePath);
-        int.TryParse(lineValue.ToString(), out levelGenerator.xMax);
-        //Debug.Log(length);
-        //Debug.Log(lineValue.ToString());
-        //Debug.Log(filePath);
-        //Debug.Log(levelGenerator.xMax);
-
-        lineValue = new StringBuilder(255);
-        GetPrivateProfileString("LevelGenerator", "yMax", "", lineValue, lineValue.Capacity, filePath);
-        int.TryParse(lineValue.ToString(), out levelGenerator.yMax);
-        //Debug.Log(lineValue.ToString());
-        //Debug.Log(levelGenerator.yMax);
-
-        lineValue = new StringBuilder(255);
-        GetPrivateProfileString("LevelGenerator", "stoneMax", "", lineValue, lineValue.Capacity, filePath);
-        int.TryParse(lineValue.ToString(), out levelGenerator.stoneMax);
-        //Debug.Log(lineValue.ToString());
-        //Debug.Log(levelGenerator.stoneMax);
-
-        lineValue = new StringBuilder(255);
-        GetPrivateProfileString("LevelGenerator", "groundMax", "", lineValue, lineValue.Capacity, filePath);
-        int.TryParse(lineValue.ToString(), out levelGenerator.groundMax);
-        // Debug.Log(lineValue.ToString());
-        //Debug.Log(levelGenerator.groundMax);
-
-        lineValue = new StringBuilder(255);
-        GetPrivateProfileString("LevelGenerator", "aBombMax", "", lineValue, lineValue.Capacity, filePath);
-        int.TryParse(lineValue.ToString(), out levelGenerator.aBombMax);
-        //Debug.Log(lineValue.ToString());
-        //Debug.Log(levelGenerator.aBombMax);
-
-        lineValue = new StringBuilder(255);
-        GetPrivateProfileString("LevelGenerator", "dBombMax", "", lineValue, lineValue.Capacity, filePath);
-        int.TryParse(lineValue.ToString(), out levelGenerator.dBombMax);
-        //Debug.Log(lineValue.ToString());
-        //Debug.Log(levelGenerator.dBombMax);
-
-        lineValue = new StringBuilder(255);
-        GetPrivateProfileString("LevelGenerator", "crystalMax", "", lineValue, lineValue.Capacity, filePath);
-        int.TryParse(lineValue.ToString(), out levelGenerator.crystalMax);
-        //Debug.Log(lineValue.ToString());
-        //Debug.Log(levelGenerator.crystalMax);
-
-    
-        
-    }
-    */
     public BackgroundParams background;
     public void SetBackgroundValue()//string line)
     {
         var lineValue = new StringBuilder(255);
 
-        //GetPrivateProfileString("Background", "depth", "", lineValue, lineValue.Capacity, filePath);
-        //float.TryParse(lineValue.ToString(), out background.depth);
 
         GetPrivateProfileString("Background", "speed", "", lineValue, lineValue.Capacity, filePath);
         float.TryParse(lineValue.ToString(), out background.speed);
         
-        //if (line.Contains("depth")) float.TryParse(line.TrimStart("depth=".ToCharArray()), out background.depth);
-        //if (line.Contains("speed")) float.TryParse(line.TrimStart("speed=".ToCharArray()), out background.speed);
     }
 
     public BallonParams ballon;
@@ -183,9 +138,7 @@ public class StartingParameters
         GetPrivateProfileString("Ballon", "canKill", "", lineValue, lineValue.Capacity, filePath);
         bool.TryParse(lineValue.ToString(), out ballon.canKill);
 
-        //if (line.Contains("moveTime")) float.TryParse(line.TrimStart("moveTime=".ToCharArray()), out ballon.moveTime);
-        //if (line.Contains("canRoll")) bool.TryParse(line.TrimStart("canRoll=".ToCharArray()), out ballon.canRoll);
-        //if (line.Contains("rotationSpeed")) float.TryParse(line.TrimStart("rotationSpeed=".ToCharArray()), out ballon.rotationSpeed);
+
     }
 
     public BombParams bomb;
@@ -216,11 +169,6 @@ public class StartingParameters
         GetPrivateProfileString("Bomb", "canKill", "", lineValue, lineValue.Capacity, filePath);
         bool.TryParse(lineValue.ToString(), out bomb.canKill);
 
-        //if (line.Contains("moveTime")) float.TryParse(line.TrimStart("moveTime=".ToCharArray()), out bomb.moveTime);
-        //if (line.Contains("canRoll")) bool.TryParse(line.TrimStart("canRoll=".ToCharArray()), out bomb.canRoll);
-        //if (line.Contains("rotationSpeed")) float.TryParse(line.TrimStart("rotationSpeed=".ToCharArray()), out bomb.rotationSpeed);
-        //if (line.Contains("explosionLenghtTime")) float.TryParse(line.TrimStart("explosionLenghtTime=".ToCharArray()), out bomb.explosionLenghtTime);
-        //if (line.Contains("destroyDelayTime")) float.TryParse(line.TrimStart("destroyDelayTime=".ToCharArray()), out bomb.destroyDelayTime);
     }
 
     public CrystalParams crystal;
@@ -243,9 +191,6 @@ public class StartingParameters
         GetPrivateProfileString("Crystal", "canKill", "", lineValue, lineValue.Capacity, filePath);
         bool.TryParse(lineValue.ToString(), out crystal.canKill);
 
-        //if (line.Contains("moveTime")) float.TryParse(line.TrimStart("moveTime=".ToCharArray()), out crystal.moveTime);
-        //if (line.Contains("canRoll")) bool.TryParse(line.TrimStart("canRoll=".ToCharArray()), out crystal.canRoll);
-        //if (line.Contains("rotationSpeed")) float.TryParse(line.TrimStart("rotationSpeed=".ToCharArray()), out crystal.rotationSpeed);
     }
 
     public MineralParams mineral;
@@ -268,9 +213,6 @@ public class StartingParameters
         GetPrivateProfileString("Mineral", "canKill", "", lineValue, lineValue.Capacity, filePath);
         bool.TryParse(lineValue.ToString(), out mineral.canKill);
 
-        //if (line.Contains("moveTime")) float.TryParse(line.TrimStart("moveTime=".ToCharArray()), out mineral.moveTime);
-        //if (line.Contains("canRoll")) bool.TryParse(line.TrimStart("canRoll=".ToCharArray()), out mineral.canRoll);
-        //if (line.Contains("rotationSpeed")) float.TryParse(line.TrimStart("rotationSpeed=".ToCharArray()), out mineral.rotationSpeed);
     }
 
     public PlayerParams player;
@@ -289,8 +231,6 @@ public class StartingParameters
         GetPrivateProfileString("Player", "startingSecondsOfOxygen", "", lineValue, lineValue.Capacity, filePath);
         int.TryParse(lineValue.ToString(), out player.startingSecondsOfOxygen);
 
-        //if (line.Contains("moveTime")) float.TryParse(line.TrimStart("moveTime=".ToCharArray()), out player.moveTime);
-        //if (line.Contains("secondsForOxygen")) float.TryParse(line.TrimStart("secondsForOxygen=".ToCharArray()), out player.secondsForOxygen);
     }
 
     public StoneParams stone;
@@ -313,9 +253,6 @@ public class StartingParameters
         GetPrivateProfileString("Stone", "canKill", "", lineValue, lineValue.Capacity, filePath);
         bool.TryParse(lineValue.ToString(), out stone.canKill);
 
-        //if (line.Contains("moveTime")) float.TryParse(line.TrimStart("moveTime=".ToCharArray()), out stone.moveTime);
-        //if (line.Contains("canRoll")) bool.TryParse(line.TrimStart("canRoll=".ToCharArray()), out stone.canRoll);
-        //if (line.Contains("rotationSpeed")) float.TryParse(line.TrimStart("rotationSpeed=".ToCharArray()), out stone.rotationSpeed);
     }
 }
 
@@ -379,8 +316,32 @@ public class RandomLevelGenerator
     public int maxBallon = 3;
 }
 
+[System.Serializable]
+public class Biom
+{
+	public Sprite[] borders;
+	public Sprite[] walls;
+	public Sprite[] grounds;
+	public Sprite[] portals;
+	public CornerSprites cornerSprites;
+	public BorderSprites borderSprites;
+	public Sprite[] stones;
+	public Sprite[] activeBombs;
+	public Sprite[] deactiveBombs;
+	public Sprite[] crystals;
+	public Sprite[] minerals;
+	public Sprite[] ballons;
+	public Sprite[] enemies;
+	public Sprite[] players;
+	public Sprite[] backgrounds;
+}
+
 
 public class LevelBuilder : MonoBehaviour {
+	public Biom earth;
+	public Biom spaceship;
+	public Biom asteroid;
+
     //tiles;
     public Sprite[] borders;
     public Sprite[] walls;
@@ -388,44 +349,9 @@ public class LevelBuilder : MonoBehaviour {
     public Sprite[] portals;
     public CornerSprites cornerSprites;
 
-    //public Sprite borderUpLeftCorner;
-    //public Sprite borderUpRightCorner;
-    //public Sprite borderDownLeftCorner;
-    //public Sprite borderDownRightCorner;
-    //public Sprite wallUpLeftCorner;
-    //public Sprite wallUpRightCorner;
-    //public Sprite wallDownLeftCorner;
-    //public Sprite wallDownRightCorner;
-    //public Sprite groundUpLeftCorner;
-    //public Sprite groundUpRightCorner;
-    //public Sprite groundDownLeftCorner;
-    //public Sprite groundDownRightCorner;
+
 
     public BorderSprites borderSprites;
-    //public Sprite borderBorderLeft;
-    //public Sprite borderBorderRight;
-    //public Sprite borderBorderUp;
-    //public Sprite borderBorderDown;
-    //public Sprite borderBorderLeftGR;
-    //public Sprite borderBorderRightGR;
-    //public Sprite borderBorderUpGR;
-    //public Sprite borderBorderDownGR;
-    //public Sprite wallBorderLeft;
-    //public Sprite wallBorderRight;
-    //public Sprite wallBorderUp;
-    //public Sprite wallBorderDown;
-    //public Sprite wallBorderLeftGR;
-    //public Sprite wallBorderRightGR;
-    //public Sprite wallBorderUpGR;
-    //public Sprite wallBorderDownGR;
-    //public Sprite groundBorderLeft;
-    //public Sprite groundBorderRight;
-    //public Sprite groundBorderUp;
-    //public Sprite groundBorderDown;
-    //public Sprite groundBorderLeftGR;
-    //public Sprite groundBorderRightGR;
-    //public Sprite groundBorderUpGR;
-    //public Sprite groundBorderDownGR;
 
     //moving objects
     public Sprite[] stones;
@@ -472,17 +398,10 @@ public class LevelBuilder : MonoBehaviour {
     //public TextAsset ini;
 
     public RandomLevelGenerator randomLevelGenerator;
-    //public int xMax = 7;
-    //public int yMax = 7;
-    //public int maxStones = 3;
-    //public int maxGround = 7;
-    //public int maxActiveBomb = 1;
-    //public int maxDeactiveBomb = 2;
-    //public int maxCrystal = 3;
-    //public int maxBallon = 3;
     
 
     private List<Tile> tiles;
+	private Biom currentBiom;
     public StartingParameters startingParams;
 
 
@@ -490,28 +409,10 @@ public class LevelBuilder : MonoBehaviour {
     private StartingParameters ReadIni()
     {
 
-        /*if (ini == null) return null;
-        string[] lines = ini.text.Split('\n');
-        string objectType = null;
-        StartingParameters param = new StartingParameters();
 
-        for (int i=0;i<lines.Length;i++)
-        {
-            if (lines[i] == "LevelGenerator" || lines[i] == "Background" || lines[i] == "Ballon" || lines[i] == "Bomb" || lines[i] == "Crystal" || lines[i] == "Mineral" || lines[i] == "Player" || lines[i] == "Stone") objectType = lines[i];
-            else if (objectType == "LevelGenerator") param.SetLevelGeneratorValue(lines[i]);
-            else if (objectType == "Background") param.SetBackgroundValue(lines[i]);
-            else if (objectType == "Ballon") param.SetBallonValue(lines[i]);
-            else if (objectType == "Bomb") param.SetBombValue(lines[i]);
-            else if (objectType == "Crystal") param.SetCrystalValue(lines[i]);
-            else if (objectType == "Mineral") param.SetMineralValue(lines[i]);
-            else if (objectType == "Player") param.SetPlayerValue(lines[i]);
-            else if (objectType == "Stone") param.SetStoneValue(lines[i]);
-        }
-        return param;*/
 
      
             StartingParameters param = new StartingParameters();
-            //param.SetLevelGeneratorValue();
             param.SetBackgroundValue();
             param.SetBallonValue();
             param.SetBombValue();
@@ -520,7 +421,6 @@ public class LevelBuilder : MonoBehaviour {
             param.SetPlayerValue();
             param.SetStoneValue();
 
-        //Debug.Log(param);
         return param;
 
 
@@ -538,13 +438,31 @@ public class LevelBuilder : MonoBehaviour {
 
         newTiles = new List<Tile>();
 
+		if (lines.Length > 0) {
+			var line = lines [0];
+			switch (line) {
+			case Constants.BiomType.Asteroid:
+				currentBiom = asteroid;
+				break;
+			case Constants.BiomType.Earth:
+				currentBiom = earth;
+				break;
+			case Constants.BiomType.Spaceship:
+				currentBiom = spaceship;
+				break;
+			default:
+				currentBiom = earth;
+				break;
+			}
+		}
+
         foreach (var line in lines)
         {
             var symbols = line.Split(';',',');
             foreach(var symbol in symbols)
             {
                 if (symbol!="")
-                newTiles.Add(new Tile(x, -y, symbol.ToCharArray()[0]));
+                newTiles.Add(new Tile(x, -y, symbol));
                     
                 x++;
             }
@@ -573,7 +491,7 @@ public class LevelBuilder : MonoBehaviour {
                     newTile = new Tile(x, y, Constants.TileType.Border);
                     newTiles.Add(newTile);
                 }
-                else freeTiles.Add(new Tile(x, y, ' '));
+                else freeTiles.Add(new Tile(x, y, " "));
             }
         }
 
@@ -669,56 +587,8 @@ public class LevelBuilder : MonoBehaviour {
 
     private void SetBordersAndAngles(Tile thisTile, GameObject thisGO)
     {
+		
 
-        //if (thisTile.tileType == Constants.TileType.Border)
-        //{
-        //    tileBorderLeft.GetComponent<SpriteRenderer>().sprite = borderBorderLeft;
-        //    tileBorderRight.GetComponent<SpriteRenderer>().sprite = borderBorderRight;
-        //    tileBorderUp.GetComponent<SpriteRenderer>().sprite = borderBorderUp;
-        //    tileBorderDown.GetComponent<SpriteRenderer>().sprite = borderBorderDown;
-        //    tileBorderLeftGR.GetComponent<SpriteRenderer>().sprite = borderBorderLeftGR;
-        //    tileBorderRightGR.GetComponent<SpriteRenderer>().sprite = borderBorderRightGR;
-        //    tileBorderUpGR.GetComponent<SpriteRenderer>().sprite = borderBorderUpGR;
-        //    tileBorderDownGR.GetComponent<SpriteRenderer>().sprite = borderBorderDownGR;
-
-        //    tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = borderUpLeftCorner;
-        //    tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = borderUpRightCorner;
-        //    tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = borderDownLeftCorner;
-        //    tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = borderDownRightCorner;
-        //}
-        //else if (thisTile.tileType == Constants.TileType.Wall)
-        //{
-        //    tileBorderLeft.GetComponent<SpriteRenderer>().sprite = wallBorderLeft;
-        //    tileBorderRight.GetComponent<SpriteRenderer>().sprite = wallBorderRight;
-        //    tileBorderUp.GetComponent<SpriteRenderer>().sprite = wallBorderUp;
-        //    tileBorderDown.GetComponent<SpriteRenderer>().sprite = wallBorderDown;
-        //    tileBorderLeftGR.GetComponent<SpriteRenderer>().sprite = wallBorderLeftGR;
-        //    tileBorderRightGR.GetComponent<SpriteRenderer>().sprite = wallBorderRightGR;
-        //    tileBorderUpGR.GetComponent<SpriteRenderer>().sprite = wallBorderUpGR;
-        //    tileBorderDownGR.GetComponent<SpriteRenderer>().sprite = wallBorderDownGR;
-
-        //    tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = wallUpLeftCorner;
-        //    tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = wallUpRightCorner;
-        //    tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = wallDownLeftCorner;
-        //    tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = wallDownRightCorner;
-        //}
-        //else if (thisTile.tileType == Constants.TileType.Ground)
-        //{
-        //    tileBorderLeft.GetComponent<SpriteRenderer>().sprite = groundBorderLeft;
-        //    tileBorderRight.GetComponent<SpriteRenderer>().sprite = groundBorderRight;
-        //    tileBorderUp.GetComponent<SpriteRenderer>().sprite = groundBorderUp;
-        //    tileBorderDown.GetComponent<SpriteRenderer>().sprite = groundBorderDown;
-        //    tileBorderLeftGR.GetComponent<SpriteRenderer>().sprite = groundBorderLeftGR;
-        //    tileBorderRightGR.GetComponent<SpriteRenderer>().sprite = groundBorderRightGR;
-        //    tileBorderUpGR.GetComponent<SpriteRenderer>().sprite = groundBorderUpGR;
-        //    tileBorderDownGR.GetComponent<SpriteRenderer>().sprite = groundBorderDownGR;
-
-        //    tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = groundUpLeftCorner;
-        //    tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = groundUpRightCorner;
-        //    tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = groundDownLeftCorner;
-        //    tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = groundDownRightCorner;
-        //}
-        
 
 
         /////////////////////////////////////////////////////
@@ -1214,9 +1084,10 @@ public class LevelBuilder : MonoBehaviour {
                 case Constants.TileType.Wall:
                     GOTile = wall;
                     GOTile.GetComponent<SpriteRenderer>().sprite = walls[Random.Range(0, walls.Length)];
-                    
                     break;
        
+			//	string.
+			//	if (tile.tileType.Contains(Constants.TileType.Ground))
                 
             }
             if (GOTile != null)
@@ -1235,30 +1106,9 @@ public class LevelBuilder : MonoBehaviour {
         startingParams = ReadIni();
         if (startingParams !=null)
         {
-            /*
-            xMax = startingParams.levelGenerator.xMax;
-            yMax = startingParams.levelGenerator.yMax;
-            maxDeactiveBomb = startingParams.levelGenerator.dBombMax;
-            maxActiveBomb = startingParams.levelGenerator.aBombMax;
-            maxCrystal = startingParams.levelGenerator.crystalMax;
-            maxGround = startingParams.levelGenerator.groundMax;
-            maxStones = startingParams.levelGenerator.stoneMax;
-            BackgroundController bc = background.GetComponent<BackgroundController>();
-            Debug.Log(bc);
-            */
-
-            /*
-            xMax = startingParams.levelGenerator.xMax;
-            yMax = startingParams.levelGenerator.yMax;
-            maxDeactiveBomb = startingParams.levelGenerator.dBombMax;
-            maxActiveBomb = startingParams.levelGenerator.aBombMax;
-            maxCrystal = startingParams.levelGenerator.crystalMax;
-            maxGround = startingParams.levelGenerator.groundMax;
-            maxStones = startingParams.levelGenerator.stoneMax;
-            */
+ 
 
             BackgroundController bc = background.GetComponent<BackgroundController>();
-            //bc.depth = startingParams.background.depth;
             bc.speed = startingParams.background.speed;
 
             MovingObjectController ballonMOC = ballon.GetComponent<MovingObjectController>();
@@ -1275,13 +1125,7 @@ public class LevelBuilder : MonoBehaviour {
             BombController bombCtrl = activeBomb.GetComponent<BombController>();
             bombCtrl.destroyDelayTime = startingParams.bomb.destroyDelayTime;
             bombCtrl.explosionLengthTime = startingParams.bomb.explosionLenghtTime;
-            //Debug.Log(bombCtrl.explosionLengthTime);
-            /*
-			BombMOC = deactiveBomb.GetComponent<MovingObjectController> ();
-			BombMOC.canRoll = startingParams.bomb.canRoll;
-			BombMOC.rotationSpeed = startingParams.bomb.rotationSpeed;
-			BombMOC.sideMoveTime = startingParams.bomb.moveTime;
-*/
+
             MovingObjectController crystalMOC = crystal.GetComponent<MovingObjectController>();
             crystalMOC.canRoll = startingParams.crystal.canRoll;
             crystalMOC.rotationSpeed = startingParams.crystal.rotationSpeed;
@@ -1308,7 +1152,7 @@ public class LevelBuilder : MonoBehaviour {
         }
         if (ApplicationController.levelToLoad == ApplicationController.Level.level1) ReadFile();
         else if (ApplicationController.levelToLoad == ApplicationController.Level.random) GenerateRandom();
- //       if (ReadFile() == null) GenerateRandom();
+
         Build();
     }
 
