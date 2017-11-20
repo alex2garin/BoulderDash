@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 using System.Runtime.InteropServices;
-//using //System.Linq;
+using System.Linq;
 
 
 
@@ -435,6 +435,7 @@ public class LevelBuilder : MonoBehaviour {
         
         int x = 0;
         int y = 0;
+        //string[] tileLines = null;
 
         newTiles = new List<Tile>();
 
@@ -454,9 +455,14 @@ public class LevelBuilder : MonoBehaviour {
 				currentBiom = earth;
 				break;
 			}
-		}
 
-        foreach (var line in lines)
+        }
+
+        var tileLines = lines.Skip(1);//skip first line
+
+
+
+        foreach (var line in tileLines)
         {
             var symbols = line.Split(';',',');
             foreach(var symbol in symbols)
@@ -597,15 +603,15 @@ public class LevelBuilder : MonoBehaviour {
         {
             if (thisTile.tileType == Constants.TileType.Border)
             {
-                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = borderSprites.borderBorderLeft;
+                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderLeft;
             }
             else if (thisTile.tileType == Constants.TileType.Wall)
             {
-                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = borderSprites.wallBorderLeft;
+                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.wallBorderLeft;
             }
             else if (thisTile.tileType == Constants.TileType.Ground)
             {
-                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = borderSprites.groundBorderLeft;
+                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.groundBorderLeft;
             }
             Instantiate(tileBorderLeft, thisGO.transform.position + new Vector3(-0.5f, 0f, 0f), Quaternion.identity, thisGO.transform);
         }
@@ -617,7 +623,7 @@ public class LevelBuilder : MonoBehaviour {
         {
             if (thisTile.tileType == Constants.TileType.Border)
             {
-                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = borderSprites.borderBorderLeftGR;
+                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderLeftGR;
                 Instantiate(tileBorderLeft, thisGO.transform.position + new Vector3(-0.5f, 0f, 0f), Quaternion.identity, thisGO.transform);
             }
         }
@@ -627,11 +633,11 @@ public class LevelBuilder : MonoBehaviour {
             {
                 if (thisTile.tileType == Constants.TileType.Border)
                 {
-                    tileBorderLeft.GetComponent<SpriteRenderer>().sprite = borderSprites.borderBorderLeftGR;
+                    tileBorderLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderLeftGR;
                 }
                 else if (thisTile.tileType == Constants.TileType.Wall)
                 {
-                    tileBorderLeft.GetComponent<SpriteRenderer>().sprite = borderSprites.wallBorderLeftGR;
+                    tileBorderLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.wallBorderLeftGR;
                 }
                 Instantiate(tileBorderLeft, thisGO.transform.position + new Vector3(-0.5f, 0f, 0f), Quaternion.identity, thisGO.transform);
             }
@@ -640,15 +646,15 @@ public class LevelBuilder : MonoBehaviour {
         {
             if (thisTile.tileType == Constants.TileType.Border)
             {
-                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = borderSprites.borderBorderLeft;
+                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderLeft;
             }
             else if (thisTile.tileType == Constants.TileType.Wall)
             {
-                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = borderSprites.wallBorderLeft;
+                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.wallBorderLeft;
             }
             else if (thisTile.tileType == Constants.TileType.Ground)
             {
-                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = borderSprites.groundBorderLeft;
+                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.groundBorderLeft;
             }
             Instantiate(tileBorderLeft, thisGO.transform.position + new Vector3(-0.5f, 0f, 0f), Quaternion.identity, thisGO.transform);
         }
@@ -659,15 +665,15 @@ public class LevelBuilder : MonoBehaviour {
         {
             if (thisTile.tileType == Constants.TileType.Border)
             {
-                tileBorderRight.GetComponent<SpriteRenderer>().sprite = borderSprites.borderBorderRight;
+                tileBorderRight.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderRight;
             }
             else if (thisTile.tileType == Constants.TileType.Wall)
             {
-                tileBorderRight.GetComponent<SpriteRenderer>().sprite = borderSprites.wallBorderRight;
+                tileBorderRight.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.wallBorderRight;
             }
             else if (thisTile.tileType == Constants.TileType.Ground)
             {
-                tileBorderRight.GetComponent<SpriteRenderer>().sprite = borderSprites.groundBorderRight;
+                tileBorderRight.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.groundBorderRight;
             }
             Instantiate(tileBorderRight, thisGO.transform.position + new Vector3(0.5f, 0f, 0f), Quaternion.identity, thisGO.transform);
         }
@@ -679,7 +685,7 @@ public class LevelBuilder : MonoBehaviour {
         {
             if (thisTile.tileType == Constants.TileType.Border)
             {
-                tileBorderRight.GetComponent<SpriteRenderer>().sprite = borderSprites.borderBorderRightGR;
+                tileBorderRight.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderRightGR;
                 Instantiate(tileBorderRight, thisGO.transform.position + new Vector3(0.5f, 0f, 0f), Quaternion.identity, thisGO.transform);
             }
         }
@@ -689,11 +695,11 @@ public class LevelBuilder : MonoBehaviour {
             {
                 if (thisTile.tileType == Constants.TileType.Border)
                 {
-                    tileBorderRight.GetComponent<SpriteRenderer>().sprite = borderSprites.borderBorderRightGR;
+                    tileBorderRight.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderRightGR;
                 }
                 else if (thisTile.tileType == Constants.TileType.Wall)
                 {
-                    tileBorderRight.GetComponent<SpriteRenderer>().sprite = borderSprites.wallBorderRightGR;
+                    tileBorderRight.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.wallBorderRightGR;
                 }
                 Instantiate(tileBorderRight, thisGO.transform.position + new Vector3(0.5f, 0f, 0f), Quaternion.identity, thisGO.transform);
             }
@@ -702,15 +708,15 @@ public class LevelBuilder : MonoBehaviour {
         {
             if (thisTile.tileType == Constants.TileType.Border)
             {
-                tileBorderRight.GetComponent<SpriteRenderer>().sprite = borderSprites.borderBorderRight;
+                tileBorderRight.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderRight;
             }
             else if (thisTile.tileType == Constants.TileType.Wall)
             {
-                tileBorderRight.GetComponent<SpriteRenderer>().sprite = borderSprites.wallBorderRight;
+                tileBorderRight.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.wallBorderRight;
             }
             else if (thisTile.tileType == Constants.TileType.Ground)
             {
-                tileBorderRight.GetComponent<SpriteRenderer>().sprite = borderSprites.groundBorderRight;
+                tileBorderRight.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.groundBorderRight;
             }
             Instantiate(tileBorderRight, thisGO.transform.position + new Vector3(0.5f, 0f, 0f), Quaternion.identity, thisGO.transform);
         }
@@ -721,15 +727,15 @@ public class LevelBuilder : MonoBehaviour {
         {
             if (thisTile.tileType == Constants.TileType.Border)
             {
-                tileBorderUp.GetComponent<SpriteRenderer>().sprite = borderSprites.borderBorderUp;
+                tileBorderUp.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderUp;
             }
             else if (thisTile.tileType == Constants.TileType.Wall)
             {
-                tileBorderUp.GetComponent<SpriteRenderer>().sprite = borderSprites.wallBorderUp;
+                tileBorderUp.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.wallBorderUp;
             }
             else if (thisTile.tileType == Constants.TileType.Ground)
             {
-                tileBorderUp.GetComponent<SpriteRenderer>().sprite = borderSprites.groundBorderUp;
+                tileBorderUp.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.groundBorderUp;
             }
             Instantiate(tileBorderUp, thisGO.transform.position + new Vector3(0f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
         }
@@ -741,7 +747,7 @@ public class LevelBuilder : MonoBehaviour {
         {
             if (thisTile.tileType == Constants.TileType.Border)
             {
-                tileBorderUp.GetComponent<SpriteRenderer>().sprite = borderSprites.borderBorderUpGR;
+                tileBorderUp.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderUpGR;
                 Instantiate(tileBorderUp, thisGO.transform.position + new Vector3(0f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
             }
         }
@@ -751,11 +757,11 @@ public class LevelBuilder : MonoBehaviour {
             {
                 if (thisTile.tileType == Constants.TileType.Border)
                 {
-                    tileBorderUp.GetComponent<SpriteRenderer>().sprite = borderSprites.borderBorderUpGR;
+                    tileBorderUp.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderUpGR;
                 }
                 else if (thisTile.tileType == Constants.TileType.Wall)
                 {
-                    tileBorderUp.GetComponent<SpriteRenderer>().sprite = borderSprites.wallBorderUpGR;
+                    tileBorderUp.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.wallBorderUpGR;
                 }
                 Instantiate(tileBorderUp, thisGO.transform.position + new Vector3(0f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
             }
@@ -764,15 +770,15 @@ public class LevelBuilder : MonoBehaviour {
         {
             if (thisTile.tileType == Constants.TileType.Border)
             {
-                tileBorderUp.GetComponent<SpriteRenderer>().sprite = borderSprites.borderBorderUp;
+                tileBorderUp.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderUp;
             }
             else if (thisTile.tileType == Constants.TileType.Wall)
             {
-                tileBorderUp.GetComponent<SpriteRenderer>().sprite = borderSprites.wallBorderUp;
+                tileBorderUp.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.wallBorderUp;
             }
             else if (thisTile.tileType == Constants.TileType.Ground)
             {
-                tileBorderUp.GetComponent<SpriteRenderer>().sprite = borderSprites.groundBorderUp;
+                tileBorderUp.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.groundBorderUp;
             }
             Instantiate(tileBorderUp, thisGO.transform.position + new Vector3(0f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
         }
@@ -783,15 +789,15 @@ public class LevelBuilder : MonoBehaviour {
         {
             if (thisTile.tileType == Constants.TileType.Border)
             {
-                tileBorderDown.GetComponent<SpriteRenderer>().sprite = borderSprites.borderBorderDown;
+                tileBorderDown.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderDown;
             }
             else if (thisTile.tileType == Constants.TileType.Wall)
             {
-                tileBorderDown.GetComponent<SpriteRenderer>().sprite = borderSprites.wallBorderDown;
+                tileBorderDown.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.wallBorderDown;
             }
             else if (thisTile.tileType == Constants.TileType.Ground)
             {
-                tileBorderDown.GetComponent<SpriteRenderer>().sprite = borderSprites.groundBorderDown;
+                tileBorderDown.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.groundBorderDown;
             }
             Instantiate(tileBorderDown, thisGO.transform.position + new Vector3(0f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
         }
@@ -803,7 +809,7 @@ public class LevelBuilder : MonoBehaviour {
         {
             if (thisTile.tileType == Constants.TileType.Border)
             {
-                tileBorderDown.GetComponent<SpriteRenderer>().sprite = borderSprites.borderBorderDownGR;
+                tileBorderDown.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderDownGR;
                 Instantiate(tileBorderDown, thisGO.transform.position + new Vector3(0f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
             }
         }
@@ -813,11 +819,11 @@ public class LevelBuilder : MonoBehaviour {
             {
                 if (thisTile.tileType == Constants.TileType.Border)
                 {
-                    tileBorderDown.GetComponent<SpriteRenderer>().sprite = borderSprites.borderBorderDownGR;
+                    tileBorderDown.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderDownGR;
                 }
                 else if (thisTile.tileType == Constants.TileType.Wall)
                 {
-                    tileBorderDown.GetComponent<SpriteRenderer>().sprite = borderSprites.wallBorderDownGR;
+                    tileBorderDown.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.wallBorderDownGR;
                 }
                 Instantiate(tileBorderDown, thisGO.transform.position + new Vector3(0f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
             }
@@ -826,15 +832,15 @@ public class LevelBuilder : MonoBehaviour {
         {
             if (thisTile.tileType == Constants.TileType.Border)
             {
-                tileBorderDown.GetComponent<SpriteRenderer>().sprite = borderSprites.borderBorderDown;
+                tileBorderDown.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderDown;
             }
             else if (thisTile.tileType == Constants.TileType.Wall)
             {
-                tileBorderDown.GetComponent<SpriteRenderer>().sprite = borderSprites.wallBorderDown;
+                tileBorderDown.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.wallBorderDown;
             }
             else if (thisTile.tileType == Constants.TileType.Ground)
             {
-                tileBorderDown.GetComponent<SpriteRenderer>().sprite = borderSprites.groundBorderDown;
+                tileBorderDown.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.groundBorderDown;
             }
             Instantiate(tileBorderDown, thisGO.transform.position + new Vector3(0f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
         }
@@ -843,15 +849,15 @@ public class LevelBuilder : MonoBehaviour {
 
         if (thisTile.tileType == Constants.TileType.Border)
         {
-            tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = cornerSprites.borderUpLeftCorner;
+            tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.borderUpLeftCorner;
         }
         else if (thisTile.tileType == Constants.TileType.Wall)
         {
-            tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = cornerSprites.wallUpLeftCorner;
+            tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.wallUpLeftCorner;
         }
         else if (thisTile.tileType == Constants.TileType.Ground)
         {
-            tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = cornerSprites.groundUpLeftCorner;
+            tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.groundUpLeftCorner;
         }
         if (leftNeighbour != null && upNeighbour != null && leftNeighbour.tileType == thisTile.tileType && upNeighbour.tileType == thisTile.tileType)
         {
@@ -867,15 +873,15 @@ public class LevelBuilder : MonoBehaviour {
         /////////////////////////////////////////////////////////////
         if (thisTile.tileType == Constants.TileType.Border)
         {
-            tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = cornerSprites.borderUpRightCorner;
+            tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.borderUpRightCorner;
         }
         else if (thisTile.tileType == Constants.TileType.Wall)
         {
-            tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = cornerSprites.wallUpRightCorner;
+            tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.wallUpRightCorner;
         }
         else if (thisTile.tileType == Constants.TileType.Ground)
         {
-            tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = cornerSprites.groundUpRightCorner;
+            tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.groundUpRightCorner;
         }
         if (rightNeighbour != null && upNeighbour != null && rightNeighbour.tileType == thisTile.tileType && upNeighbour.tileType == thisTile.tileType)
         {
@@ -891,15 +897,15 @@ public class LevelBuilder : MonoBehaviour {
         /////////////////////////////////////////////////////////////
         if (thisTile.tileType == Constants.TileType.Border)
         {
-            tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = cornerSprites.borderDownLeftCorner;
+            tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.borderDownLeftCorner;
         }
         else if (thisTile.tileType == Constants.TileType.Wall)
         {
-            tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = cornerSprites.wallDownLeftCorner;
+            tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.wallDownLeftCorner;
         }
         else if (thisTile.tileType == Constants.TileType.Ground)
         {
-            tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = cornerSprites.groundDownLeftCorner;
+            tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.groundDownLeftCorner;
         }
         if (leftNeighbour != null && downNeighbour != null && leftNeighbour.tileType == thisTile.tileType && downNeighbour.tileType == thisTile.tileType)
         {
@@ -915,15 +921,15 @@ public class LevelBuilder : MonoBehaviour {
         /////////////////////////////////////////////////////////////
         if (thisTile.tileType == Constants.TileType.Border)
         {
-            tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = cornerSprites.borderDownRightCorner;
+            tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.borderDownRightCorner;
         }
         else if (thisTile.tileType == Constants.TileType.Wall)
         {
-            tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = cornerSprites.wallDownRightCorner;
+            tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.wallDownRightCorner;
         }
         else if (thisTile.tileType == Constants.TileType.Ground)
         {
-            tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = cornerSprites.groundDownRightCorner;
+            tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.groundDownRightCorner;
         }
         if (rightNeighbour != null && downNeighbour != null && rightNeighbour.tileType == thisTile.tileType && downNeighbour.tileType == thisTile.tileType)
         {
@@ -942,23 +948,23 @@ public class LevelBuilder : MonoBehaviour {
             var downRightNeighbour = tiles.Find(item => (item.x == thisTile.x + 1) && (item.y == thisTile.y - 1));
             if (thisTile.tileType == Constants.TileType.Border && downRightNeighbour != null && downRightNeighbour.tileType == thisTile.tileType)
             {
-                tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = cornerSprites.borderUpRightCorner;
+                tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.borderUpRightCorner;
                 Instantiate(tileCornerUpRight, thisGO.transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
 
-                tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = cornerSprites.borderDownLeftCorner;
+                tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.borderDownLeftCorner;
                 Instantiate(tileCornerDownLeft, thisGO.transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
             }
             else if (thisTile.tileType == Constants.TileType.Wall && downRightNeighbour != null && downRightNeighbour.tileType == thisTile.tileType)
             {
                 if (rightNeighbour == null || rightNeighbour.tileType != Constants.TileType.Border)
                 {
-                    tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = cornerSprites.wallUpRightCorner;
+                    tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.wallUpRightCorner;
                     Instantiate(tileCornerUpRight, thisGO.transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
                 }
 
                 if (downNeighbour == null || downNeighbour.tileType != Constants.TileType.Border)
                 {
-                    tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = cornerSprites.wallDownLeftCorner;
+                    tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.wallDownLeftCorner;
                     Instantiate(tileCornerDownLeft, thisGO.transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
                 }
             }
@@ -966,13 +972,13 @@ public class LevelBuilder : MonoBehaviour {
             {
                 if (rightNeighbour == null || (rightNeighbour.tileType != Constants.TileType.Border && rightNeighbour.tileType != Constants.TileType.Wall))
                 {
-                    tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = cornerSprites.groundUpRightCorner;
+                    tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.groundUpRightCorner;
                     Instantiate(tileCornerUpRight, thisGO.transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
                 }
 
                 if (downNeighbour == null || (downNeighbour.tileType != Constants.TileType.Border && downNeighbour.tileType != Constants.TileType.Wall))
                 {
-                    tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = cornerSprites.groundDownLeftCorner;
+                    tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.groundDownLeftCorner;
                     Instantiate(tileCornerDownLeft, thisGO.transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
                 }
             }
@@ -984,23 +990,23 @@ public class LevelBuilder : MonoBehaviour {
             var downLeftNeighbour = tiles.Find(item => (item.x == thisTile.x - 1) && (item.y == thisTile.y - 1));
             if (thisTile.tileType == Constants.TileType.Border && downLeftNeighbour != null && downLeftNeighbour.tileType == thisTile.tileType)
             {
-                tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = cornerSprites.borderUpLeftCorner;
+                tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.borderUpLeftCorner;
                 Instantiate(tileCornerUpLeft, thisGO.transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
 
-                tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = cornerSprites.borderDownRightCorner;
+                tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.borderDownRightCorner;
                 Instantiate(tileCornerDownRight, thisGO.transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
             }
             else if (thisTile.tileType == Constants.TileType.Wall && downLeftNeighbour != null && downLeftNeighbour.tileType == thisTile.tileType)
             {
                 if (leftNeighbour == null || leftNeighbour.tileType != Constants.TileType.Border)
                 {
-                    tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = cornerSprites.wallUpLeftCorner;
+                    tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.wallUpLeftCorner;
                     Instantiate(tileCornerUpLeft, thisGO.transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
                 }
 
                 if (downNeighbour == null || downNeighbour.tileType != Constants.TileType.Border)
                 {
-                    tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = cornerSprites.wallDownRightCorner;
+                    tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.wallDownRightCorner;
                     Instantiate(tileCornerDownRight, thisGO.transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
                 }
             }
@@ -1008,13 +1014,13 @@ public class LevelBuilder : MonoBehaviour {
             {
                 if (leftNeighbour == null || (leftNeighbour.tileType != Constants.TileType.Border && leftNeighbour.tileType != Constants.TileType.Wall))
                 {
-                    tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = cornerSprites.groundUpLeftCorner;
+                    tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.groundUpLeftCorner;
                     Instantiate(tileCornerUpLeft, thisGO.transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
                 }
 
                 if (downNeighbour == null || (downNeighbour.tileType != Constants.TileType.Border && downNeighbour.tileType != Constants.TileType.Wall))
                 {
-                    tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = cornerSprites.groundDownRightCorner;
+                    tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.groundDownRightCorner;
                     Instantiate(tileCornerDownRight, thisGO.transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
                 }
             }
@@ -1027,7 +1033,7 @@ public class LevelBuilder : MonoBehaviour {
     public void Build()
     {
         GameObject GOTile = background;
-        GOTile.GetComponent<SpriteRenderer>().sprite = backgrounds[Random.Range(0, backgrounds.Length)];
+        GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.backgrounds[Random.Range(0, backgrounds.Length)];
         GameObject newObject = Instantiate(GOTile, new Vector3(0f, 0f, 0f), Quaternion.identity);
         newObject.transform.SetParent(gameObject.transform);
 
@@ -1038,52 +1044,52 @@ public class LevelBuilder : MonoBehaviour {
             {
                 case Constants.TileType.ActiveBomb:
                     GOTile = activeBomb;
-                    GOTile.GetComponent<SpriteRenderer>().sprite = activeBombs[Random.Range(0, activeBombs.Length)];
+                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.activeBombs[Random.Range(0, activeBombs.Length)];
                     //GOTile.GetComponent<BombController>().IsActive = true;
                     break;
                 case Constants.TileType.Ballon:
                     GOTile = ballon;
-                    GOTile.GetComponent<SpriteRenderer>().sprite = ballons[Random.Range(0, ballons.Length)];
+                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.ballons[Random.Range(0, ballons.Length)];
                     break;
                 case Constants.TileType.Border:
                     GOTile = border;
-                    GOTile.GetComponent<SpriteRenderer>().sprite = borders[Random.Range(0, borders.Length)];
+                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.borders[Random.Range(0, borders.Length)];
                     break;
                 case Constants.TileType.Crystal:
                     GOTile = crystal;
-                    GOTile.GetComponentInChildren<SpriteRenderer>().sprite = crystals[Random.Range(0, crystals.Length)];
+                    GOTile.GetComponentInChildren<SpriteRenderer>().sprite = currentBiom.crystals[Random.Range(0, crystals.Length)];
                     break;
                 case Constants.TileType.DeactiveBomb:
                     GOTile = deactiveBomb;
-                    GOTile.GetComponent<SpriteRenderer>().sprite = deactiveBombs[Random.Range(0, deactiveBombs.Length)];
+                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.deactiveBombs[Random.Range(0, deactiveBombs.Length)];
                     break;
                 case Constants.TileType.Enemy:
                     GOTile = enemy;
-                    GOTile.GetComponent<SpriteRenderer>().sprite = enemies[Random.Range(0, enemies.Length)];
+                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.enemies[Random.Range(0, enemies.Length)];
                     break;
                 case Constants.TileType.Ground:
                     GOTile = ground;
-                    GOTile.GetComponent<SpriteRenderer>().sprite = grounds[Random.Range(0, grounds.Length)];
+                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.grounds[Random.Range(0, grounds.Length)];
                     break;
                 case Constants.TileType.Mineral:
                     GOTile = mineral;
-                    GOTile.GetComponent<SpriteRenderer>().sprite = minerals[Random.Range(0, minerals.Length)];
+                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.minerals[Random.Range(0, minerals.Length)];
                     break;
                 case Constants.TileType.Player:
                     GOTile = player;
-                    GOTile.GetComponent<SpriteRenderer>().sprite = players[Random.Range(0, players.Length)];
+                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.players[Random.Range(0, players.Length)];
                     break;
                 case Constants.TileType.Portal:
                     GOTile = portal;
-                    GOTile.GetComponent<SpriteRenderer>().sprite = portals[Random.Range(0, portals.Length)];
+                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.portals[Random.Range(0, portals.Length)];
                     break;
                 case Constants.TileType.Stone:
                     GOTile = stone;
-                    GOTile.GetComponentInChildren<SpriteRenderer>().sprite = stones[Random.Range(0, stones.Length)];
+                    GOTile.GetComponentInChildren<SpriteRenderer>().sprite = currentBiom.stones[Random.Range(0, stones.Length)];
                     break;
                 case Constants.TileType.Wall:
                     GOTile = wall;
-                    GOTile.GetComponent<SpriteRenderer>().sprite = walls[Random.Range(0, walls.Length)];
+                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.walls[Random.Range(0, walls.Length)];
                     break;
        
 			//	string.
