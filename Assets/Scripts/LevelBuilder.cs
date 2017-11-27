@@ -57,6 +57,7 @@ public class StartingParameters
     private static extern int GetPrivateProfileString(string section, string key, string defaultValue, StringBuilder value, int size, string filePath);
 
     public string filePath = Path.Combine(Application.dataPath, "config.ini");
+    
 
     public struct BackgroundParams
     {
@@ -111,7 +112,7 @@ public class StartingParameters
     public void SetBackgroundValue()//string line)
     {
         var lineValue = new StringBuilder(255);
-
+        Debug.Log(Application.dataPath);
 
         GetPrivateProfileString("Background", "speed", "", lineValue, lineValue.Capacity, filePath);
         float.TryParse(lineValue.ToString(), out background.speed);
@@ -440,20 +441,20 @@ public class LevelBuilder : MonoBehaviour {
         newTiles = new List<Tile>();
 
 		if (lines.Length > 0) {
-			var line = lines [0];
-			switch (line) {
+			var line = lines [0].Split(';', ',','\n');
+            switch (line[0]) {
 			case Constants.BiomType.Asteroid:
 				currentBiom = asteroid;
 				break;
 			case Constants.BiomType.Earth:
 				currentBiom = earth;
-				break;
+                    break;
 			case Constants.BiomType.Spaceship:
 				currentBiom = spaceship;
-				break;
+                    break;
 			default:
 				currentBiom = earth;
-				break;
+                    break;
 			}
 
         }
@@ -464,17 +465,22 @@ public class LevelBuilder : MonoBehaviour {
 
         foreach (var line in tileLines)
         {
-            var symbols = line.Split(';',',');
+
+          //  Debug.Log(line);
+            var symbols = line.Split(';',',','\n');
             foreach(var symbol in symbols)
             {
+             //   Debug.Log(symbol);
                 if (symbol!="")
-                newTiles.Add(new Tile(x, -y, symbol));
-                    
+                    newTiles.Add(new Tile(x, -y, symbol));
+               // Debug.Log(x.ToString() + y.ToString() + symbol);
+
                 x++;
             }
             y++;
             x = 0;
         }
+     //   Debug.Log(newTiles.Count);
 
         tiles = newTiles;
         return newTiles;
@@ -487,6 +493,8 @@ public class LevelBuilder : MonoBehaviour {
         List<Tile> newTiles = new List<Tile>();
         Tile newTile;
         Tile player;
+
+        currentBiom = earth;
 
         for (int x = 1; x <= randomLevelGenerator.xMax; x++)
         {
@@ -1039,6 +1047,11 @@ public class LevelBuilder : MonoBehaviour {
 
         foreach (Tile tile in tiles)
         {
+            //if (tile.x == 4)
+            //{
+            //    Debug.Log(tile.x.ToString() + tile.y.ToString() + tile.tileType);
+            //    Debug.Log(tile.tileType == Constants.TileType.Border);
+            //}
             GOTile = null;
             switch (tile.tileType)
             {
@@ -1053,6 +1066,10 @@ public class LevelBuilder : MonoBehaviour {
                     break;
                 case Constants.TileType.Border:
                     GOTile = border;
+                    //if (tile.x == 4)
+                    //{
+                    //    Debug.Log(GOTile);
+                    //}
                     GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.borders[Random.Range(0, borders.Length)];
                     break;
                 case Constants.TileType.Crystal:
@@ -1099,6 +1116,10 @@ public class LevelBuilder : MonoBehaviour {
             if (GOTile != null)
             {
                 newObject = Instantiate(GOTile, new Vector3(tile.x, tile.y, 0f), Quaternion.identity);
+                //if (tile.x == 4)
+                //{
+                //    Debug.Log(newObject);
+                //}
                 newObject.transform.SetParent(gameObject.transform);
                 if (tile.tileType == Constants.TileType.Ground || tile.tileType == Constants.TileType.Border || tile.tileType == Constants.TileType.Wall)
                     SetBordersAndAngles(tile, newObject);

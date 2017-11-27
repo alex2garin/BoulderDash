@@ -5,7 +5,7 @@ using UnityEngine;
 public class ApplicationController : MonoBehaviour {
 
     public enum Level { random, level1 };
-    public static Vector3 gravity = Vector2.up;
+    public static Vector3 gravity = Vector2.down;
     public static Vector3 Left
     {
         get
