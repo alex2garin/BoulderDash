@@ -285,12 +285,20 @@ public class PlayerController : MonoBehaviour {
     private Text bombText;
     private Text mineralText;
     private Text oxygenText;
+    private Text crystalsToExitText;
 
     private GameObject plantedBomb;
 
     private Vector3 end;
     private Vector3 currDirection;
     private Vector3 newDirection;
+    private int numOfCrysrtalsToExit;
+
+    public void SetNumCrystalsToExit(int num)
+    {
+        numOfCrysrtalsToExit = num;
+    }
+    
 
     // Use this for initialization
     void Start()
@@ -306,6 +314,8 @@ public class PlayerController : MonoBehaviour {
         mineralText = GameObject.Find("Minerals").GetComponent<Text>();
         bombText = GameObject.Find("Bombs").GetComponent<Text>();
         oxygenText = GameObject.Find("Oxygen").GetComponent<Text>();
+        crystalsToExitText = GameObject.Find("CrystalsToExit").GetComponent<Text>();
+        crystalsToExitText.text = "Crystals To Exit: " + numOfCrysrtalsToExit;
 
         StartCoroutine(OxygenFlow());
     }

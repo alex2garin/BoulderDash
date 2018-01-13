@@ -18,14 +18,5 @@ sceneSetups:
   isLoaded: 0
   isActive: 0
 - path: Assets/Scenes/Menu.unity
-  isLoaded: 0
-  isActive: 0
-- path: Assets/Scenes/Menu.unity
-  isLoaded: 0
-  isActive: 0
-- path: Assets/Scenes/Menu.unity
-  isLoaded: 0
-  isActive: 0
-- path: Assets/Scenes/Menu.unity
   isLoaded: 1
   isActive: 1

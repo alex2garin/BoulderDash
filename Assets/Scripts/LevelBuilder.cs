@@ -112,7 +112,6 @@ public class StartingParameters
     public void SetBackgroundValue()//string line)
     {
         var lineValue = new StringBuilder(255);
-        Debug.Log(Application.dataPath);
 
         GetPrivateProfileString("Background", "speed", "", lineValue, lineValue.Capacity, filePath);
         float.TryParse(lineValue.ToString(), out background.speed);
@@ -344,29 +343,29 @@ public class LevelBuilder : MonoBehaviour {
 	public Biom asteroid;
 
     //tiles;
-    public Sprite[] borders;
-    public Sprite[] walls;
-    public Sprite[] grounds;
-    public Sprite[] portals;
-    public CornerSprites cornerSprites;
+    //public Sprite[] borders;
+    //public Sprite[] walls;
+    //public Sprite[] grounds;
+    //public Sprite[] portals;
+    //public CornerSprites cornerSprites;
 
 
 
     public BorderSprites borderSprites;
 
     //moving objects
-    public Sprite[] stones;
-    public Sprite[] activeBombs;
-    public Sprite[] deactiveBombs;
-    public Sprite[] crystals;
-    public Sprite[] minerals;
-    public Sprite[] ballons;
-    //enemies
-    public Sprite[] enemies;
-    //player
-    public Sprite[] players;
+    //public Sprite[] stones;
+    //public Sprite[] activeBombs;
+    //public Sprite[] deactiveBombs;
+    //public Sprite[] crystals;
+    //public Sprite[] minerals;
+    //public Sprite[] ballons;
+    ////enemies
+    //public Sprite[] enemies;
+    ////player
+    //public Sprite[] players;
 
-    public Sprite[] backgrounds;
+    //public Sprite[] backgrounds;
 
     //tiles;
     public GameObject border;
@@ -403,6 +402,8 @@ public class LevelBuilder : MonoBehaviour {
 
     private List<Tile> tiles;
 	private Biom currentBiom;
+    private int numOfCrystalsToExit=0;
+
     public StartingParameters startingParams;
 
 
@@ -436,12 +437,12 @@ public class LevelBuilder : MonoBehaviour {
         
         int x = 0;
         int y = 0;
-        //string[] tileLines = null;
 
         newTiles = new List<Tile>();
 
 		if (lines.Length > 0) {
 			var line = lines [0].Split(';', ',','\n');
+
             switch (line[0]) {
 			case Constants.BiomType.Asteroid:
 				currentBiom = asteroid;
@@ -457,6 +458,29 @@ public class LevelBuilder : MonoBehaviour {
                     break;
 			}
 
+            if (!int.TryParse(line[1], out numOfCrystalsToExit)) numOfCrystalsToExit = 0;
+            Debug.Log(line[1]);
+            Debug.Log(numOfCrystalsToExit);
+
+            switch (line[2])
+            {
+                case "up":
+                    ApplicationController.gravity = Vector3.up;
+                    break;
+                case "down":
+                    ApplicationController.gravity = Vector3.down;
+                    break;
+                case "left":
+                    ApplicationController.gravity = Vector3.left;
+                    break;
+                case "right":
+                    ApplicationController.gravity = Vector3.right;
+                    break;
+                default:
+                    ApplicationController.gravity = Vector3.down;
+                    break;
+            }
+
         }
 
         var tileLines = lines.Skip(1);//skip first line
@@ -465,23 +489,17 @@ public class LevelBuilder : MonoBehaviour {
 
         foreach (var line in tileLines)
         {
-
-          //  Debug.Log(line);
+            
             var symbols = line.Split(';',',','\n');
             foreach(var symbol in symbols)
             {
-             //   Debug.Log(symbol);
                 if (symbol!="")
                     newTiles.Add(new Tile(x, -y, symbol));
-               // Debug.Log(x.ToString() + y.ToString() + symbol);
-
                 x++;
             }
             y++;
             x = 0;
         }
-     //   Debug.Log(newTiles.Count);
-
         tiles = newTiles;
         return newTiles;
     }
@@ -495,6 +513,7 @@ public class LevelBuilder : MonoBehaviour {
         Tile player;
 
         currentBiom = earth;
+        ApplicationController.gravity = Vector3.down;
 
         for (int x = 1; x <= randomLevelGenerator.xMax; x++)
         {
@@ -559,6 +578,7 @@ public class LevelBuilder : MonoBehaviour {
             newTiles.Add(newTile);
             freeTiles.RemoveAt(index);
             randomLevelGenerator.maxCrystal--;
+            numOfCrystalsToExit++;
         }
 
         while (randomLevelGenerator.maxActiveBomb > 0)
@@ -1041,7 +1061,7 @@ public class LevelBuilder : MonoBehaviour {
     public void Build()
     {
         GameObject GOTile = background;
-        GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.backgrounds[Random.Range(0, backgrounds.Length)];
+        GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.backgrounds[Random.Range(0, currentBiom.backgrounds.Length)];
         GameObject newObject = Instantiate(GOTile, new Vector3(0f, 0f, 0f), Quaternion.identity);
         newObject.transform.SetParent(gameObject.transform);
 
@@ -1057,56 +1077,53 @@ public class LevelBuilder : MonoBehaviour {
             {
                 case Constants.TileType.ActiveBomb:
                     GOTile = activeBomb;
-                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.activeBombs[Random.Range(0, activeBombs.Length)];
+                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.activeBombs[Random.Range(0, currentBiom.activeBombs.Length)];
                     //GOTile.GetComponent<BombController>().IsActive = true;
                     break;
                 case Constants.TileType.Ballon:
                     GOTile = ballon;
-                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.ballons[Random.Range(0, ballons.Length)];
+                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.ballons[Random.Range(0, currentBiom.ballons.Length)];
                     break;
                 case Constants.TileType.Border:
                     GOTile = border;
-                    //if (tile.x == 4)
-                    //{
-                    //    Debug.Log(GOTile);
-                    //}
-                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.borders[Random.Range(0, borders.Length)];
+                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.borders[Random.Range(0, currentBiom.borders.Length)];
                     break;
                 case Constants.TileType.Crystal:
                     GOTile = crystal;
-                    GOTile.GetComponentInChildren<SpriteRenderer>().sprite = currentBiom.crystals[Random.Range(0, crystals.Length)];
+                    GOTile.GetComponentInChildren<SpriteRenderer>().sprite = currentBiom.crystals[Random.Range(0, currentBiom.crystals.Length)];
                     break;
                 case Constants.TileType.DeactiveBomb:
                     GOTile = deactiveBomb;
-                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.deactiveBombs[Random.Range(0, deactiveBombs.Length)];
+                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.deactiveBombs[Random.Range(0, currentBiom.deactiveBombs.Length)];
                     break;
                 case Constants.TileType.Enemy:
                     GOTile = enemy;
-                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.enemies[Random.Range(0, enemies.Length)];
+                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.enemies[Random.Range(0, currentBiom.enemies.Length)];
                     break;
                 case Constants.TileType.Ground:
                     GOTile = ground;
-                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.grounds[Random.Range(0, grounds.Length)];
+                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.grounds[Random.Range(0, currentBiom.grounds.Length)];
                     break;
                 case Constants.TileType.Mineral:
                     GOTile = mineral;
-                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.minerals[Random.Range(0, minerals.Length)];
+                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.minerals[Random.Range(0, currentBiom.minerals.Length)];
                     break;
                 case Constants.TileType.Player:
                     GOTile = player;
-                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.players[Random.Range(0, players.Length)];
+                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.players[Random.Range(0, currentBiom.players.Length)];
+                    GOTile.GetComponent<PlayerController>().SetNumCrystalsToExit(numOfCrystalsToExit);
                     break;
                 case Constants.TileType.Portal:
                     GOTile = portal;
-                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.portals[Random.Range(0, portals.Length)];
+                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.portals[Random.Range(0, currentBiom.portals.Length)];
                     break;
                 case Constants.TileType.Stone:
                     GOTile = stone;
-                    GOTile.GetComponentInChildren<SpriteRenderer>().sprite = currentBiom.stones[Random.Range(0, stones.Length)];
+                    GOTile.GetComponentInChildren<SpriteRenderer>().sprite = currentBiom.stones[Random.Range(0, currentBiom.stones.Length)];
                     break;
                 case Constants.TileType.Wall:
                     GOTile = wall;
-                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.walls[Random.Range(0, walls.Length)];
+                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.walls[Random.Range(0, currentBiom.walls.Length)];
                     break;
        
 			//	string.
