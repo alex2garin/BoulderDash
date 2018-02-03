@@ -392,17 +392,25 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
-        float verticalInput = Input.GetAxisRaw("Vertical");
+		float horizontalInput = ApplicationController.inputCTRL.HorizontalMovement ();
+			//Input.GetAxisRaw("Horizontal");
+		float verticalInput = ApplicationController.inputCTRL.VerticalMovement();
+			//Input.GetAxisRaw("Vertical");
 
         if (horizontalInput != 0) newDirection = new Vector2(horizontalInput, 0f);
         else if (verticalInput != 0) newDirection = new Vector2(0f, verticalInput);
         else newDirection = Vector2.zero;
 
-        bool control = Input.GetKey(KeyCode.LeftControl);
+		bool control = ApplicationController.inputCTRL.ActionWithoutMoving ();
+			//Input.GetKey(KeyCode.LeftControl);
         if (switcher != control) switcher = control;
 
-        bool space = Input.GetKey(KeyCode.Space);
+		bool space = ApplicationController.inputCTRL.PlantBomb ();
+			//Input.GetKey(KeyCode.Space);
+//			if(Input.GetKey(KeyCode.LeftCommand)) 
+//				Debug.Log (1);
+//		if(Input.GetKey(KeyCode.LeftControl))
+//				Debug.Log (2);
 
 
         if (isMoving)
