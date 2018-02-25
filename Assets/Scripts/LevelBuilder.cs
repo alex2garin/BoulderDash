@@ -931,12 +931,12 @@ public class LevelBuilder : MonoBehaviour
 			switch (tile.tileType) {
 			case Constants.TileType.ActiveBomb:
 				GOTile = activeBomb;
-				GOTile.GetComponent<SpriteRenderer> ().sprite = currentBiom.activeBombs [Random.Range (0, currentBiom.activeBombs.Length)];
+				GOTile.GetComponentInChildren<SpriteRenderer> ().sprite = currentBiom.activeBombs [Random.Range (0, currentBiom.activeBombs.Length)];
                     //GOTile.GetComponent<BombController>().IsActive = true;
 				break;
 			case Constants.TileType.Ballon:
 				GOTile = ballon;
-				GOTile.GetComponent<SpriteRenderer> ().sprite = currentBiom.ballons [Random.Range (0, currentBiom.ballons.Length)];
+				GOTile.GetComponentInChildren<SpriteRenderer> ().sprite = currentBiom.ballons [Random.Range (0, currentBiom.ballons.Length)];
 				break;
 			case Constants.TileType.Border:
 				GOTile = border;
@@ -948,7 +948,7 @@ public class LevelBuilder : MonoBehaviour
 				break;
 			case Constants.TileType.DeactiveBomb:
 				GOTile = deactiveBomb;
-				GOTile.GetComponent<SpriteRenderer> ().sprite = currentBiom.deactiveBombs [Random.Range (0, currentBiom.deactiveBombs.Length)];
+				GOTile.GetComponentInChildren<SpriteRenderer> ().sprite = currentBiom.deactiveBombs [Random.Range (0, currentBiom.deactiveBombs.Length)];
 				break;
 			case Constants.TileType.Enemy:
 				GOTile = enemy;
@@ -960,11 +960,11 @@ public class LevelBuilder : MonoBehaviour
 				break;
 			case Constants.TileType.Mineral:
 				GOTile = mineral;
-				GOTile.GetComponent<SpriteRenderer> ().sprite = currentBiom.minerals [Random.Range (0, currentBiom.minerals.Length)];
+				GOTile.GetComponentInChildren<SpriteRenderer> ().sprite = currentBiom.minerals [Random.Range (0, currentBiom.minerals.Length)];
 				break;
 			case Constants.TileType.Player:
 				GOTile = player;
-				GOTile.GetComponent<SpriteRenderer> ().sprite = currentBiom.players [Random.Range (0, currentBiom.players.Length)];
+				GOTile.GetComponentInChildren<SpriteRenderer> ().sprite = currentBiom.players [Random.Range (0, currentBiom.players.Length)];
 				GOTile.GetComponent<PlayerController> ().SetNumCrystalsToExit (numOfCrystalsToExit);
 				break;
 			case Constants.TileType.Portal:
@@ -1041,7 +1041,7 @@ public class LevelBuilder : MonoBehaviour
 		playerCtrl.secondsForBallon = ApplicationController.startingParams.player.secondsForBallon;
 		playerCtrl.startingSecondsOfOxygen = ApplicationController.startingParams.player.startingSecondsOfOxygen;
 
-		MovingObjectController2 stoneMOC = stone.GetComponent<MovingObjectController2> ();
+		MovingObjectController stoneMOC = stone.GetComponent<MovingObjectController> ();
 		stoneMOC.canRoll = ApplicationController.startingParams.stone.canRoll;
 		stoneMOC.rotationSpeed = ApplicationController.startingParams.stone.rotationSpeed;
 		stoneMOC.sideMoveTime = ApplicationController.startingParams.stone.moveTime;

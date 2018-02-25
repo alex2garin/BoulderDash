@@ -29,6 +29,31 @@ public abstract class Enemy : MonoBehaviour {
     private void FixedUpdate()
     {
 
+
+        //if (isMoving)
+        //{
+        //    Move2(isFalling);
+
+        //}
+        //else
+        //{
+
+        //    var startPosition = transform.position;
+        //    destVector = GetDestination(out isFalling);
+        //    destination = transform.position + destVector;
+
+        //    if (destination == transform.position) return;
+
+        //    isMoving = true;
+
+        //    transform.position = destVector / 2 + transform.position;
+        //    childSprite.transform.localPosition = -destVector / 2;
+
+        //    StartCoroutine(Rotate(GetRotationSide(destination - transform.position)));
+        //    Move2(isFalling);
+        //}
+
+
         if (isMoving)
         {
             float sqrRemainingDistance = (end - transform.position).sqrMagnitude;

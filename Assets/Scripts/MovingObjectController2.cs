@@ -1,6 +1,4 @@
-﻿
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +11,10 @@ public class MovingObjectController2 : MonoBehaviour
 	public bool canKill = true;
 
 	public bool IsMoving { get { return isMoving; } }
-	private bool isMoving;
+
+    public enum RotationSide { left, right, norotation };
+
+    private bool isMoving;
 	private float inverseMoveTime;
 	private Rigidbody2D rb2D;
 
@@ -30,7 +31,6 @@ public class MovingObjectController2 : MonoBehaviour
 
 	private Vector3 lastposition;
 
-	public enum RotationSide { left, right, norotation };
 
 	// Use this for initialization
 	void Start()
@@ -57,7 +57,7 @@ public class MovingObjectController2 : MonoBehaviour
 			return ApplicationController.gravity;
 		}
 
-		MovingObjectController movingObject = down.gameObject.GetComponent<MovingObjectController>();
+		MovingObjectController2 movingObject = down.gameObject.GetComponent<MovingObjectController2>();
 		if (movingObject != null && movingObject.IsMoving == true)
 		{
 			return Vector3.zero;
@@ -73,7 +73,7 @@ public class MovingObjectController2 : MonoBehaviour
 				{
 
 					Collider2D upleft = Physics2D.OverlapBox(transform.position + ApplicationController.UpLeft, new Vector2(.9f, .9f), 0f);
-					if (upleft == null || upleft.gameObject.GetComponent<MovingObjectController>() == null)
+					if (upleft == null || upleft.gameObject.GetComponent<MovingObjectController2>() == null)
 					{
 						if (!movingObject.WillYouMove())
 						{
@@ -91,7 +91,7 @@ public class MovingObjectController2 : MonoBehaviour
 				if (rightDown == null)
 				{
 					Collider2D upright = Physics2D.OverlapBox(transform.position + ApplicationController.UpRight, new Vector2(.9f, .9f), 0f);
-					if (upright == null || upright.gameObject.GetComponent<MovingObjectController>() == null)
+					if (upright == null || upright.gameObject.GetComponent<MovingObjectController2>() == null)
 					{
 
 						if (!movingObject.WillYouMove())
@@ -109,25 +109,10 @@ public class MovingObjectController2 : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-//		if (IsMoving && ((lastposition - transform.position).sqrMagnitude <= float.Epsilon || lastposition == transform.position))
-//		{
-//			//   Debug.Log(Time.time);
-//			Debug.Log("position " + transform.position.ToString());
-//			Debug.Log("destination " + destination);
-//			Debug.Log("is position == destination in math logic? " + ((destination - transform.position).sqrMagnitude <= float.Epsilon).ToString());
-//			Debug.Log("is position == destination in eq logic? " + (destination == transform.position).ToString());
-//			Debug.Log("isMoving flag " + isMoving.ToString());
-//			Debug.Log("object " + gameObject.ToString());
-//			Debug.Log("Collider offset " + cc2D.offset.ToString());
-//			Debug.Log("Collider under " + Physics2D.OverlapBox(transform.position + new Vector3(0f, -1f), new Vector2(0.9f, .9f), 0f));
-//			//int i = 0;
-//			//var j = i / 0;
-//		}
-//		lastposition = transform.position;
 
 		if (isMoving)
 		{
-						Move2(isFalling);
+			Move2(isFalling);
 
 		}
 		else
@@ -135,7 +120,6 @@ public class MovingObjectController2 : MonoBehaviour
 
 			var startPosition = transform.position;
 			destVector = GetDestination(out isFalling);
-//			Debug.Log (childSprite.transform.localPosition);
 			destination = transform.position + destVector;
 
 			if (destination == transform.position) return;
@@ -144,11 +128,11 @@ public class MovingObjectController2 : MonoBehaviour
 
 			transform.position = destVector /2 + transform.position;
 			childSprite.transform.localPosition = - destVector / 2;
-//
-//			//StartCoroutine(Rotate(GetRotationSide(destination - transform.position)));
+
+			StartCoroutine(Rotate(GetRotationSide(destination - transform.position)));
 			Move2(isFalling);
-		}
-	}
+        }
+    }
 
 	private static RotationSide GetRotationSide(Vector3 direction)
 	{
@@ -164,8 +148,7 @@ public class MovingObjectController2 : MonoBehaviour
 		else if (angle > 180) return angle - 180f;
 		else return angle;
 	}
-
-
+    
 	private IEnumerator Rotate(RotationSide side)
 	{
 
@@ -191,37 +174,34 @@ public class MovingObjectController2 : MonoBehaviour
 	private void Move2(bool falling = false)
 	{
 
-
-
 		float sqrRemainingDistance = (destVector/2 - childSprite.transform.localPosition).sqrMagnitude;
-
-
+        
 		if (sqrRemainingDistance > float.Epsilon && destVector/2 != childSprite.transform.localPosition)
 		{
 			Vector3 newPostion = Vector3.MoveTowards(childSprite.transform.localPosition, destVector/2, inverseMoveTime * Time.deltaTime);
 
-//			if (falling && ((newPostion - destVector/2).sqrMagnitude <= float.Epsilon || destVector/2 == newPostion))
-//			{
-//				//cc2D.offset = (destVector/2 - transform.position) / 2;
-//				Collider2D down = Physics2D.OverlapBox(transform.position + ApplicationController.gravity, new Vector2(.9f, .9f), 0f);
-//
-//
-//				if (down == null)
-//				{
-//					destination = destination + ApplicationController.gravity;
-//					newPostion = Vector3.MoveTowards(transform.position, destination, inverseMoveTime * Time.deltaTime);
-//				}
-//
-//			}
+            if (falling && ((newPostion - destVector / 2).sqrMagnitude <= float.Epsilon || destVector / 2 == newPostion))
+            {
 
-			childSprite.transform.localPosition = newPostion;
-//			rb2D.MovePosition(newPostion);
+                Collider2D down = Physics2D.OverlapBox(transform.position + 3 * ApplicationController.gravity / 2, new Vector2(.9f, .9f), 0f);
+
+                if (down == null)
+                {
+
+                    destination = destination + ApplicationController.gravity;
+                    rb2D.MovePosition(transform.position + ApplicationController.gravity);
+                    newPostion = Vector3.MoveTowards(childSprite.transform.localPosition - ApplicationController.gravity, destVector / 2, inverseMoveTime * Time.deltaTime);
+                }
+
+            }
+           
+            childSprite.transform.localPosition = newPostion;
 			return;
-		}
-		childSprite.transform.localPosition = Vector3.zero;
+        }
+        childSprite.transform.localPosition = Vector3.zero;
 		rb2D.MovePosition(destination);
 
-		if (falling)// && ((destination - transform.position).sqrMagnitude <= float.Epsilon || destination == transform.position))
+		if (falling)
 		{
 			Collider2D down = Physics2D.OverlapBox(transform.position + ApplicationController.gravity, new Vector2(.9f, .9f), 0f);
 			if (down != null)
@@ -242,8 +222,6 @@ public class MovingObjectController2 : MonoBehaviour
 		isMoving = false;
 
 	}
-
-
 
 	public bool Push(Vector3 direction)
 	{
@@ -276,7 +254,7 @@ public class MovingObjectController2 : MonoBehaviour
 		if (isMoving) return true;
 		Collider2D down = Physics2D.OverlapBox(transform.position + ApplicationController.gravity, new Vector2(.9f, .9f), 0f);
 		if (down == null) return true;
-		MovingObjectController MOCDown = down.gameObject.GetComponent<MovingObjectController>();
+		MovingObjectController2 MOCDown = down.gameObject.GetComponent<MovingObjectController2>();
 		if (MOCDown == null) return false;
 		if (MOCDown.WillYouMove()) return true;
 
@@ -288,7 +266,7 @@ public class MovingObjectController2 : MonoBehaviour
 			{
 
 				Collider2D leftUp = Physics2D.OverlapBox(transform.position + ApplicationController.UpLeft, new Vector2(.9f, .9f), 0f);
-				if (leftUp == null || leftUp.gameObject.GetComponent<MovingObjectController>() == null) return true;
+				if (leftUp == null || leftUp.gameObject.GetComponent<MovingObjectController2>() == null) return true;
 			}
 		}
 
@@ -300,7 +278,7 @@ public class MovingObjectController2 : MonoBehaviour
 			{
 
 				Collider2D rightUp = Physics2D.OverlapBox(transform.position + ApplicationController.UpRight, new Vector2(.9f, .9f), 0f);
-				if (rightUp == null || rightUp.gameObject.GetComponent<MovingObjectController>() == null) return true;
+				if (rightUp == null || rightUp.gameObject.GetComponent<MovingObjectController2>() == null) return true;
 			}
 		}
 

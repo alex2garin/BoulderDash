@@ -8,8 +8,7 @@ public class BombController : MonoBehaviour {
     public float destroyDelayTime = .5f;
     public bool isActive;
     
-
-//    private SpriteRenderer sr;
+   
     private Animator animator;
     private bool exploding = false;
     private Rigidbody2D rb2D;
@@ -19,32 +18,26 @@ public class BombController : MonoBehaviour {
 
     // Use this for initialization
     void Awake () {
-        //        sr = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-        //animator.SetBool("isActive", isActive);
         rb2D = GetComponent<Rigidbody2D>();
         BC2D = GetComponent<BoxCollider2D>();
         MOC = GetComponent<MovingObjectController>();
 
-        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        SpriteRenderer sr = GetComponentInChildren<SpriteRenderer>();
         if (sr != null)
             sr.sortingOrder = ApplicationController.BombExplosionSortValue;
-
-        //Debug.Log(rb2D);
+        
     }
 
     public void Planted()
     {
         MOC.enabled = false;
         rb2D.Sleep();
-    //    BC2D.enabled = false;
-        
     }
 
     public void Activate()
     {
         rb2D.WakeUp();
-    //    BC2D.enabled = true;
         MOC.enabled = true;
     }
 
@@ -54,16 +47,12 @@ public class BombController : MonoBehaviour {
         exploding = true;
 
         MOC.enabled = false;
-        //Debug.Log("ready to explode is called");
-        //Debug.Log(gameObject);
-        //Debug.Log(transform.position);
         StartCoroutine(AnimationDelay());
     }
 
     private IEnumerator AnimationDelay()
     {
         animator.SetTrigger("Explode");
-        //Debug.Log(explosionLengthTime);
         yield return new WaitForSeconds(explosionLengthTime);
         Explode();
 

@@ -10,10 +10,10 @@ public class BackgroundController : MonoBehaviour {
     void Start()
     {
             
-        target = GameObject.FindWithTag("Player").transform;
+        target = GameObject.FindWithTag("Player").GetComponentInChildren<SpriteRenderer>().transform;
         if (target != null)
             transform.position = target.position;
-       // Debug.Log(target);
+
 
     }
 
