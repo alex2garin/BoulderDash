@@ -203,11 +203,11 @@ public class ApplicationController : MonoBehaviour
 		ReadIniFile (iniFilePath);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    //// Update is called once per frame
+    //void Update()
+    //{
 
-    }
+    //}
 
     void ReadIniFile(string filePath)
     {

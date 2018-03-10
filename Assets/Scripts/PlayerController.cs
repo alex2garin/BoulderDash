@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     public GameObject bombGO;
 
 
-    private Rigidbody2D rb2D;
+    //   private Rigidbody2D rb2D;
     private Collider2D cc2D;
     private float inverseMoveTime;
     private bool isMoving;
@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
         oxygen = startingSecondsOfOxygen;
 
         inverseMoveTime = 1f / moveTime;
-        rb2D = GetComponent<Rigidbody2D>();
+        //      rb2D = GetComponent<Rigidbody2D>();
         cc2D = GetComponent<Collider2D>();
         isMoving = false;
         crystalText = GameObject.Find("Crystals").GetComponent<Text>();
@@ -148,7 +148,7 @@ public class PlayerController : MonoBehaviour
         else if (verticalInput != 0) newDirection = new Vector2(0f, verticalInput);
         else newDirection = Vector2.zero;
 
-        if(handleFlag) newDirection = new Vector2(-1f, 0f);
+        if (handleFlag) newDirection = new Vector2(1f, 0f);
 
         bool control = ApplicationController.inputCTRL.ActionWithoutMoving();
         //Input.GetKey(KeyCode.LeftControl);
@@ -224,26 +224,40 @@ public class PlayerController : MonoBehaviour
                 if (newPostion == destVector / 2 && currDirection == newDirection)
                 {
                     Collider2D directionObject = Physics2D.OverlapBox(end + newDirection, new Vector2(.9f, .9f), 0);
-                    if (directionObject == null || directionObject.gameObject.CompareTag("Ground") || directionObject.gameObject.layer == LayerMask.NameToLayer("PickUp"))
+                    if (directionObject == null || directionObject.gameObject.CompareTag("Ground"))
                     {
-                        //Collider2D directionUp = Physics2D.OverlapBox(end + newDirection + new Vector3(0f, 1f, 0f), new Vector2(.9f, .9f), 0);
-                        //if (directionUp != null)
-                        //{
-                        //    MovingObjectController moverUp = directionUp.gameObject.GetComponent<MovingObjectController>();
-                        //    if (moverUp == null || !moverUp.IsMoving)
-                        //    {
-                        //        end += newDirection;
-                        //        newPostion = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
-                        //    }
-                        //}
-                        //else
-                        //{
-                        //end += newDirection;
-                        //newPostion = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
-                        //}
+
                         end += newDirection;
-                        rb2D.MovePosition(transform.position + newDirection);
+                        transform.position += newDirection;
                         newPostion = Vector3.MoveTowards(childSprite.transform.localPosition - newDirection, destVector / 2, inverseMoveTime * Time.deltaTime);
+                    }
+                    else if (directionObject != null  && directionObject.gameObject.layer == LayerMask.NameToLayer("PickUp"))
+                    {
+                        MovingObjectController dirMOC = directionObject.gameObject.GetComponent<MovingObjectController>();
+                        if (//(newDirection == -ApplicationController.gravity ||
+                            //newDirection == ApplicationController.gravity) && 
+                            dirMOC != null && dirMOC.IsMoving) { }
+                        else
+                        {
+                            //Collider2D directionUp = Physics2D.OverlapBox(end + newDirection + new Vector3(0f, 1f, 0f), new Vector2(.9f, .9f), 0);
+                            //if (directionUp != null)
+                            //{
+                            //    MovingObjectController moverUp = directionUp.gameObject.GetComponent<MovingObjectController>();
+                            //    if (moverUp == null || !moverUp.IsMoving)
+                            //    {
+                            //        end += newDirection;
+                            //        newPostion = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
+                            //    }
+                            //}
+                            //else
+                            //{
+                            //end += newDirection;
+                            //newPostion = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
+                            //}
+                            end += newDirection;
+                            transform.position += newDirection;
+                            newPostion = Vector3.MoveTowards(childSprite.transform.localPosition - newDirection, destVector / 2, inverseMoveTime * Time.deltaTime);
+                        }
                     }
                 }
                 //cc2D.offset = (end - transform.position) / 2;
@@ -253,7 +267,8 @@ public class PlayerController : MonoBehaviour
             }
             //cc2D.offset = new Vector2(0f, 0f);
             childSprite.transform.localPosition = Vector3.zero;
-            rb2D.MovePosition(end);
+            //rb2D.MovePosition(end);
+            transform.position = end;
             isMoving = false;
         }
         else
@@ -290,31 +305,55 @@ public class PlayerController : MonoBehaviour
 
             if (directionObject != null && 1 << directionObject.gameObject.layer == pickUpLayer.value)
             {
-                if (directionObject.gameObject.CompareTag("Ballon")) PickUpOxygen();
-                else if (directionObject.gameObject.CompareTag("BombPickUp")) PickUpBomb();
-                else if (directionObject.gameObject.CompareTag("Crystal")) PickUpCrystals();
-                else if (directionObject.gameObject.CompareTag("Mineral")) PickUpMinerals();
 
-               
+                if (newDirection == ApplicationController.gravity && directionObject.gameObject.GetComponent<MovingObjectController>().IsMoving) return;
+
+                if (newDirection == -ApplicationController.gravity && directionObject.gameObject.GetComponent<MovingObjectController>().IsMoving) return;
+
+                if((newDirection == directionObject.gameObject.GetComponent<MovingObjectController>().DestinationVector ||
+                    -newDirection == directionObject.gameObject.GetComponent<MovingObjectController>().DestinationVector ) &&
+                    directionObject.gameObject.GetComponent<MovingObjectController>().IsMoving) return;
+
+
+                if (directionObject.gameObject.GetComponent<PickUp>().TryPickUp(transform.position))
+                {
+
+                    if (control)
+                    {
+                        if (directionObject.gameObject.CompareTag("Ballon")) PickUpOxygen();
+                        else if (directionObject.gameObject.CompareTag("BombPickUp")) PickUpBomb();
+                        else if (directionObject.gameObject.CompareTag("Crystal")) PickUpCrystals();
+                        else if (directionObject.gameObject.CompareTag("Mineral")) PickUpMinerals();
+
+                        //Debug.Log("vertical");
+                        //Debug.Log(Input.GetAxisRaw("Vertical"));
+                        //Debug.Log("horizontal");
+                        //Debug.Log(Input.GetAxisRaw("Horizontal"));
+
+                        Destroy(directionObject.gameObject);
+                        return;
+                    }
+                }
+                else return;
+            }
+
+            if (directionObject != null && directionObject.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            {
                 if (control)
                 {
                     Destroy(directionObject.gameObject);
                     return;
                 }
             }
-
-            if (directionObject != null && directionObject.gameObject.layer == LayerMask.NameToLayer("Ground"))
-            {
-                Destroy(directionObject.gameObject);
-                if (control) return;
-            }
             if (!control)
             {
 
                 isMoving = true;
-            //    Debug.Log(transform.position);
-            //    Debug.Log(newDirection / 2 + transform.position);
-                rb2D.MovePosition(newDirection / 2 + transform.position);
+                //    Debug.Log(transform.position);
+                //    Debug.Log(newDirection / 2 + transform.position);
+                //    rb2D.MovePosition(newDirection / 2 + transform.position);
+
+                transform.position = newDirection / 2 + transform.position;
 
                 childSprite.transform.localPosition = -destVector / 2;
                 FixedUpdate();

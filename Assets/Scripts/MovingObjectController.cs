@@ -774,6 +774,7 @@ using UnityEngine;
 
 public class MovingObjectController : MonoBehaviour
 {
+    public bool superFlag = false;
 
     public float sideMoveTime = 0.2f;
     public bool canRoll = false;
@@ -781,12 +782,13 @@ public class MovingObjectController : MonoBehaviour
     public bool canKill = true;
 
     public bool IsMoving { get { return isMoving; } }
+    public Vector3 DestinationVector { get { return destVector; } }
 
     public enum RotationSide { left, right, norotation };
 
     private bool isMoving;
     private float inverseMoveTime;
-    private Rigidbody2D rb2D;
+ //   private Rigidbody2D rb2D;
 
     private Collider2D cc2D;
     private SpriteRenderer childSprite;
@@ -805,7 +807,7 @@ public class MovingObjectController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        rb2D = GetComponent<Rigidbody2D>();
+ //       rb2D = GetComponent<Rigidbody2D>();
         cc2D = GetComponent<Collider2D>();
         isMoving = false;
         inverseMoveTime = 1f / sideMoveTime;
@@ -897,8 +899,8 @@ public class MovingObjectController : MonoBehaviour
 
             isMoving = true;
 
-            rb2D.MovePosition(destVector / 2 + transform.position);
-            //transform.position = destVector / 2 + transform.position;
+            //rb2D.MovePosition(destVector / 2 + transform.position);
+            transform.position = destVector / 2 + transform.position;
             childSprite.transform.localPosition = -destVector / 2;
 
             StartCoroutine(Rotate(GetRotationSide(destination - transform.position)));
@@ -961,7 +963,8 @@ public class MovingObjectController : MonoBehaviour
                 {
 
                     destination = destination + ApplicationController.gravity;
-                    rb2D.MovePosition(transform.position + ApplicationController.gravity);
+                    transform.position += ApplicationController.gravity;
+                    //rb2D.MovePosition(transform.position + ApplicationController.gravity);
                     newPostion = Vector3.MoveTowards(childSprite.transform.localPosition - ApplicationController.gravity, destVector / 2, inverseMoveTime * Time.deltaTime);
                 }
 
@@ -971,8 +974,12 @@ public class MovingObjectController : MonoBehaviour
             return;
         }
         childSprite.transform.localPosition = Vector3.zero;
-        rb2D.MovePosition(destination);
-
+        //rb2D.MovePosition(destination);
+        transform.position = destination;
+        //if(superFlag)
+        //{
+        //    Debug.Log("here");
+        //}
         if (falling)
         {
             Collider2D down = Physics2D.OverlapBox(transform.position + ApplicationController.gravity, new Vector2(.9f, .9f), 0f);
@@ -1010,10 +1017,31 @@ public class MovingObjectController : MonoBehaviour
                 if (side == null)
                 {
                     isMoving = true;
+                    destVector = fixedDirection;
                     destination = transform.position + fixedDirection;
+
+                    //rb2D.MovePosition(destVector / 2 + transform.position);
+                    transform.position = destVector / 2 + transform.position;
+                    childSprite.transform.localPosition = -destVector / 2;
+
                     StartCoroutine(Rotate(GetRotationSide(destination - transform.position)));
                     Move2();
                     return true;
+
+                    //var startPosition = transform.position;
+                    //destVector = GetDestination(out isFalling);
+                    //destination = transform.position + destVector;
+
+                    //if (destination == transform.position) return;
+
+                    //isMoving = true;
+
+                    //rb2D.MovePosition(destVector / 2 + transform.position);
+                    ////transform.position = destVector / 2 + transform.position;
+                    //childSprite.transform.localPosition = -destVector / 2;
+
+                    //StartCoroutine(Rotate(GetRotationSide(destination - transform.position)));
+                    //Move2(isFalling);
                 }
                 return false;
             }
@@ -1056,5 +1084,9 @@ public class MovingObjectController : MonoBehaviour
 
         return false;
     }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Player")) Destroy(collision.gameObject);
+    //}
 }
 

@@ -12,7 +12,7 @@ public class BombController : MonoBehaviour {
     private Animator animator;
     private bool exploding = false;
     private Rigidbody2D rb2D;
-    private BoxCollider2D BC2D;
+ //   private BoxCollider2D BC2D;
     private MovingObjectController MOC;
     
 
@@ -20,7 +20,7 @@ public class BombController : MonoBehaviour {
     void Awake () {
         animator = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
-        BC2D = GetComponent<BoxCollider2D>();
+ //       BC2D = GetComponent<BoxCollider2D>();
         MOC = GetComponent<MovingObjectController>();
 
         SpriteRenderer sr = GetComponentInChildren<SpriteRenderer>();
