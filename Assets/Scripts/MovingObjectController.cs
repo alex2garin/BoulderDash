@@ -986,8 +986,8 @@ public class MovingObjectController : MonoBehaviour
             if (down != null)
             {
                 BombController downBomb = down.GetComponent<BombController>();
-                if (downBomb != null && downBomb.isActive) downBomb.ReadyToExplode();
-                if (down.gameObject.CompareTag("Player") && canKill) Destroy(down.gameObject);
+                if (downBomb != null && downBomb.isActive && down.gameObject.GetComponent<DestroyByExplosion>().CanExplode(transform.position)) downBomb.ReadyToExplode();
+                if (down.gameObject.CompareTag("Player") && canKill && down.gameObject.GetComponent<DestroyByExplosion>().CanExplode(transform.position)) Destroy(down.gameObject);
             }
 
             if (down != null && bomb != null && bomb.isActive)
@@ -1088,5 +1088,7 @@ public class MovingObjectController : MonoBehaviour
     //{
     //    if (collision.gameObject.CompareTag("Player")) Destroy(collision.gameObject);
     //}
+
+
 }
 

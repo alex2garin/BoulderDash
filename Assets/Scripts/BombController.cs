@@ -18,7 +18,8 @@ public class BombController : MonoBehaviour {
 
     // Use this for initialization
     void Awake () {
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
+  //      if(animator==null) animator = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
  //       BC2D = GetComponent<BoxCollider2D>();
         MOC = GetComponent<MovingObjectController>();
@@ -68,11 +69,14 @@ public class BombController : MonoBehaviour {
         foreach (var objectCollider2D in surround)
         {
 
-            if ((objectCollider2D.gameObject.CompareTag("Bomb") || objectCollider2D.gameObject.CompareTag("BombPickUp")) && objectCollider2D.gameObject != gameObject) objectCollider2D.gameObject.GetComponent<BombController>().ReadyToExplode();
-            if (objectCollider2D.gameObject.CompareTag("Bomb") || objectCollider2D.gameObject.CompareTag("BombPickUp")) continue;
+            if ((objectCollider2D.gameObject.CompareTag("Bomb") || objectCollider2D.gameObject.CompareTag("BombPickUp")) 
+                && objectCollider2D.gameObject != gameObject && objectCollider2D.GetComponent<DestroyByExplosion>().CanExplode(transform.position))
+                objectCollider2D.gameObject.GetComponent<BombController>().ReadyToExplode();
+            if (objectCollider2D.gameObject.CompareTag("Bomb") || objectCollider2D.gameObject.CompareTag("BombPickUp"))
+                continue;
 
             DestroyByExplosion objectToDestroy = objectCollider2D.gameObject.GetComponent<DestroyByExplosion>();
-            if (objectToDestroy != null) objectToDestroy.ToDestroyByExplosion();
+            if (objectToDestroy != null && objectToDestroy.CanExplode(transform.position)) objectToDestroy.ToDestroyByExplosion();
         }
         var neighbours = Physics2D.OverlapBoxAll(transform.position, new Vector2(4f, 4f), 0f);
         foreach (var neighbour in neighbours)
@@ -82,6 +86,7 @@ public class BombController : MonoBehaviour {
         }
 
     }
+
 
     //public void SetActive( bool isActiveFlag)
     //{
