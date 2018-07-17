@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4358921626056330}
   - component: {fileID: 212911887464107508}
   - component: {fileID: 95724111658495132}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,8 +160,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c69ea0f0280c354eb4a6b1879a1907f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  superFlag: 0
-  sideMoveTime: 0.2
+  moveTime: 2
+  IsMoving: 0
   canRoll: 0
   rotationSpeed: 0
   canKill: 1
@@ -221,7 +221,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1067779555
   m_SortingLayer: 6
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: a89309c1f8fd7414b8b064b4f04d8e23, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

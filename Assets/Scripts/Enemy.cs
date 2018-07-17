@@ -1,79 +1,127 @@
-﻿using System.Collections;
+﻿//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
+
+//public abstract class Enemy : MonoBehaviour {
+
+//    public float moveTime = 2f;
+
+//    protected bool isMoving = false;
+//    protected float inverseMoveTime;
+//    protected Vector3 end;
+//    protected SpriteRenderer childSprite;
+
+//    private Vector3 destVect;
+
+
+//    private void Start()
+//    {
+//        inverseMoveTime = 1f / moveTime;
+
+//        childSprite = GetComponentInChildren<SpriteRenderer>();
+//    }
+
+//    protected abstract Vector3 GetDestination();
+
+
+//    private void FixedUpdate()
+//    {
+
+//        if (isMoving)
+//        {
+
+//            float sqrRemainingDistance = (destVect / 2 - childSprite.transform.localPosition).sqrMagnitude;
+//            if (sqrRemainingDistance > float.Epsilon && destVect / 2 != childSprite.transform.localPosition)
+//            {
+//                Vector3 newPostion = Vector3.MoveTowards(childSprite.transform.localPosition, destVect / 2, inverseMoveTime * Time.deltaTime);
+//                childSprite.transform.localPosition = newPostion;
+//                return;
+//            }
+//            childSprite.transform.localPosition = Vector3.zero;
+//            transform.position = end;
+//            isMoving = false;
+//        }
+//        else
+//        {
+//            destVect = GetDestination();
+//            if (destVect == Vector3.zero) return;
+
+//            end = transform.position + destVect;
+
+//            isMoving = true;
+//            transform.position = destVect / 2 + transform.position;
+//            childSprite.transform.localPosition = -destVect / 2;
+
+//            FixedUpdate();
+
+//        }
+//    }
+//    private void OnTriggerEnter2D(Collider2D collision)
+//    {
+//        if (collision.CompareTag("Player")) Destroy(collision.gameObject);
+//    }
+//}
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour {
+public abstract class Enemy : MovingObject
+{
 
-    public float moveTime = 2f;
+    //public float moveTime = 2f;
 
-    protected bool isMoving = false;
-    protected Collider2D cc2D;
-    protected float inverseMoveTime;
-    protected Rigidbody2D rb2D;
-    protected Vector3 end;
+    //protected bool isMoving = false;
+    //protected float inverseMoveTime;
+    //protected Vector3 end;
+    //protected SpriteRenderer childSprite;
 
-
-
-    private void Start()
-    {
-        rb2D = GetComponent<Rigidbody2D>();
-        cc2D = GetComponent<Collider2D>();
-        inverseMoveTime = 1f / moveTime;
+    //private Vector3 destVect;
 
 
-    }
+    //private void Start()
+    //{
+    //    inverseMoveTime = 1f / moveTime;
 
-    protected abstract Vector3 GetDestination();
-    
+    //    childSprite = GetComponentInChildren<SpriteRenderer>();
+    //}
 
-    private void FixedUpdate()
-    {
-
-
-        //if (isMoving)
-        //{
-        //    Move2(isFalling);
-
-        //}
-        //else
-        //{
-
-        //    var startPosition = transform.position;
-        //    destVector = GetDestination(out isFalling);
-        //    destination = transform.position + destVector;
-
-        //    if (destination == transform.position) return;
-
-        //    isMoving = true;
-
-        //    transform.position = destVector / 2 + transform.position;
-        //    childSprite.transform.localPosition = -destVector / 2;
-
-        //    StartCoroutine(Rotate(GetRotationSide(destination - transform.position)));
-        //    Move2(isFalling);
-        //}
+//    protected abstract Vector3 GetDestination();
 
 
-        if (isMoving)
-        {
-            float sqrRemainingDistance = (end - transform.position).sqrMagnitude;
-            if (sqrRemainingDistance > float.Epsilon && end != transform.position)
-            {
-                cc2D.offset = (end - transform.position) / 2;
-                Vector3 newPostion = Vector3.MoveTowards(transform.position, end, inverseMoveTime * Time.deltaTime);
-                rb2D.MovePosition(newPostion);
-                return;
-            }
-            cc2D.offset = new Vector2(0f, 0f);
-            rb2D.MovePosition(end);
-            isMoving = false;
-        }
-        else
-        {
-            end = transform.position + GetDestination();
+    //private void FixedUpdate()
+    //{
 
-            isMoving = true;
-            FixedUpdate();
-        }
-    }
+    //    if (isMoving)
+    //    {
+
+    //        float sqrRemainingDistance = (destVect / 2 - childSprite.transform.localPosition).sqrMagnitude;
+    //        if (sqrRemainingDistance > float.Epsilon && destVect / 2 != childSprite.transform.localPosition)
+    //        {
+    //            Vector3 newPostion = Vector3.MoveTowards(childSprite.transform.localPosition, destVect / 2, inverseMoveTime * Time.deltaTime);
+    //            childSprite.transform.localPosition = newPostion;
+    //            return;
+    //        }
+    //        childSprite.transform.localPosition = Vector3.zero;
+    //        transform.position = end;
+    //        isMoving = false;
+    //    }
+    //    else
+    //    {
+    //        destVect = GetDestination();
+    //        if (destVect == Vector3.zero) return;
+
+    //        end = transform.position + destVect;
+
+    //        isMoving = true;
+    //        transform.position = destVect / 2 + transform.position;
+    //        childSprite.transform.localPosition = -destVect / 2;
+
+    //        FixedUpdate();
+
+    //    }
+    //}
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.CompareTag("Player")) Destroy(collision.gameObject);
+    //}
 }

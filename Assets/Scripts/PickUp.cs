@@ -24,10 +24,7 @@ public class PickUp : MonoBehaviour
     }
     public bool TryPickUp(Vector3 player)
     {
-
-        //Debug.Log(player);
-        //Debug.Log(sr.transform.position);
-        //Debug.Log(transform.position);
+        
         if (ApplicationController.gravity.x == 0) //means up and down
         {
             

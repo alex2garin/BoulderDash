@@ -10,9 +10,4 @@ public class Portal : MonoBehaviour {
         if ((collision.transform.position - transform.position).sqrMagnitude <= float.Epsilon)
             Destroy(collision.gameObject);
     }
-    //private void On 
-    //    (Collider2D collision)
-    //{
-    //  //  Debug.Log("1");
-    //}
 }

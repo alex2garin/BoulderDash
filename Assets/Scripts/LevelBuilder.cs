@@ -51,210 +51,6 @@ public static class Constants
 	}
 }
 
-//public class StartingParameters
-//{
-//    [DllImport("kernel32", CharSet = CharSet.Unicode)]
-//    private static extern int GetPrivateProfileString(string section, string key, string defaultValue, StringBuilder value, int size, string filePath);
-//
-//    public string filePath = Path.Combine(Application.dataPath, "config.ini");
-//
-//
-//    public struct BackgroundParams
-//    {
-//        public float depth;
-//        public float speed;
-//    }
-//    public struct BallonParams
-//    {
-//        public float moveTime;
-//        public bool canRoll;
-//        public float rotationSpeed;
-//        public bool canKill;
-//    }
-//    public struct BombParams
-//    {
-//        public float moveTime;
-//        public bool canRoll;
-//        public float rotationSpeed;
-//        public float explosionLenghtTime;
-//        public float destroyDelayTime;
-//        public bool canKill;
-//    }
-//    public struct CrystalParams
-//    {
-//        public float moveTime;
-//        public bool canRoll;
-//        public float rotationSpeed;
-//        public bool canKill;
-//    }
-//    public struct MineralParams
-//    {
-//        public float moveTime;
-//        public bool canRoll;
-//        public float rotationSpeed;
-//        public bool canKill;
-//    }
-//    public struct PlayerParams
-//    {
-//        public float moveTime;
-//        public int secondsForBallon;
-//        public int startingSecondsOfOxygen;
-//    }
-//    public struct StoneParams
-//    {
-//        public float moveTime;
-//        public bool canRoll;
-//        public float rotationSpeed;
-//        public bool canKill;
-//    }
-//
-//    public BackgroundParams background;
-//    public void SetBackgroundValue()//string line)
-//    {
-//        var lineValue = new StringBuilder(255);
-//
-//        GetPrivateProfileString("Background", "speed", "", lineValue, lineValue.Capacity, filePath);
-//        float.TryParse(lineValue.ToString(), out background.speed);
-//
-//    }
-//
-//    public BallonParams ballon;
-//    public void SetBallonValue()//string line)
-//    {
-//        var lineValue = new StringBuilder(255);
-//
-//        GetPrivateProfileString("Ballon", "moveTime", "", lineValue, lineValue.Capacity, filePath);
-//        float.TryParse(lineValue.ToString(), out ballon.moveTime);
-//
-//        lineValue = new StringBuilder(255);
-//        GetPrivateProfileString("Ballon", "canRoll", "", lineValue, lineValue.Capacity, filePath);
-//        bool.TryParse(lineValue.ToString(), out ballon.canRoll);
-//
-//        lineValue = new StringBuilder(255);
-//        GetPrivateProfileString("Ballon", "rotationSpeed", "", lineValue, lineValue.Capacity, filePath);
-//        float.TryParse(lineValue.ToString(), out ballon.rotationSpeed);
-//
-//        lineValue = new StringBuilder(255);
-//        GetPrivateProfileString("Ballon", "canKill", "", lineValue, lineValue.Capacity, filePath);
-//        bool.TryParse(lineValue.ToString(), out ballon.canKill);
-//
-//
-//    }
-//
-//    public BombParams bomb;
-//    public void SetBombValue()//string line)
-//    {
-//        var lineValue = new StringBuilder(255);
-//
-//        GetPrivateProfileString("Bomb", "moveTime", "", lineValue, lineValue.Capacity, filePath);
-//        float.TryParse(lineValue.ToString(), out bomb.moveTime);
-//
-//        lineValue = new StringBuilder(255);
-//        GetPrivateProfileString("Bomb", "canRoll", "", lineValue, lineValue.Capacity, filePath);
-//        bool.TryParse(lineValue.ToString(), out bomb.canRoll);
-//
-//        lineValue = new StringBuilder(255);
-//        GetPrivateProfileString("Bomb", "rotationSpeed", "", lineValue, lineValue.Capacity, filePath);
-//        float.TryParse(lineValue.ToString(), out bomb.rotationSpeed);
-//
-//        lineValue = new StringBuilder(255);
-//        GetPrivateProfileString("Bomb", "explosionLenghtTime", "", lineValue, lineValue.Capacity, filePath);
-//        float.TryParse(lineValue.ToString(), out bomb.explosionLenghtTime);
-//
-//        lineValue = new StringBuilder(255);
-//        GetPrivateProfileString("Bomb", "destroyDelayTime", "", lineValue, lineValue.Capacity, filePath);
-//        float.TryParse(lineValue.ToString(), out bomb.destroyDelayTime);
-//
-//        lineValue = new StringBuilder(255);
-//        GetPrivateProfileString("Bomb", "canKill", "", lineValue, lineValue.Capacity, filePath);
-//        bool.TryParse(lineValue.ToString(), out bomb.canKill);
-//
-//    }
-//
-//    public CrystalParams crystal;
-//    public void SetCrystalValue()//string line)
-//    {
-//        var lineValue = new StringBuilder(255);
-//
-//        GetPrivateProfileString("Crystal", "moveTime", "", lineValue, lineValue.Capacity, filePath);
-//        float.TryParse(lineValue.ToString(), out crystal.moveTime);
-//
-//        lineValue = new StringBuilder(255);
-//        GetPrivateProfileString("Crystal", "canRoll", "", lineValue, lineValue.Capacity, filePath);
-//        bool.TryParse(lineValue.ToString(), out crystal.canRoll);
-//
-//        lineValue = new StringBuilder(255);
-//        GetPrivateProfileString("Crystal", "rotationSpeed", "", lineValue, lineValue.Capacity, filePath);
-//        float.TryParse(lineValue.ToString(), out crystal.rotationSpeed);
-//
-//        lineValue = new StringBuilder(255);
-//        GetPrivateProfileString("Crystal", "canKill", "", lineValue, lineValue.Capacity, filePath);
-//        bool.TryParse(lineValue.ToString(), out crystal.canKill);
-//
-//    }
-//
-//    public MineralParams mineral;
-//    public void SetMineralValue()//string line)
-//    {
-//        var lineValue = new StringBuilder(255);
-//
-//        GetPrivateProfileString("Mineral", "moveTime", "", lineValue, lineValue.Capacity, filePath);
-//        float.TryParse(lineValue.ToString(), out mineral.moveTime);
-//
-//        lineValue = new StringBuilder(255);
-//        GetPrivateProfileString("Mineral", "canRoll", "", lineValue, lineValue.Capacity, filePath);
-//        bool.TryParse(lineValue.ToString(), out mineral.canRoll);
-//
-//        lineValue = new StringBuilder(255);
-//        GetPrivateProfileString("Mineral", "rotationSpeed", "", lineValue, lineValue.Capacity, filePath);
-//        float.TryParse(lineValue.ToString(), out mineral.rotationSpeed);
-//
-//        lineValue = new StringBuilder(255);
-//        GetPrivateProfileString("Mineral", "canKill", "", lineValue, lineValue.Capacity, filePath);
-//        bool.TryParse(lineValue.ToString(), out mineral.canKill);
-//
-//    }
-//
-//    public PlayerParams player;
-//    public void SetPlayerValue()//string line)
-//    {
-//        var lineValue = new StringBuilder(255);
-//
-//        GetPrivateProfileString("Player", "moveTime", "", lineValue, lineValue.Capacity, filePath);
-//        float.TryParse(lineValue.ToString(), out player.moveTime);
-//
-//        lineValue = new StringBuilder(255);
-//        GetPrivateProfileString("Player", "secondsForBallon", "", lineValue, lineValue.Capacity, filePath);
-//        int.TryParse(lineValue.ToString(), out player.secondsForBallon);
-//
-//        lineValue = new StringBuilder(255);
-//        GetPrivateProfileString("Player", "startingSecondsOfOxygen", "", lineValue, lineValue.Capacity, filePath);
-//        int.TryParse(lineValue.ToString(), out player.startingSecondsOfOxygen);
-//
-//    }
-//
-//    public StoneParams stone;
-//    public void SetStoneValue()//string line)
-//    {
-//        var lineValue = new StringBuilder(255);
-//
-//        GetPrivateProfileString("Stone", "moveTime", "", lineValue, lineValue.Capacity, filePath);
-//        float.TryParse(lineValue.ToString(), out stone.moveTime);
-//
-//        lineValue = new StringBuilder(255);
-//        GetPrivateProfileString("Stone", "canRoll", "", lineValue, lineValue.Capacity, filePath);
-//        bool.TryParse(lineValue.ToString(), out stone.canRoll);
-//
-//        lineValue = new StringBuilder(255);
-//        GetPrivateProfileString("Stone", "rotationSpeed", "", lineValue, lineValue.Capacity, filePath);
-//        float.TryParse(lineValue.ToString(), out stone.rotationSpeed);
-//
-//        lineValue = new StringBuilder(255);
-//        GetPrivateProfileString("Stone", "canKill", "", lineValue, lineValue.Capacity, filePath);
-//        bool.TryParse(lineValue.ToString(), out stone.canKill);
-//
-//    }
-//}
 
 [System.Serializable]
 public class CornerSprites
@@ -343,30 +139,10 @@ public class LevelBuilder : MonoBehaviour
 	public Biom spaceship;
 	public Biom asteroid;
 
-	//tiles;
-	//public Sprite[] borders;
-	//public Sprite[] walls;
-	//public Sprite[] grounds;
-	//public Sprite[] portals;
-	//public CornerSprites cornerSprites;
-
 
 
 	public BorderSprites borderSprites;
 
-	//moving objects
-	//public Sprite[] stones;
-	//public Sprite[] activeBombs;
-	//public Sprite[] deactiveBombs;
-	//public Sprite[] crystals;
-	//public Sprite[] minerals;
-	//public Sprite[] ballons;
-	////enemies
-	//public Sprite[] enemies;
-	////player
-	//public Sprite[] players;
-
-	//public Sprite[] backgrounds;
 
 	//tiles;
 	public GameObject border;
@@ -404,30 +180,7 @@ public class LevelBuilder : MonoBehaviour
 	private List<Tile> tiles;
 	private Biom currentBiom;
 	private int numOfCrystalsToExit = 0;
-
-	//    public StartingParameters startingParams;
-
-
-
-	//    private StartingParameters ReadIni()
-	//    {
-	//
-	//
-	//
-	//
-	//            StartingParameters param = new StartingParameters();
-	//            param.SetBackgroundValue();
-	//            param.SetBallonValue();
-	//            param.SetBombValue();
-	//            param.SetCrystalValue();
-	//            param.SetMineralValue();
-	//            param.SetPlayerValue();
-	//            param.SetStoneValue();
-	//
-	//        return param;
-	//
-	//
-	//    }
+    
 
 	public List<Tile> ReadFile ()
 	{
@@ -462,8 +215,6 @@ public class LevelBuilder : MonoBehaviour
 
 			if (!int.TryParse (line [1], out numOfCrystalsToExit))
 				numOfCrystalsToExit = 0;
-//			Debug.Log (line [1]);
-//			Debug.Log (numOfCrystalsToExit);
 
 			switch (line [2]) {
 			case "up":
@@ -922,17 +673,12 @@ public class LevelBuilder : MonoBehaviour
 		newObject.transform.SetParent (gameObject.transform);
 
 		foreach (Tile tile in tiles) {
-			//if (tile.x == 4)
-			//{
-			//    Debug.Log(tile.x.ToString() + tile.y.ToString() + tile.tileType);
-			//    Debug.Log(tile.tileType == Constants.TileType.Border);
-			//}
+
 			GOTile = null;
 			switch (tile.tileType) {
 			case Constants.TileType.ActiveBomb:
 				GOTile = activeBomb;
 				GOTile.GetComponentInChildren<SpriteRenderer> ().sprite = currentBiom.activeBombs [Random.Range (0, currentBiom.activeBombs.Length)];
-                    //GOTile.GetComponent<BombController>().IsActive = true;
 				break;
 			case Constants.TileType.Ballon:
 				GOTile = ballon;
@@ -952,7 +698,7 @@ public class LevelBuilder : MonoBehaviour
 				break;
 			case Constants.TileType.Enemy:
 				GOTile = enemy;
-				GOTile.GetComponent<SpriteRenderer> ().sprite = currentBiom.enemies [Random.Range (0, currentBiom.enemies.Length)];
+				GOTile.GetComponentInChildren<SpriteRenderer> ().sprite = currentBiom.enemies [Random.Range (0, currentBiom.enemies.Length)];
 				break;
 			case Constants.TileType.Ground:
 				GOTile = ground;
@@ -980,16 +726,10 @@ public class LevelBuilder : MonoBehaviour
 				GOTile.GetComponent<SpriteRenderer> ().sprite = currentBiom.walls [Random.Range (0, currentBiom.walls.Length)];
 				break;
        
-			//	string.
-			//	if (tile.tileType.Contains(Constants.TileType.Ground))
                 
 			}
 			if (GOTile != null) {
 				newObject = Instantiate (GOTile, new Vector3 (tile.x, tile.y, 0f), Quaternion.identity);
-				//if (tile.x == 4)
-				//{
-				//    Debug.Log(newObject);
-				//}
 				newObject.transform.SetParent (gameObject.transform);
 				if (tile.tileType == Constants.TileType.Ground || tile.tileType == Constants.TileType.Border || tile.tileType == Constants.TileType.Wall)
 					SetBordersAndAngles (tile, newObject);
@@ -1000,11 +740,7 @@ public class LevelBuilder : MonoBehaviour
 	private void Awake ()
 	{
         
-        
-//        startingParams = ReadIni();
-//        if (startingParams !=null)
-//        {
- 
+
 
 		BackgroundController bc = background.GetComponent<BackgroundController> ();
 		bc.speed = ApplicationController.startingParams.background.speed;
@@ -1012,13 +748,13 @@ public class LevelBuilder : MonoBehaviour
 		MovingObjectController ballonMOC = ballon.GetComponent<MovingObjectController> ();
 		ballonMOC.canRoll = ApplicationController.startingParams.ballon.canRoll;
 		ballonMOC.rotationSpeed = ApplicationController.startingParams.ballon.rotationSpeed;
-		ballonMOC.sideMoveTime = ApplicationController.startingParams.ballon.moveTime;
+		ballonMOC.moveTime = ApplicationController.startingParams.ballon.moveTime;
 		ballonMOC.canKill = ApplicationController.startingParams.ballon.canKill;
 
 		MovingObjectController BombMOC = activeBomb.GetComponent<MovingObjectController> ();
 		BombMOC.canRoll = ApplicationController.startingParams.bomb.canRoll;
 		BombMOC.rotationSpeed = ApplicationController.startingParams.bomb.rotationSpeed;
-		BombMOC.sideMoveTime = ApplicationController.startingParams.bomb.moveTime;
+		BombMOC.moveTime = ApplicationController.startingParams.bomb.moveTime;
 		BombMOC.canKill = ApplicationController.startingParams.bomb.canKill;
 		BombController bombCtrl = activeBomb.GetComponent<BombController> ();
 		bombCtrl.destroyDelayTime = ApplicationController.startingParams.bomb.destroyDelayTime;
@@ -1027,13 +763,13 @@ public class LevelBuilder : MonoBehaviour
 		MovingObjectController crystalMOC = crystal.GetComponent<MovingObjectController> ();
 		crystalMOC.canRoll = ApplicationController.startingParams.crystal.canRoll;
 		crystalMOC.rotationSpeed = ApplicationController.startingParams.crystal.rotationSpeed;
-		crystalMOC.sideMoveTime = ApplicationController.startingParams.crystal.moveTime;
+		crystalMOC.moveTime = ApplicationController.startingParams.crystal.moveTime;
 		crystalMOC.canKill = ApplicationController.startingParams.crystal.canKill;
 
 		MovingObjectController mineralMOC = mineral.GetComponent<MovingObjectController> ();
 		mineralMOC.canRoll = ApplicationController.startingParams.mineral.canRoll;
 		mineralMOC.rotationSpeed = ApplicationController.startingParams.mineral.rotationSpeed;
-		mineralMOC.sideMoveTime = ApplicationController.startingParams.mineral.moveTime;
+		mineralMOC.moveTime = ApplicationController.startingParams.mineral.moveTime;
 		mineralMOC.canKill = ApplicationController.startingParams.mineral.canKill;
 
 		PlayerController playerCtrl = player.GetComponent<PlayerController> ();
@@ -1044,8 +780,9 @@ public class LevelBuilder : MonoBehaviour
 		MovingObjectController stoneMOC = stone.GetComponent<MovingObjectController> ();
 		stoneMOC.canRoll = ApplicationController.startingParams.stone.canRoll;
 		stoneMOC.rotationSpeed = ApplicationController.startingParams.stone.rotationSpeed;
-		stoneMOC.sideMoveTime = ApplicationController.startingParams.stone.moveTime;
-		stoneMOC.canKill = ApplicationController.startingParams.stone.canKill;
+		//stoneMOC.sideMoveTime = ApplicationController.startingParams.stone.moveTime;
+        stoneMOC.moveTime = ApplicationController.startingParams.stone.moveTime;
+        stoneMOC.canKill = ApplicationController.startingParams.stone.canKill;
 
         
 		if (ApplicationController.levelToLoad == ApplicationController.Level.level1)

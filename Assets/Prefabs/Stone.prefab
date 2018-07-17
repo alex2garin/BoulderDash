@@ -38,8 +38,7 @@ GameObject:
   - component: {fileID: 50854028212024562}
   - component: {fileID: 114994955410169472}
   - component: {fileID: 58927797936506548}
-  - component: {fileID: 114514584617984104}
-  - component: {fileID: 114148526720459224}
+  - component: {fileID: 114897495309383018}
   m_Layer: 8
   m_Name: Stone
   m_TagString: Stone
@@ -109,7 +108,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.45
---- !u!114 &114148526720459224
+--- !u!114 &114897495309383018
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -120,23 +119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c69ea0f0280c354eb4a6b1879a1907f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  superFlag: 0
-  sideMoveTime: 0.2
-  canRoll: 1
-  rotationSpeed: 180
-  canKill: 1
---- !u!114 &114514584617984104
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1995384574550038}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3465c00646b4590428178f63ceebb5de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sideMoveTime: 0.2
+  moveTime: 0.2
+  IsMoving: 0
   canRoll: 1
   rotationSpeed: 180
   canKill: 1

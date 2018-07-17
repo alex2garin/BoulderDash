@@ -3,12 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class ParasiteController : Enemy {
+public class ParasiteController : Enemy
+{
 
     public bool isLeftSideMove = true;
 
+    //private bool stopFlag = false;
+    private int lastBasis = -1;
+    private Bomb bomb;
+
+    //public bool StopFlag
+    //{
+    //    set
+    //    {
+    //        stopFlag = StopFlag;
+    //    }
+    //    get
+    //    {
+    //        return stopFlag;
+    //    }
+    //}
+
     protected override Vector3 GetDestination()
     {
+      //  if (stopFlag) return Vector3.zero;
 
         Collider2D leftNeighbour = null;
         Collider2D rightNeighbour = null;
@@ -19,22 +37,10 @@ public class ParasiteController : Enemy {
         Collider2D downLeftNeighbour = null;
         Collider2D downRightNeighbour = null;
 
+
         Vector2 tileSize = new Vector2(0.9f, 0.9f);
 
 
-        //var neigbours = Physics2D.OverlapBoxAll(transform.position, new Vector2(1.9f, 1.9f), 0f);
-        //foreach(var neighbourCollider in neigbours)
-        //{
-        //    if (neighbourCollider.transform.position.x == transform.position.x - 1 && neighbourCollider.transform.position.y == transform.position.y) leftNeighbour = neighbourCollider.gameObject;
-        //    if (neighbourCollider.transform.position.x == transform.position.x + 1 && neighbourCollider.transform.position.y == transform.position.y) rightNeighbour = neighbourCollider.gameObject;
-        //    if (neighbourCollider.transform.position.x == transform.position.x && neighbourCollider.transform.position.y == transform.position.y - 1) downNeighbour = neighbourCollider.gameObject;
-        //    if (neighbourCollider.transform.position.x == transform.position.x && neighbourCollider.transform.position.y == transform.position.y + 1) upNeighbour = neighbourCollider.gameObject;
-
-        //    if (neighbourCollider.transform.position.x == transform.position.x - 1 && neighbourCollider.transform.position.y == transform.position.y + 1) upLeftNeighbour = neighbourCollider.gameObject;
-        //    if (neighbourCollider.transform.position.x == transform.position.x + 1 && neighbourCollider.transform.position.y == transform.position.y + 1) upRightNeighbour = neighbourCollider.gameObject;
-        //    if (neighbourCollider.transform.position.x == transform.position.x - 1 && neighbourCollider.transform.position.y == transform.position.y - 1) downLeftNeighbour = neighbourCollider.gameObject;
-        //    if (neighbourCollider.transform.position.x == transform.position.x + 1 && neighbourCollider.transform.position.y == transform.position.y - 1) downRightNeighbour = neighbourCollider.gameObject;
-        //}
 
         leftNeighbour = Physics2D.OverlapBox(transform.position + new Vector3(-1f, 0f), tileSize, 0f);
         rightNeighbour = Physics2D.OverlapBox(transform.position + new Vector3(1f, 0f), tileSize, 0f);
@@ -70,34 +76,89 @@ public class ParasiteController : Enemy {
             if (leftNeighbour != null) neighboursGO[2] = leftNeighbour.gameObject;
             if (upLeftNeighbour != null) neighboursGO[1] = upLeftNeighbour.gameObject;
         }
+        for (int i = 0; i < neighboursGO.Length; i++)
+        {
+            if (neighboursGO[i] == null) continue;
+            if (neighboursGO[i].CompareTag("Player") || neighboursGO[i].CompareTag("Enemy"))
+            {
+                neighboursGO[i] = null;
+                continue;
+            }
+            MovingObjectController moc = neighboursGO[i].GetComponent<MovingObjectController>();
+            if (moc != null && !moc.CanBeUsed(transform.position)) neighboursGO[i] = null;
 
-      
+        }
 
-      //  foreach (var neoghbour in neighboursGO) Debug.Log(neoghbour);
+
+        //Debug.Log("new line***************");
+        //Debug.Log(isLeftSideMove);
+       // foreach (var neoghbour in neighboursGO) Debug.Log(neoghbour);
 
 
         return CalculateVector(neighboursGO);
 
     }
+    protected override void ActionAfterMovement()
+    {
+        
+    }
+    protected override void BeforeFixedUpdate()
+    {
+    }
+    protected override Vector3 GetDestinationInMovement(Vector3 calculatedNewPosition)
+    {
+        return calculatedNewPosition;
+    }
+    protected override void RotationStart()
+    {
+    }
+
+    private new void Start()
+    {
+        base.Start();
+        bomb = GetComponent<Bomb>();
+    }
 
     private Vector3 CalculateVector(GameObject[] neighbours)
     {
-        //find base
+        // check if we can move
+        bool exitExistsFlag = false;
+        foreach (var neigbour in neighbours) if (neigbour == null) exitExistsFlag = true;
+        if (!exitExistsFlag) return Vector3.zero;
+
+
+        //find basis
         int basis = -1;
-        for(int i=0;i<neighbours.Length;i++)
+        int startingVal = 0;
+        if (lastBasis > 0) startingVal = lastBasis;
+        for (int i = 0; i < neighbours.Length; i++)
         {
-            if (neighbours[i] != null) basis = i;
+            int index = (startingVal + i) % 8;
+
+            if (neighbours[index] != null) basis = index;
             else if (basis != -1) break;
         }
         
-        if (basis == -1) return new Vector3(0f, -1f, 0f);
+      //  Debug.Log(basis);
 
-        return FindDirection(basis, neighbours);
+ 
+
+        if (basis == -1)
+        {
+            lastBasis = -1;
+            return ApplicationController.gravity;//new Vector3(0f, -1f, 0f);
+        }
+
+        var destin = FindDirection(basis, neighbours, out basis);
+        if (basis == 0) lastBasis = 7;
+        if (basis > 0) lastBasis = basis - 1;
+        return destin;
 
     }
 
-    private Vector3 FindDirection(int basis, GameObject[] neighbours)
+    private Vector3 FindDirection(int basis, GameObject[] neighbours, out int finishBasis)
     {
+        finishBasis = basis;
         if (basis == 8) return Vector3.zero;
 
         if (basis % 2 == 0)
@@ -133,7 +194,7 @@ public class ParasiteController : Enemy {
                 }
                 return direction;
             }
-            else return FindDirection(basis + 2, neighbours);
+            else return FindDirection(basis + 2, neighbours, out finishBasis);
 
         }
         else
@@ -165,5 +226,11 @@ public class ParasiteController : Enemy {
             return direction;
         }
     }
-    
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //Debug.Log(1);
+        bomb.ShouldExplode();
+   //     base.Stop();
+    }
 }

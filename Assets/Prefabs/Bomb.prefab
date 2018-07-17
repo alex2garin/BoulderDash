@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 4453044482420866}
   - component: {fileID: 212342535858540260}
   - component: {fileID: 95060456735400644}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,8 +159,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c69ea0f0280c354eb4a6b1879a1907f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  superFlag: 0
-  sideMoveTime: 0.2
+  moveTime: 0.2
+  IsMoving: 0
   canRoll: 0
   rotationSpeed: 20
   canKill: 1

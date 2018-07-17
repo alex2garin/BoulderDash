@@ -5,7 +5,6 @@ using System.IO;
 
 public class InputController
 {
-//	public enum ActionType { moveVertical, moveHorizontal, plantBomb, actionWithoutMoving };
 	public float VerticalMovement( )
 	{
 		return Input.GetAxisRaw ("Vertical");
@@ -203,11 +202,6 @@ public class ApplicationController : MonoBehaviour
 		ReadIniFile (iniFilePath);
     }
 
-    //// Update is called once per frame
-    //void Update()
-    //{
-
-    //}
 
     void ReadIniFile(string filePath)
     {
@@ -218,199 +212,101 @@ public class ApplicationController : MonoBehaviour
             iniFR.GetParameter("Background", "speed", out value);
 			float.TryParse(value, out startingParams.background.speed);
 
-//			value = null;
-//			iniFR.GetParameter("Background", "depth", out value);
-//			float.TryParse(value, out startingParams.background.depth);
-            //
-//            GetPrivateProfileString("Ballon", "moveTime", "", lineValue, lineValue.Capacity, filePath);
-//            float.TryParse(lineValue.ToString(), out ballon.moveTime);
-
 			value = null;
 			iniFR.GetParameter("Ballon", "moveTime", out value);
 			float.TryParse(value, out startingParams.ballon.moveTime);
-//
-//            lineValue = new StringBuilder(255);
-//            GetPrivateProfileString("Ballon", "canRoll", "", lineValue, lineValue.Capacity, filePath);
-//            bool.TryParse(lineValue.ToString(), out ballon.canRoll);
 
 			value = null;
 			iniFR.GetParameter("Ballon", "canRoll", out value);
 			bool.TryParse(value, out startingParams.ballon.canRoll);
-//
-//            lineValue = new StringBuilder(255);
-//            GetPrivateProfileString("Ballon", "rotationSpeed", "", lineValue, lineValue.Capacity, filePath);
-//            float.TryParse(lineValue.ToString(), out ballon.rotationSpeed);
 
 			value = null;
 			iniFR.GetParameter("Ballon", "rotationSpeed", out value);
 			float.TryParse(value, out startingParams.ballon.rotationSpeed);
-//
-//            lineValue = new StringBuilder(255);
-//            GetPrivateProfileString("Ballon", "canKill", "", lineValue, lineValue.Capacity, filePath);
-//            bool.TryParse(lineValue.ToString(), out ballon.canKill);
 
 			value = null;
 			iniFR.GetParameter("Ballon", "canKill", out value);
 			bool.TryParse(value, out startingParams.ballon.canKill);
-//
-//            GetPrivateProfileString("Bomb", "moveTime", "", lineValue, lineValue.Capacity, filePath);
-			//            float.TryParse(lineValue.ToString(), out bomb.moveTime);
 
 			value = null;
 			iniFR.GetParameter("Bomb", "moveTime", out value);
 			float.TryParse(value, out startingParams.bomb.moveTime);
-//
-//            lineValue = new StringBuilder(255);
-//            GetPrivateProfileString("Bomb", "canRoll", "", lineValue, lineValue.Capacity, filePath);
-			//            bool.TryParse(lineValue.ToString(), out bomb.canRoll);
 
 			value = null;
 			iniFR.GetParameter("Bomb", "canRoll", out value);
 			bool.TryParse(value, out startingParams.bomb.canRoll);
-//
-//            lineValue = new StringBuilder(255);
-//            GetPrivateProfileString("Bomb", "rotationSpeed", "", lineValue, lineValue.Capacity, filePath);
-			//            float.TryParse(lineValue.ToString(), out bomb.rotationSpeed);
 
 			value = null;
 			iniFR.GetParameter("Bomb", "rotationSpeed", out value);
 			float.TryParse(value, out startingParams.bomb.rotationSpeed);
-//
-//            lineValue = new StringBuilder(255);
-//            GetPrivateProfileString("Bomb", "explosionLenghtTime", "", lineValue, lineValue.Capacity, filePath);
-			//            float.TryParse(lineValue.ToString(), out bomb.explosionLenghtTime);
 
 			value = null;
 			iniFR.GetParameter("Bomb", "explosionLenghtTime", out value);
 			float.TryParse(value, out startingParams.bomb.explosionLenghtTime);
-//
-//            lineValue = new StringBuilder(255);
-//            GetPrivateProfileString("Bomb", "destroyDelayTime", "", lineValue, lineValue.Capacity, filePath);
-			//            float.TryParse(lineValue.ToString(), out bomb.destroyDelayTime);
 
 			value = null;
 			iniFR.GetParameter("Bomb", "destroyDelayTime", out value);
 			float.TryParse(value, out startingParams.bomb.destroyDelayTime);
-//
-//            lineValue = new StringBuilder(255);
-//            GetPrivateProfileString("Bomb", "canKill", "", lineValue, lineValue.Capacity, filePath);
-			//            bool.TryParse(lineValue.ToString(), out bomb.canKill);
 
 			value = null;
 			iniFR.GetParameter("Bomb", "canKill", out value);
 			bool.TryParse(value, out startingParams.bomb.canKill);
-//
-//            GetPrivateProfileString("Crystal", "moveTime", "", lineValue, lineValue.Capacity, filePath);
-			//            float.TryParse(lineValue.ToString(), out crystal.moveTime);
 
 			value = null;
 			iniFR.GetParameter("Crystal", "moveTime", out value);
 			float.TryParse(value, out startingParams.crystal.moveTime);
-//
-//            lineValue = new StringBuilder(255);
-//            GetPrivateProfileString("Crystal", "canRoll", "", lineValue, lineValue.Capacity, filePath);
-			//            bool.TryParse(lineValue.ToString(), out crystal.canRoll);
 
 			value = null;
 			iniFR.GetParameter("Crystal", "canRoll", out value);
 			bool.TryParse(value, out startingParams.crystal.canRoll);
-//
-//            lineValue = new StringBuilder(255);
-//            GetPrivateProfileString("Crystal", "rotationSpeed", "", lineValue, lineValue.Capacity, filePath);
-			//            float.TryParse(lineValue.ToString(), out crystal.rotationSpeed);
 
 			value = null;
 			iniFR.GetParameter("Crystal", "rotationSpeed", out value);
 			float.TryParse(value, out startingParams.crystal.rotationSpeed);
-//
-//            lineValue = new StringBuilder(255);
-//            GetPrivateProfileString("Crystal", "canKill", "", lineValue, lineValue.Capacity, filePath);
-			//            bool.TryParse(lineValue.ToString(), out crystal.canKill);
 
 			value = null;
 			iniFR.GetParameter("Crystal", "canKill", out value);
 			bool.TryParse(value, out startingParams.crystal.canKill);
-//
-//            GetPrivateProfileString("Mineral", "moveTime", "", lineValue, lineValue.Capacity, filePath);
-			//            float.TryParse(lineValue.ToString(), out mineral.moveTime);
 
 			value = null;
 			iniFR.GetParameter("Mineral", "moveTime", out value);
 			float.TryParse(value, out startingParams.mineral.moveTime);
-//
-//            lineValue = new StringBuilder(255);
-//            GetPrivateProfileString("Mineral", "canRoll", "", lineValue, lineValue.Capacity, filePath);
-			//            bool.TryParse(lineValue.ToString(), out mineral.canRoll);
 
 			value = null;
 			iniFR.GetParameter("Mineral", "canRoll", out value);
 			bool.TryParse(value, out startingParams.mineral.canRoll);
-//
-//            lineValue = new StringBuilder(255);
-//            GetPrivateProfileString("Mineral", "rotationSpeed", "", lineValue, lineValue.Capacity, filePath);
-			//            float.TryParse(lineValue.ToString(), out mineral.rotationSpeed);
 
 			value = null;
 			iniFR.GetParameter("Mineral", "rotationSpeed", out value);
 			float.TryParse(value, out startingParams.mineral.rotationSpeed);
-//
-//            lineValue = new StringBuilder(255);
-//            GetPrivateProfileString("Mineral", "canKill", "", lineValue, lineValue.Capacity, filePath);
-			//            bool.TryParse(lineValue.ToString(), out mineral.canKill);
 
 			value = null;
 			iniFR.GetParameter("Mineral", "canKill", out value);
 			bool.TryParse(value, out startingParams.mineral.canKill);
-//
-//            GetPrivateProfileString("Player", "moveTime", "", lineValue, lineValue.Capacity, filePath);
-			//            float.TryParse(lineValue.ToString(), out player.moveTime);
 
 			value = null;
 			iniFR.GetParameter("Player", "moveTime", out value);
 			float.TryParse(value, out startingParams.player.moveTime);
-//
-//            lineValue = new StringBuilder(255);
-//            GetPrivateProfileString("Player", "secondsForBallon", "", lineValue, lineValue.Capacity, filePath);
-			//            int.TryParse(lineValue.ToString(), out player.secondsForBallon);
 
 			value = null;
 			iniFR.GetParameter("Player", "secondsForBallon", out value);
 			int.TryParse(value, out startingParams.player.secondsForBallon);
-//
-//            lineValue = new StringBuilder(255);
-//            GetPrivateProfileString("Player", "startingSecondsOfOxygen", "", lineValue, lineValue.Capacity, filePath);
-			//            int.TryParse(lineValue.ToString(), out player.startingSecondsOfOxygen);
 
 			value = null;
 			iniFR.GetParameter("Player", "startingSecondsOfOxygen", out value);
 			int.TryParse(value, out startingParams.player.startingSecondsOfOxygen);
-//
-//            GetPrivateProfileString("Stone", "moveTime", "", lineValue, lineValue.Capacity, filePath);
-			//            float.TryParse(lineValue.ToString(), out stone.moveTime);
 
 			value = null;
 			iniFR.GetParameter("Stone", "moveTime", out value);
 			float.TryParse(value, out startingParams.stone.moveTime);
-//
-//            lineValue = new StringBuilder(255);
-//            GetPrivateProfileString("Stone", "canRoll", "", lineValue, lineValue.Capacity, filePath);
-			//            bool.TryParse(lineValue.ToString(), out stone.canRoll);
 
 			value = null;
 			iniFR.GetParameter("Stone", "canRoll", out value);
 			bool.TryParse(value, out startingParams.stone.canRoll);
-//
-//            lineValue = new StringBuilder(255);
-//            GetPrivateProfileString("Stone", "rotationSpeed", "", lineValue, lineValue.Capacity, filePath);
-			//            float.TryParse(lineValue.ToString(), out stone.rotationSpeed);
 
 			value = null;
 			iniFR.GetParameter("Stone", "rotationSpeed", out value);
 			float.TryParse(value, out startingParams.stone.rotationSpeed);
-//
-//            lineValue = new StringBuilder(255);
-//            GetPrivateProfileString("Stone", "canKill", "", lineValue, lineValue.Capacity, filePath);
-			//            bool.TryParse(lineValue.ToString(), out stone.canKill);
 
 			value = null;
 			iniFR.GetParameter("Stone", "canKill", out value);
