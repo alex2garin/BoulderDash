@@ -171,7 +171,7 @@ public class LevelBuilder : MonoBehaviour
 
 	public GameObject background;
 
-	public TextAsset fileLevel;
+	//public TextAsset fileLevel;
 	//public TextAsset ini;
 
 	public RandomLevelGenerator randomLevelGenerator;
@@ -185,10 +185,10 @@ public class LevelBuilder : MonoBehaviour
 	public List<Tile> ReadFile ()
 	{
 		List<Tile> newTiles;
-		if (fileLevel == null)
+		if (ApplicationController.SelectedFile == null)
 			return null;
 
-		string[] lines = fileLevel.text.Split ('\n');
+		string[] lines = ApplicationController.SelectedFile.text.Split ('\n');
         
 		int x = 0;
 		int y = 0;
@@ -785,7 +785,7 @@ public class LevelBuilder : MonoBehaviour
         stoneMOC.canKill = ApplicationController.startingParams.stone.canKill;
 
         
-		if (ApplicationController.levelToLoad == ApplicationController.Level.level1)
+		if (ApplicationController.levelToLoad == ApplicationController.Level.selectedLevel)
 			ReadFile ();
 		else if (ApplicationController.levelToLoad == ApplicationController.Level.random)
 			GenerateRandom ();

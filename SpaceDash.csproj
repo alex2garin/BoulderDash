@@ -98,6 +98,7 @@
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\GroundController.cs" />
     <Compile Include="Assets\Scripts\LevelBuilder.cs" />
+    <Compile Include="Assets\Scripts\LevelSelectionContoller.cs" />
     <Compile Include="Assets\Scripts\MenuController.cs" />
     <Compile Include="Assets\Scripts\MovingObject.cs" />
     <Compile Include="Assets\Scripts\MovingObjectController.cs" />

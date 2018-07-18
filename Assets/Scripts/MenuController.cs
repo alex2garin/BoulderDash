@@ -20,8 +20,9 @@ public class MenuController : MonoBehaviour {
             SceneManager.LoadScene("Main");
         });
         play1stLevelBtn.onClick.AddListener(() => {
-            ApplicationController.levelToLoad = ApplicationController.Level.level1;
-            SceneManager.LoadScene("Main");
+            ApplicationController.levelToLoad = ApplicationController.Level.selectedLevel;
+            //SceneManager.LoadScene("Main");
+            SceneManager.LoadScene("LevelSelection");
         });
         exitBtn.onClick.AddListener(() => { Application.Quit(); });
     }

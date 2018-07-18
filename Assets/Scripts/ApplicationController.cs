@@ -137,8 +137,13 @@ public struct StartingParameters
 public class ApplicationController : MonoBehaviour
 {
 
+
+    public static TextAsset[] fileLevels;
+    public TextAsset[] FileLevels;
+    public static TextAsset SelectedFile;
+
     public static InputController inputCTRL;
-    public enum Level { random, level1 };
+    public enum Level { random, selectedLevel };
     public static Vector3 gravity = Vector2.down;
     public static Vector3 Left
     {
@@ -200,6 +205,7 @@ public class ApplicationController : MonoBehaviour
         DontDestroyOnLoad(this);
         inputCTRL = new InputController();
 		ReadIniFile (iniFilePath);
+        fileLevels = FileLevels;
     }
 
 
