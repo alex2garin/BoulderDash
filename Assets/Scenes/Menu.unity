@@ -615,7 +615,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Play 1st level
+  m_Text: Select Level
 --- !u!222 &1274055343
 CanvasRenderer:
   m_ObjectHideFlags: 0

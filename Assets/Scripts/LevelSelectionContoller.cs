@@ -17,9 +17,9 @@ public class LevelSelectionContoller : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        int startX = -270;
+        int startX = -220;
         int startY = 200;
-        int xStep = 270;
+        int xStep = 110;
         int yStep = 55;
         int x = startX;
         int y = startY;
@@ -35,11 +35,11 @@ public class LevelSelectionContoller : MonoBehaviour {
                 SceneManager.LoadScene("Main"); });
             button.transform.localPosition = new Vector3(x, y, 0f);
 
-            y -= yStep;
-            if (y < 0)
+            x += xStep;
+            if (x == 220)
             {
-                y = startY;
-                x += xStep;
+                x = startX;
+                y -= yStep;
             }
         }
 

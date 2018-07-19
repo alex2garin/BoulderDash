@@ -241,9 +241,10 @@ public class LevelBuilder : MonoBehaviour
 
 
 		foreach (var line in tileLines) {
-            
-			var symbols = line.Split (';', ',', '\n');
+            Debug.Log(line);
+            var symbols = line.Split (';', ',');
 			foreach (var symbol in symbols) {
+                Debug.Log(symbol);
 				if (symbol != "")
 					newTiles.Add (new Tile (x, -y, symbol));
 				x++;
