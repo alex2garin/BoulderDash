@@ -875,7 +875,8 @@ MonoBehaviour:
     crystals:
     - {fileID: 21300000, guid: 45d3f019d90de724caabc82fedf37a97, type: 3}
     minerals:
-    - {fileID: 21300000, guid: 88711eee7af278442a7a96dd28f40e6d, type: 3}
+    - {fileID: 21300000, guid: 340d3f0cebe95b74098c4814071cd35e, type: 3}
+    - {fileID: 21300000, guid: e7566ecdd102d904d8f202a6b2337c61, type: 3}
     ballons:
     - {fileID: 21300000, guid: b3e4cce286743af45b5d49f45f0eca85, type: 3}
     enemies:
@@ -1052,7 +1053,6 @@ MonoBehaviour:
   enemy: {fileID: 1522802200769772, guid: 1d9c4ca5924f95f4ebefd772219da03d, type: 2}
   player: {fileID: 1124589975743704, guid: cf9401c55f1461f44adf592c23a2bce9, type: 2}
   background: {fileID: 1634195408909666, guid: 75ee66e997210ee49b79a2fc58462f38, type: 2}
-  fileLevel: {fileID: 4900000, guid: 6a462e985982aa0488383d570931fdac, type: 3}
   randomLevelGenerator:
     xMax: 7
     yMax: 7

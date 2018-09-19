@@ -60,7 +60,7 @@ public class CornersAndBordersController : MonoBehaviour {
     public bool needToUpdate;
     // Use this for initialization
     void Start () {
-        needToUpdate = false;
+        needToUpdate = true;
     }
 
     // Update is called once per frame
@@ -74,7 +74,7 @@ public class CornersAndBordersController : MonoBehaviour {
 
     private void UpdateCornersAndBorders()
     {
-        for (int i = 0; i < transform.childCount; i++) Destroy(transform.GetChild(i).gameObject);
+        for (int i = 0; i < transform.childCount; i++) if(!transform.GetChild(i).gameObject.CompareTag("MineralSprite")) Destroy(transform.GetChild(i).gameObject);
 
 
         GameObject leftNeighbour = null;
@@ -379,7 +379,7 @@ public class CornersAndBordersController : MonoBehaviour {
         {
             tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = wallUpRightCorner;
         }
-        else if (CompareTag("Ground"))
+        else if (CompareTag("Ground") )
         {
             tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = groundUpRightCorner;
         }
@@ -389,7 +389,7 @@ public class CornersAndBordersController : MonoBehaviour {
                 Instantiate(tileCornerUpRight, transform.position + new Vector3(0.5f, 0.5f, 0f), Quaternion.identity, transform);
             else if (CompareTag("Wall") && (upRightNeighbour == null || (!upRightNeighbour.CompareTag("Border") && !upRightNeighbour.CompareTag("Wall"))))
                 Instantiate(tileCornerUpRight, transform.position + new Vector3(0.5f, 0.5f, 0f), Quaternion.identity, transform);
-            else if (CompareTag("Ground") && (upRightNeighbour == null || (!upRightNeighbour.CompareTag("Border") && !upRightNeighbour.CompareTag("Wall") && !upRightNeighbour.CompareTag("Ground"))))
+            else if (CompareTag("Ground")  && (upRightNeighbour == null || (!upRightNeighbour.CompareTag("Border") && !upRightNeighbour.CompareTag("Wall") && !upRightNeighbour.CompareTag("Ground"))))
                 Instantiate(tileCornerUpRight, transform.position + new Vector3(0.5f, 0.5f, 0f), Quaternion.identity, transform);
         }
 

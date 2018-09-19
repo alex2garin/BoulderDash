@@ -16,6 +16,7 @@ TagManager:
   - Ballon
   - BombPickUp
   - debug
+  - MineralSprite
   layers:
   - Default
   - TransparentFX

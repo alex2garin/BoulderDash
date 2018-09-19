@@ -16,12 +16,14 @@ public class Tile
 	public int x;
 	public int y;
 	public string tileType;
+    public int value;
 
-	public Tile (int x, int y, string tileType)
+	public Tile (int x, int y, string tileType, int value = 0)
 	{
 		this.x = x;
 		this.y = y;
 		this.tileType = tileType;
+        this.value = value;
 	}
 }
 
@@ -241,18 +243,28 @@ public class LevelBuilder : MonoBehaviour
 
 
 		foreach (var line in tileLines) {
-            Debug.Log(line);
+            //Debug.Log(line);
             var symbols = line.Split (';', ',');
 			foreach (var symbol in symbols) {
-                Debug.Log(symbol);
-				if (symbol != "")
-					newTiles.Add (new Tile (x, -y, symbol));
+                //  Debug.Log(symbol);
+                if (symbol != "")
+                {
+                    if (string.Compare(symbol[0].ToString(),Constants.TileType.Mineral)==0)
+                    {
+                        int value;
+                        int.TryParse(new string(symbol.ToCharArray().Where(char.IsDigit).ToArray()), out value);
+                        newTiles.Add(new Tile(x, -y, symbol[0].ToString(),value));
+                    }
+                    else  newTiles.Add(new Tile(x, -y, symbol[0].ToString()));
+
+                }
 				x++;
 			}
 			y++;
 			x = 0;
 		}
 		tiles = newTiles;
+            
 		return newTiles;
 	}
 
@@ -380,7 +392,8 @@ public class LevelBuilder : MonoBehaviour
 				tileBorderLeft.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.borderBorderLeft;
 			} else if (thisTile.tileType == Constants.TileType.Wall) {
 				tileBorderLeft.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.wallBorderLeft;
-			} else if (thisTile.tileType == Constants.TileType.Ground) {
+			} else if (thisTile.tileType == Constants.TileType.Ground || thisTile.tileType == Constants.TileType.Mineral)
+            {
 				tileBorderLeft.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.groundBorderLeft;
 			}
 			Instantiate (tileBorderLeft, thisGO.transform.position + new Vector3 (-0.5f, 0f, 0f), Quaternion.identity, thisGO.transform);
@@ -391,7 +404,7 @@ public class LevelBuilder : MonoBehaviour
 				tileBorderLeft.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.borderBorderLeftGR;
 				Instantiate (tileBorderLeft, thisGO.transform.position + new Vector3 (-0.5f, 0f, 0f), Quaternion.identity, thisGO.transform);
 			}
-		} else if (leftNeighbour.tileType == Constants.TileType.Ground) {
+		} else if (leftNeighbour.tileType == Constants.TileType.Ground || thisTile.tileType == Constants.TileType.Mineral) {
 			if (thisTile.tileType == Constants.TileType.Wall || thisTile.tileType == Constants.TileType.Border) {
 				if (thisTile.tileType == Constants.TileType.Border) {
 					tileBorderLeft.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.borderBorderLeftGR;
@@ -405,7 +418,7 @@ public class LevelBuilder : MonoBehaviour
 				tileBorderLeft.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.borderBorderLeft;
 			} else if (thisTile.tileType == Constants.TileType.Wall) {
 				tileBorderLeft.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.wallBorderLeft;
-			} else if (thisTile.tileType == Constants.TileType.Ground) {
+			} else if (thisTile.tileType == Constants.TileType.Ground || thisTile.tileType == Constants.TileType.Mineral) {
 				tileBorderLeft.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.groundBorderLeft;
 			}
 			Instantiate (tileBorderLeft, thisGO.transform.position + new Vector3 (-0.5f, 0f, 0f), Quaternion.identity, thisGO.transform);
@@ -418,7 +431,7 @@ public class LevelBuilder : MonoBehaviour
 				tileBorderRight.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.borderBorderRight;
 			} else if (thisTile.tileType == Constants.TileType.Wall) {
 				tileBorderRight.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.wallBorderRight;
-			} else if (thisTile.tileType == Constants.TileType.Ground) {
+			} else if (thisTile.tileType == Constants.TileType.Ground || thisTile.tileType == Constants.TileType.Mineral) {
 				tileBorderRight.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.groundBorderRight;
 			}
 			Instantiate (tileBorderRight, thisGO.transform.position + new Vector3 (0.5f, 0f, 0f), Quaternion.identity, thisGO.transform);
@@ -429,7 +442,7 @@ public class LevelBuilder : MonoBehaviour
 				tileBorderRight.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.borderBorderRightGR;
 				Instantiate (tileBorderRight, thisGO.transform.position + new Vector3 (0.5f, 0f, 0f), Quaternion.identity, thisGO.transform);
 			}
-		} else if (rightNeighbour.tileType == Constants.TileType.Ground) {
+		} else if (rightNeighbour.tileType == Constants.TileType.Ground || thisTile.tileType == Constants.TileType.Mineral) {
 			if (thisTile.tileType == Constants.TileType.Wall || thisTile.tileType == Constants.TileType.Border) {
 				if (thisTile.tileType == Constants.TileType.Border) {
 					tileBorderRight.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.borderBorderRightGR;
@@ -443,7 +456,7 @@ public class LevelBuilder : MonoBehaviour
 				tileBorderRight.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.borderBorderRight;
 			} else if (thisTile.tileType == Constants.TileType.Wall) {
 				tileBorderRight.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.wallBorderRight;
-			} else if (thisTile.tileType == Constants.TileType.Ground) {
+			} else if (thisTile.tileType == Constants.TileType.Ground || thisTile.tileType == Constants.TileType.Mineral) {
 				tileBorderRight.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.groundBorderRight;
 			}
 			Instantiate (tileBorderRight, thisGO.transform.position + new Vector3 (0.5f, 0f, 0f), Quaternion.identity, thisGO.transform);
@@ -456,7 +469,7 @@ public class LevelBuilder : MonoBehaviour
 				tileBorderUp.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.borderBorderUp;
 			} else if (thisTile.tileType == Constants.TileType.Wall) {
 				tileBorderUp.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.wallBorderUp;
-			} else if (thisTile.tileType == Constants.TileType.Ground) {
+			} else if (thisTile.tileType == Constants.TileType.Ground || thisTile.tileType == Constants.TileType.Mineral) {
 				tileBorderUp.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.groundBorderUp;
 			}
 			Instantiate (tileBorderUp, thisGO.transform.position + new Vector3 (0f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
@@ -467,7 +480,7 @@ public class LevelBuilder : MonoBehaviour
 				tileBorderUp.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.borderBorderUpGR;
 				Instantiate (tileBorderUp, thisGO.transform.position + new Vector3 (0f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
 			}
-		} else if (upNeighbour.tileType == Constants.TileType.Ground) {
+		} else if (upNeighbour.tileType == Constants.TileType.Ground || thisTile.tileType == Constants.TileType.Mineral) {
 			if (thisTile.tileType == Constants.TileType.Wall || thisTile.tileType == Constants.TileType.Border) {
 				if (thisTile.tileType == Constants.TileType.Border) {
 					tileBorderUp.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.borderBorderUpGR;
@@ -481,7 +494,7 @@ public class LevelBuilder : MonoBehaviour
 				tileBorderUp.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.borderBorderUp;
 			} else if (thisTile.tileType == Constants.TileType.Wall) {
 				tileBorderUp.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.wallBorderUp;
-			} else if (thisTile.tileType == Constants.TileType.Ground) {
+			} else if (thisTile.tileType == Constants.TileType.Ground || thisTile.tileType == Constants.TileType.Mineral) {
 				tileBorderUp.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.groundBorderUp;
 			}
 			Instantiate (tileBorderUp, thisGO.transform.position + new Vector3 (0f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
@@ -494,7 +507,7 @@ public class LevelBuilder : MonoBehaviour
 				tileBorderDown.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.borderBorderDown;
 			} else if (thisTile.tileType == Constants.TileType.Wall) {
 				tileBorderDown.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.wallBorderDown;
-			} else if (thisTile.tileType == Constants.TileType.Ground) {
+			} else if (thisTile.tileType == Constants.TileType.Ground || thisTile.tileType == Constants.TileType.Mineral) {
 				tileBorderDown.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.groundBorderDown;
 			}
 			Instantiate (tileBorderDown, thisGO.transform.position + new Vector3 (0f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
@@ -505,7 +518,7 @@ public class LevelBuilder : MonoBehaviour
 				tileBorderDown.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.borderBorderDownGR;
 				Instantiate (tileBorderDown, thisGO.transform.position + new Vector3 (0f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
 			}
-		} else if (downNeighbour.tileType == Constants.TileType.Ground) {
+		} else if (downNeighbour.tileType == Constants.TileType.Ground || thisTile.tileType == Constants.TileType.Mineral) {
 			if (thisTile.tileType == Constants.TileType.Wall || thisTile.tileType == Constants.TileType.Border) {
 				if (thisTile.tileType == Constants.TileType.Border) {
 					tileBorderDown.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.borderBorderDownGR;
@@ -519,7 +532,7 @@ public class LevelBuilder : MonoBehaviour
 				tileBorderDown.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.borderBorderDown;
 			} else if (thisTile.tileType == Constants.TileType.Wall) {
 				tileBorderDown.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.wallBorderDown;
-			} else if (thisTile.tileType == Constants.TileType.Ground) {
+			} else if (thisTile.tileType == Constants.TileType.Ground || thisTile.tileType == Constants.TileType.Mineral) {
 				tileBorderDown.GetComponent<SpriteRenderer> ().sprite = currentBiom.borderSprites.groundBorderDown;
 			}
 			Instantiate (tileBorderDown, thisGO.transform.position + new Vector3 (0f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
@@ -531,7 +544,7 @@ public class LevelBuilder : MonoBehaviour
 			tileCornerUpLeft.GetComponent<SpriteRenderer> ().sprite = currentBiom.cornerSprites.borderUpLeftCorner;
 		} else if (thisTile.tileType == Constants.TileType.Wall) {
 			tileCornerUpLeft.GetComponent<SpriteRenderer> ().sprite = currentBiom.cornerSprites.wallUpLeftCorner;
-		} else if (thisTile.tileType == Constants.TileType.Ground) {
+		} else if (thisTile.tileType == Constants.TileType.Ground || thisTile.tileType == Constants.TileType.Mineral) {
 			tileCornerUpLeft.GetComponent<SpriteRenderer> ().sprite = currentBiom.cornerSprites.groundUpLeftCorner;
 		}
 		if (leftNeighbour != null && upNeighbour != null && leftNeighbour.tileType == thisTile.tileType && upNeighbour.tileType == thisTile.tileType) {
@@ -540,7 +553,7 @@ public class LevelBuilder : MonoBehaviour
 				Instantiate (tileCornerUpLeft, thisGO.transform.position + new Vector3 (-0.5f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
 			else if (thisTile.tileType == Constants.TileType.Wall && (upLeftNeighbour == null || (upLeftNeighbour.tileType != Constants.TileType.Border && upLeftNeighbour.tileType != Constants.TileType.Wall)))
 				Instantiate (tileCornerUpLeft, thisGO.transform.position + new Vector3 (-0.5f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
-			else if (thisTile.tileType == Constants.TileType.Ground && (upLeftNeighbour == null || (upLeftNeighbour.tileType != Constants.TileType.Border && upLeftNeighbour.tileType != Constants.TileType.Wall && upLeftNeighbour.tileType != Constants.TileType.Ground)))
+			else if ((thisTile.tileType == Constants.TileType.Ground || thisTile.tileType == Constants.TileType.Mineral) && (upLeftNeighbour == null || (upLeftNeighbour.tileType != Constants.TileType.Border && upLeftNeighbour.tileType != Constants.TileType.Wall && upLeftNeighbour.tileType != Constants.TileType.Ground && upLeftNeighbour.tileType != Constants.TileType.Mineral)))
 				Instantiate (tileCornerUpLeft, thisGO.transform.position + new Vector3 (-0.5f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
 		}
 
@@ -549,7 +562,7 @@ public class LevelBuilder : MonoBehaviour
 			tileCornerUpRight.GetComponent<SpriteRenderer> ().sprite = currentBiom.cornerSprites.borderUpRightCorner;
 		} else if (thisTile.tileType == Constants.TileType.Wall) {
 			tileCornerUpRight.GetComponent<SpriteRenderer> ().sprite = currentBiom.cornerSprites.wallUpRightCorner;
-		} else if (thisTile.tileType == Constants.TileType.Ground) {
+		} else if (thisTile.tileType == Constants.TileType.Ground || thisTile.tileType == Constants.TileType.Mineral) {
 			tileCornerUpRight.GetComponent<SpriteRenderer> ().sprite = currentBiom.cornerSprites.groundUpRightCorner;
 		}
 		if (rightNeighbour != null && upNeighbour != null && rightNeighbour.tileType == thisTile.tileType && upNeighbour.tileType == thisTile.tileType) {
@@ -558,7 +571,7 @@ public class LevelBuilder : MonoBehaviour
 				Instantiate (tileCornerUpRight, thisGO.transform.position + new Vector3 (0.5f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
 			else if (thisTile.tileType == Constants.TileType.Wall && (upRightNeighbour == null || (upRightNeighbour.tileType != Constants.TileType.Border && upRightNeighbour.tileType != Constants.TileType.Wall)))
 				Instantiate (tileCornerUpRight, thisGO.transform.position + new Vector3 (0.5f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
-			else if (thisTile.tileType == Constants.TileType.Ground && (upRightNeighbour == null || (upRightNeighbour.tileType != Constants.TileType.Border && upRightNeighbour.tileType != Constants.TileType.Wall && upRightNeighbour.tileType != Constants.TileType.Ground)))
+			else if ((thisTile.tileType == Constants.TileType.Ground || thisTile.tileType == Constants.TileType.Mineral) && (upRightNeighbour == null || (upRightNeighbour.tileType != Constants.TileType.Border && upRightNeighbour.tileType != Constants.TileType.Wall && upRightNeighbour.tileType != Constants.TileType.Ground && upRightNeighbour.tileType != Constants.TileType.Mineral)))
 				Instantiate (tileCornerUpRight, thisGO.transform.position + new Vector3 (0.5f, 0.5f, 0f), Quaternion.identity, thisGO.transform);
 		}
 
@@ -567,7 +580,7 @@ public class LevelBuilder : MonoBehaviour
 			tileCornerDownLeft.GetComponent<SpriteRenderer> ().sprite = currentBiom.cornerSprites.borderDownLeftCorner;
 		} else if (thisTile.tileType == Constants.TileType.Wall) {
 			tileCornerDownLeft.GetComponent<SpriteRenderer> ().sprite = currentBiom.cornerSprites.wallDownLeftCorner;
-		} else if (thisTile.tileType == Constants.TileType.Ground) {
+		} else if (thisTile.tileType == Constants.TileType.Ground || thisTile.tileType == Constants.TileType.Mineral) {
 			tileCornerDownLeft.GetComponent<SpriteRenderer> ().sprite = currentBiom.cornerSprites.groundDownLeftCorner;
 		}
 		if (leftNeighbour != null && downNeighbour != null && leftNeighbour.tileType == thisTile.tileType && downNeighbour.tileType == thisTile.tileType) {
@@ -576,7 +589,7 @@ public class LevelBuilder : MonoBehaviour
 				Instantiate (tileCornerDownLeft, thisGO.transform.position + new Vector3 (-0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
 			else if (thisTile.tileType == Constants.TileType.Wall && (downLeftNeighbour == null || (downLeftNeighbour.tileType != Constants.TileType.Border && downLeftNeighbour.tileType != Constants.TileType.Wall)))
 				Instantiate (tileCornerDownLeft, thisGO.transform.position + new Vector3 (-0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
-			else if (thisTile.tileType == Constants.TileType.Ground && (downLeftNeighbour == null || (downLeftNeighbour.tileType != Constants.TileType.Border && downLeftNeighbour.tileType != Constants.TileType.Wall && downLeftNeighbour.tileType != Constants.TileType.Ground)))
+			else if ((thisTile.tileType == Constants.TileType.Ground || thisTile.tileType == Constants.TileType.Mineral) && (downLeftNeighbour == null || (downLeftNeighbour.tileType != Constants.TileType.Border && downLeftNeighbour.tileType != Constants.TileType.Wall && downLeftNeighbour.tileType != Constants.TileType.Ground && downLeftNeighbour.tileType != Constants.TileType.Mineral)))
 				Instantiate (tileCornerDownLeft, thisGO.transform.position + new Vector3 (-0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
 		}
 
@@ -585,7 +598,7 @@ public class LevelBuilder : MonoBehaviour
 			tileCornerDownRight.GetComponent<SpriteRenderer> ().sprite = currentBiom.cornerSprites.borderDownRightCorner;
 		} else if (thisTile.tileType == Constants.TileType.Wall) {
 			tileCornerDownRight.GetComponent<SpriteRenderer> ().sprite = currentBiom.cornerSprites.wallDownRightCorner;
-		} else if (thisTile.tileType == Constants.TileType.Ground) {
+		} else if (thisTile.tileType == Constants.TileType.Ground || thisTile.tileType == Constants.TileType.Mineral) {
 			tileCornerDownRight.GetComponent<SpriteRenderer> ().sprite = currentBiom.cornerSprites.groundDownRightCorner;
 		}
 		if (rightNeighbour != null && downNeighbour != null && rightNeighbour.tileType == thisTile.tileType && downNeighbour.tileType == thisTile.tileType) {
@@ -594,7 +607,7 @@ public class LevelBuilder : MonoBehaviour
 				Instantiate (tileCornerDownRight, thisGO.transform.position + new Vector3 (0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
 			else if (thisTile.tileType == Constants.TileType.Wall && (downRightNeighbour == null || (downRightNeighbour.tileType != Constants.TileType.Border && downRightNeighbour.tileType != Constants.TileType.Wall)))
 				Instantiate (tileCornerDownRight, thisGO.transform.position + new Vector3 (0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
-			else if (thisTile.tileType == Constants.TileType.Ground && (downRightNeighbour == null || (downRightNeighbour.tileType != Constants.TileType.Border && downRightNeighbour.tileType != Constants.TileType.Wall && downRightNeighbour.tileType != Constants.TileType.Ground)))
+			else if ((thisTile.tileType == Constants.TileType.Ground || thisTile.tileType == Constants.TileType.Mineral) && (downRightNeighbour == null || (downRightNeighbour.tileType != Constants.TileType.Border && downRightNeighbour.tileType != Constants.TileType.Wall && downRightNeighbour.tileType != Constants.TileType.Ground && downRightNeighbour.tileType != Constants.TileType.Mineral)))
 				Instantiate (tileCornerDownRight, thisGO.transform.position + new Vector3 (0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
 		}
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -617,7 +630,7 @@ public class LevelBuilder : MonoBehaviour
 					tileCornerDownLeft.GetComponent<SpriteRenderer> ().sprite = currentBiom.cornerSprites.wallDownLeftCorner;
 					Instantiate (tileCornerDownLeft, thisGO.transform.position + new Vector3 (0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
 				}
-			} else if (thisTile.tileType == Constants.TileType.Ground && downRightNeighbour != null && downRightNeighbour.tileType == thisTile.tileType) {
+			} else if ((thisTile.tileType == Constants.TileType.Ground || thisTile.tileType == Constants.TileType.Mineral) && downRightNeighbour != null && downRightNeighbour.tileType == thisTile.tileType) {
 				if (rightNeighbour == null || (rightNeighbour.tileType != Constants.TileType.Border && rightNeighbour.tileType != Constants.TileType.Wall)) {
 					tileCornerUpRight.GetComponent<SpriteRenderer> ().sprite = currentBiom.cornerSprites.groundUpRightCorner;
 					Instantiate (tileCornerUpRight, thisGO.transform.position + new Vector3 (0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
@@ -649,7 +662,7 @@ public class LevelBuilder : MonoBehaviour
 					tileCornerDownRight.GetComponent<SpriteRenderer> ().sprite = currentBiom.cornerSprites.wallDownRightCorner;
 					Instantiate (tileCornerDownRight, thisGO.transform.position + new Vector3 (-0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
 				}
-			} else if (thisTile.tileType == Constants.TileType.Ground && downLeftNeighbour != null && downLeftNeighbour.tileType == thisTile.tileType) {
+			} else if ((thisTile.tileType == Constants.TileType.Ground || thisTile.tileType == Constants.TileType.Mineral) && downLeftNeighbour != null && downLeftNeighbour.tileType == thisTile.tileType) {
 				if (leftNeighbour == null || (leftNeighbour.tileType != Constants.TileType.Border && leftNeighbour.tileType != Constants.TileType.Wall)) {
 					tileCornerUpLeft.GetComponent<SpriteRenderer> ().sprite = currentBiom.cornerSprites.groundUpLeftCorner;
 					Instantiate (tileCornerUpLeft, thisGO.transform.position + new Vector3 (-0.5f, -0.5f, 0f), Quaternion.identity, thisGO.transform);
@@ -674,8 +687,10 @@ public class LevelBuilder : MonoBehaviour
 		newObject.transform.SetParent (gameObject.transform);
 
 		foreach (Tile tile in tiles) {
-
-			GOTile = null;
+            
+//            Debug.Log(tile.tileType + " " + tile.x + " " + tile.y);
+         //   if (tile.tileType == Constants.TileType.Border) Debug.Log(true);
+            GOTile = null;
 			switch (tile.tileType) {
 			case Constants.TileType.ActiveBomb:
 				GOTile = activeBomb;
@@ -707,8 +722,19 @@ public class LevelBuilder : MonoBehaviour
 				break;
 			case Constants.TileType.Mineral:
 				GOTile = mineral;
-				GOTile.GetComponentInChildren<SpriteRenderer> ().sprite = currentBiom.minerals [Random.Range (0, currentBiom.minerals.Length)];
-				break;
+                    GOTile.GetComponentInChildren<SpriteRenderer>().sprite = currentBiom.minerals[Random.Range(0, currentBiom.minerals.Length)];
+                    GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.grounds[Random.Range(0, currentBiom.grounds.Length)];
+                    //var SRs = GOTile.GetComponentInChildren<SpriteRenderer>();
+                    //foreach(var SR in SRs)
+                    //{
+                    //    if (SR.gameObject.CompareTag("MineralSprite")) SR.sprite = currentBiom.minerals[Random.Range(0, currentBiom.minerals.Length)];
+                    //    else SR.sprite = currentBiom.grounds[Random.Range(0, currentBiom.grounds.Length)];
+                    //}
+                    //Debug.Log(tile.value);
+                    GOTile.GetComponent<GroundController>().SetValue(tile.value);
+
+                        //.sprite = currentBiom.minerals [Random.Range (0, currentBiom.minerals.Length)];
+                    break;
 			case Constants.TileType.Player:
 				GOTile = player;
 				GOTile.GetComponentInChildren<SpriteRenderer> ().sprite = currentBiom.players [Random.Range (0, currentBiom.players.Length)];
@@ -732,8 +758,8 @@ public class LevelBuilder : MonoBehaviour
 			if (GOTile != null) {
 				newObject = Instantiate (GOTile, new Vector3 (tile.x, tile.y, 0f), Quaternion.identity);
 				newObject.transform.SetParent (gameObject.transform);
-				if (tile.tileType == Constants.TileType.Ground || tile.tileType == Constants.TileType.Border || tile.tileType == Constants.TileType.Wall)
-					SetBordersAndAngles (tile, newObject);
+				//if (tile.tileType == Constants.TileType.Ground || tile.tileType == Constants.TileType.Border || tile.tileType == Constants.TileType.Wall || tile.tileType == Constants.TileType.Mineral)
+				//	SetBordersAndAngles (tile, newObject);
 			}
 		}
 	}
@@ -767,11 +793,11 @@ public class LevelBuilder : MonoBehaviour
 		crystalMOC.moveTime = ApplicationController.startingParams.crystal.moveTime;
 		crystalMOC.canKill = ApplicationController.startingParams.crystal.canKill;
 
-		MovingObjectController mineralMOC = mineral.GetComponent<MovingObjectController> ();
-		mineralMOC.canRoll = ApplicationController.startingParams.mineral.canRoll;
-		mineralMOC.rotationSpeed = ApplicationController.startingParams.mineral.rotationSpeed;
-		mineralMOC.moveTime = ApplicationController.startingParams.mineral.moveTime;
-		mineralMOC.canKill = ApplicationController.startingParams.mineral.canKill;
+		//MovingObjectController mineralMOC = mineral.GetComponent<MovingObjectController> ();
+		//mineralMOC.canRoll = ApplicationController.startingParams.mineral.canRoll;
+		//mineralMOC.rotationSpeed = ApplicationController.startingParams.mineral.rotationSpeed;
+		//mineralMOC.moveTime = ApplicationController.startingParams.mineral.moveTime;
+		//mineralMOC.canKill = ApplicationController.startingParams.mineral.canKill;
 
 		PlayerController playerCtrl = player.GetComponent<PlayerController> ();
 		playerCtrl.moveTime = ApplicationController.startingParams.player.moveTime;

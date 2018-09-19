@@ -270,7 +270,8 @@ public class PlayerController : MovingObject
     public int secondsForBallon = 60;
     public int startingSecondsOfOxygen = 60;
     public GameObject bombGO;
-    
+    public int numOfCrysrtalsToExit;
+
     private int bombs = 0;
     private int crystals = 0;
     private int minerals = 0;
@@ -281,7 +282,6 @@ public class PlayerController : MovingObject
     private Text oxygenText;
     private Text crystalsToExitText;
     private GameObject plantedBomb;
-    private int numOfCrysrtalsToExit;
     private bool switcher = false;
 
     public void SetNumCrystalsToExit(int num)
@@ -322,10 +322,11 @@ public class PlayerController : MovingObject
         bombText.text = "Bombs: " + bombs;
     }
 
-    public void PickUpMinerals()
+    public void PickUpMinerals( int value )
     {
-        minerals++;
+        minerals += value;
         mineralText.text = "Minerals: " + minerals;
+   
     }
 
     public void PickUpOxygen()
@@ -409,7 +410,7 @@ public class PlayerController : MovingObject
                     if (directionObject.gameObject.CompareTag("Ballon")) PickUpOxygen();
                     else if (directionObject.gameObject.CompareTag("BombPickUp")) PickUpBomb();
                     else if (directionObject.gameObject.CompareTag("Crystal")) PickUpCrystals();
-                    else if (directionObject.gameObject.CompareTag("Mineral")) PickUpMinerals();
+                    else if (directionObject.gameObject.CompareTag("Mineral")) PickUpMinerals(0);
 
                     Destroy(directionObject.gameObject);
                     return Vector3.zero;
@@ -422,6 +423,7 @@ public class PlayerController : MovingObject
         {
             if (control)
             {
+                PickUpMinerals(directionObject.GetComponent<GroundController>().GetValue());
                 Destroy(directionObject.gameObject);
                 return Vector3.zero;
             }

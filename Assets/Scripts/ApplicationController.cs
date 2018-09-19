@@ -102,13 +102,13 @@ public struct StartingParameters
         public float rotationSpeed;
         public bool canKill;
     }
-    public struct MineralParams
-    {
-        public float moveTime;
-        public bool canRoll;
-        public float rotationSpeed;
-        public bool canKill;
-    }
+    //public struct MineralParams
+    //{
+    //    public float moveTime;
+    //    public bool canRoll;
+    //    public float rotationSpeed;
+    //    public bool canKill;
+    //}
     public struct PlayerParams
     {
         public float moveTime;
@@ -127,7 +127,7 @@ public struct StartingParameters
     public BallonParams ballon;
     public BombParams bomb;
     public CrystalParams crystal;
-    public MineralParams mineral;
+    //public MineralParams mineral;
     public PlayerParams player;
     public StoneParams stone;
 
@@ -274,21 +274,21 @@ public class ApplicationController : MonoBehaviour
 			iniFR.GetParameter("Crystal", "canKill", out value);
 			bool.TryParse(value, out startingParams.crystal.canKill);
 
-			value = null;
-			iniFR.GetParameter("Mineral", "moveTime", out value);
-			float.TryParse(value, out startingParams.mineral.moveTime);
+			//value = null;
+			//iniFR.GetParameter("Mineral", "moveTime", out value);
+			//float.TryParse(value, out startingParams.mineral.moveTime);
 
-			value = null;
-			iniFR.GetParameter("Mineral", "canRoll", out value);
-			bool.TryParse(value, out startingParams.mineral.canRoll);
+			//value = null;
+			//iniFR.GetParameter("Mineral", "canRoll", out value);
+			//bool.TryParse(value, out startingParams.mineral.canRoll);
 
-			value = null;
-			iniFR.GetParameter("Mineral", "rotationSpeed", out value);
-			float.TryParse(value, out startingParams.mineral.rotationSpeed);
+			//value = null;
+			//iniFR.GetParameter("Mineral", "rotationSpeed", out value);
+			//float.TryParse(value, out startingParams.mineral.rotationSpeed);
 
-			value = null;
-			iniFR.GetParameter("Mineral", "canKill", out value);
-			bool.TryParse(value, out startingParams.mineral.canKill);
+			//value = null;
+			//iniFR.GetParameter("Mineral", "canKill", out value);
+			//bool.TryParse(value, out startingParams.mineral.canKill);
 
 			value = null;
 			iniFR.GetParameter("Player", "moveTime", out value);

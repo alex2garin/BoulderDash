@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PickUp : MonoBehaviour
 {
+    private int _value = 0;
     private SpriteRenderer sr;
     private void Start()
     {
@@ -13,7 +14,7 @@ public class PickUp : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") && TryPickUp(collision.transform.position))
         {
-            if (CompareTag("Mineral")) collision.gameObject.GetComponent<PlayerController>().PickUpMinerals();
+            if (CompareTag("Mineral")) collision.gameObject.GetComponent<PlayerController>().PickUpMinerals(_value);
             else if (CompareTag("Crystal")) collision.gameObject.GetComponent<PlayerController>().PickUpCrystals();
             else if (CompareTag("BombPickUp")) collision.gameObject.GetComponent<PlayerController>().PickUpBomb();
             else if (CompareTag("Ballon")) collision.gameObject.GetComponent<PlayerController>().PickUpOxygen();
@@ -22,6 +23,14 @@ public class PickUp : MonoBehaviour
 
         }
     }
+    //public void SetValue(int value)
+    //{
+    //    _value = value;
+    //}
+    //public int GetValue()
+    //{
+    //    return _value;
+    //}
     public bool TryPickUp(Vector3 player)
     {
         
