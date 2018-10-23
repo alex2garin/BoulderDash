@@ -57,10 +57,15 @@ public class CornersAndBordersController : MonoBehaviour {
     public Sprite groundBorderUpGR;
     public Sprite groundBorderDownGR;
 
+
     public bool needToUpdate;
+
+    private Biom currentBiom;
+
     // Use this for initialization
     void Start () {
         needToUpdate = true;
+        currentBiom = ApplicationController.levelBuilder.GetCurrentBiom();
     }
 
     // Update is called once per frame
@@ -107,15 +112,15 @@ public class CornersAndBordersController : MonoBehaviour {
         {
             if (CompareTag("Border"))
             {
-                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = borderBorderLeft;
+                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderLeft;
             }
             else if (CompareTag("Wall"))
             {
-                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = wallBorderLeft;
+                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.wallBorderLeft;
             }
             else if (CompareTag("Ground"))
             {
-                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = groundBorderLeft;
+                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.groundBorderLeft;
             }
             Instantiate(tileBorderLeft, transform.position + new Vector3(-0.5f, 0f, 0f), Quaternion.identity, transform);
         }
@@ -127,7 +132,7 @@ public class CornersAndBordersController : MonoBehaviour {
         {
             if (CompareTag("Border"))
             {
-                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = borderBorderLeftGR;
+                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderLeftGR;
                 Instantiate(tileBorderLeft, transform.position + new Vector3(-0.5f, 0f, 0f), Quaternion.identity, transform);
             }
         }
@@ -137,11 +142,11 @@ public class CornersAndBordersController : MonoBehaviour {
             {
                 if (CompareTag("Wall"))
                 {
-                    tileBorderLeft.GetComponent<SpriteRenderer>().sprite = wallBorderLeftGR;
+                    tileBorderLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.wallBorderLeftGR;
                 }
                 else if (CompareTag("Border"))
                 {
-                    tileBorderLeft.GetComponent<SpriteRenderer>().sprite = borderBorderLeftGR;
+                    tileBorderLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderLeftGR;
                 }
                 Instantiate(tileBorderLeft, transform.position + new Vector3(-0.5f, 0f, 0f), Quaternion.identity, transform);
             }
@@ -150,15 +155,15 @@ public class CornersAndBordersController : MonoBehaviour {
         {
             if (CompareTag("Border"))
             {
-                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = borderBorderLeft;
+                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderLeft;
             }
             else if (CompareTag("Wall"))
             {
-                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = wallBorderLeft;
+                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.wallBorderLeft;
             }
             else if (CompareTag("Ground"))
             {
-                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = groundBorderLeft;
+                tileBorderLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.groundBorderLeft;
             }
             Instantiate(tileBorderLeft, transform.position + new Vector3(-0.5f, 0f, 0f), Quaternion.identity, transform);
         }
@@ -168,15 +173,15 @@ public class CornersAndBordersController : MonoBehaviour {
         {
             if (CompareTag("Border"))
             {
-                tileBorderRight.GetComponent<SpriteRenderer>().sprite = borderBorderRight;
+                tileBorderRight.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderRight;
             }
             else if (CompareTag("Wall"))
             {
-                tileBorderRight.GetComponent<SpriteRenderer>().sprite = wallBorderRight;
+                tileBorderRight.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.wallBorderRight;
             }
             else if (CompareTag("Ground"))
             {
-                tileBorderRight.GetComponent<SpriteRenderer>().sprite = groundBorderRight;
+                tileBorderRight.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.groundBorderRight;
             }
             Instantiate(tileBorderRight, transform.position + new Vector3(0.5f, 0f, 0f), Quaternion.identity, transform);
         }
@@ -188,7 +193,7 @@ public class CornersAndBordersController : MonoBehaviour {
         {
             if (CompareTag("Border"))
             {
-                tileBorderRight.GetComponent<SpriteRenderer>().sprite = borderBorderRightGR;
+                tileBorderRight.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderRightGR;
                 Instantiate(tileBorderRight, transform.position + new Vector3(0.5f, 0f, 0f), Quaternion.identity, transform);
             }
         }
@@ -198,11 +203,11 @@ public class CornersAndBordersController : MonoBehaviour {
             {
                 if (CompareTag("Border"))
                 {
-                    tileBorderRight.GetComponent<SpriteRenderer>().sprite = borderBorderRightGR;
+                    tileBorderRight.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderRightGR;
                 }
                 else if (CompareTag("Wall"))
                 {
-                    tileBorderRight.GetComponent<SpriteRenderer>().sprite = wallBorderRightGR;
+                    tileBorderRight.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.wallBorderRightGR;
                 }
                 Instantiate(tileBorderRight, transform.position + new Vector3(0.5f, 0f, 0f), Quaternion.identity, transform);
             }
@@ -211,15 +216,15 @@ public class CornersAndBordersController : MonoBehaviour {
         {
             if (CompareTag("Border"))
             {
-                tileBorderRight.GetComponent<SpriteRenderer>().sprite = borderBorderRight;
+                tileBorderRight.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderRight;
             }
             else if (CompareTag("Wall"))
             {
-                tileBorderRight.GetComponent<SpriteRenderer>().sprite = wallBorderRight;
+                tileBorderRight.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.wallBorderRight;
             }
             else if (CompareTag("Ground"))
             {
-                tileBorderRight.GetComponent<SpriteRenderer>().sprite = groundBorderRight;
+                tileBorderRight.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.groundBorderRight;
             }
             Instantiate(tileBorderRight, transform.position + new Vector3(0.5f, 0f, 0f), Quaternion.identity, transform);
         }
@@ -229,15 +234,15 @@ public class CornersAndBordersController : MonoBehaviour {
         {
             if (CompareTag("Border"))
             {
-                tileBorderUp.GetComponent<SpriteRenderer>().sprite = borderBorderUp;
+                tileBorderUp.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderUp;
             }
             else if (CompareTag("Wall"))
             {
-                tileBorderUp.GetComponent<SpriteRenderer>().sprite = wallBorderUp;
+                tileBorderUp.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.wallBorderUp;
             }
             else if (CompareTag("Ground"))
             {
-                tileBorderUp.GetComponent<SpriteRenderer>().sprite = groundBorderUp;
+                tileBorderUp.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.groundBorderUp;
             }
             Instantiate(tileBorderUp, transform.position + new Vector3(0f, 0.5f, 0f), Quaternion.identity, transform);
         }
@@ -249,7 +254,7 @@ public class CornersAndBordersController : MonoBehaviour {
         {
             if (CompareTag("Border"))
             {
-                tileBorderUp.GetComponent<SpriteRenderer>().sprite = borderBorderUpGR;
+                tileBorderUp.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderUpGR;
                 Instantiate(tileBorderUp, transform.position + new Vector3(0f, 0.5f, 0f), Quaternion.identity, transform);
             }
         }
@@ -259,11 +264,11 @@ public class CornersAndBordersController : MonoBehaviour {
             {
                 if (CompareTag("Border"))
                 {
-                    tileBorderUp.GetComponent<SpriteRenderer>().sprite = borderBorderUpGR;
+                    tileBorderUp.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderUpGR;
                 }
                 else if (CompareTag("Wall"))
                 {
-                    tileBorderUp.GetComponent<SpriteRenderer>().sprite = wallBorderUpGR;
+                    tileBorderUp.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.wallBorderUpGR;
                 }
                 Instantiate(tileBorderUp, transform.position + new Vector3(0f, 0.5f, 0f), Quaternion.identity, transform);
             }
@@ -272,15 +277,15 @@ public class CornersAndBordersController : MonoBehaviour {
         {
             if (CompareTag("Border"))
             {
-                tileBorderUp.GetComponent<SpriteRenderer>().sprite = borderBorderUp;
+                tileBorderUp.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderUp;
             }
             else if (CompareTag("Wall"))
             {
-                tileBorderUp.GetComponent<SpriteRenderer>().sprite = wallBorderUp;
+                tileBorderUp.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.wallBorderUp;
             }
             else if (CompareTag("Ground"))
             {
-                tileBorderUp.GetComponent<SpriteRenderer>().sprite = groundBorderUp;
+                tileBorderUp.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.groundBorderUp;
             }
             Instantiate(tileBorderUp, transform.position + new Vector3(0f, 0.5f, 0f), Quaternion.identity, transform);
         }
@@ -290,15 +295,15 @@ public class CornersAndBordersController : MonoBehaviour {
         {
             if (CompareTag("Border"))
             {
-                tileBorderDown.GetComponent<SpriteRenderer>().sprite = borderBorderDown;
+                tileBorderDown.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderDown;
             }
             else if (CompareTag("Wall"))
             {
-                tileBorderDown.GetComponent<SpriteRenderer>().sprite = wallBorderDown;
+                tileBorderDown.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.wallBorderDown;
             }
             else if (CompareTag("Ground"))
             {
-                tileBorderDown.GetComponent<SpriteRenderer>().sprite = groundBorderDown;
+                tileBorderDown.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.groundBorderDown;
             }
             Instantiate(tileBorderDown, transform.position + new Vector3(0f, -0.5f, 0f), Quaternion.identity, transform);
         }
@@ -310,7 +315,7 @@ public class CornersAndBordersController : MonoBehaviour {
         {
             if (CompareTag("Border"))
             {
-                tileBorderDown.GetComponent<SpriteRenderer>().sprite = borderBorderDownGR;
+                tileBorderDown.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderDownGR;
                 Instantiate(tileBorderDown, transform.position + new Vector3(0f, -0.5f, 0f), Quaternion.identity, transform);
             }
         }
@@ -320,11 +325,11 @@ public class CornersAndBordersController : MonoBehaviour {
             {
                 if (CompareTag("Border"))
                 {
-                    tileBorderDown.GetComponent<SpriteRenderer>().sprite = borderBorderDownGR;
+                    tileBorderDown.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderDownGR;
                 }
                 else if (CompareTag("Wall"))
                 {
-                    tileBorderDown.GetComponent<SpriteRenderer>().sprite = wallBorderDownGR;
+                    tileBorderDown.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.wallBorderDownGR;
                 }
                 Instantiate(tileBorderDown, transform.position + new Vector3(0f, -0.5f, 0f), Quaternion.identity, transform);
             }
@@ -333,15 +338,15 @@ public class CornersAndBordersController : MonoBehaviour {
         {
             if (CompareTag("Border"))
             {
-                tileBorderDown.GetComponent<SpriteRenderer>().sprite = borderBorderDown;
+                tileBorderDown.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.borderBorderDown;
             }
             else if (CompareTag("Wall"))
             {
-                tileBorderDown.GetComponent<SpriteRenderer>().sprite = wallBorderDown;
+                tileBorderDown.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.wallBorderDown;
             }
             else if (CompareTag("Ground"))
             {
-                tileBorderDown.GetComponent<SpriteRenderer>().sprite = groundBorderDown;
+                tileBorderDown.GetComponent<SpriteRenderer>().sprite = currentBiom.borderSprites.groundBorderDown;
             }
             Instantiate(tileBorderDown, transform.position + new Vector3(0f, -0.5f, 0f), Quaternion.identity, transform);
         }
@@ -350,15 +355,15 @@ public class CornersAndBordersController : MonoBehaviour {
         
         if (CompareTag("Border"))
         {
-            tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = borderUpLeftCorner;
+            tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.borderUpLeftCorner;
         }
         else if (CompareTag("Wall"))
         {
-            tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = wallUpLeftCorner;
+            tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.wallUpLeftCorner;
         }
         else if (CompareTag("Ground"))
         {
-            tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = groundUpLeftCorner;
+            tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.groundUpLeftCorner;
         }
         if (leftNeighbour != null && upNeighbour != null && leftNeighbour.CompareTag(gameObject.tag) && upNeighbour.CompareTag(gameObject.tag))
         {
@@ -373,15 +378,15 @@ public class CornersAndBordersController : MonoBehaviour {
         /////////////////////////////////////////////////////////////
         if (CompareTag("Border"))
         {
-            tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = borderUpRightCorner;
+            tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.borderUpRightCorner;
         }
         else if (CompareTag("Wall"))
         {
-            tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = wallUpRightCorner;
+            tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.wallUpRightCorner;
         }
         else if (CompareTag("Ground") )
         {
-            tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = groundUpRightCorner;
+            tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.groundUpRightCorner;
         }
         if (rightNeighbour != null && upNeighbour != null && rightNeighbour.CompareTag(gameObject.tag) && upNeighbour.CompareTag(gameObject.tag))
         {
@@ -396,15 +401,15 @@ public class CornersAndBordersController : MonoBehaviour {
         /////////////////////////////////////////////////////////////
         if (CompareTag("Border"))
         {
-            tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = borderDownLeftCorner;
+            tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.borderDownLeftCorner;
         }
         else if (CompareTag("Wall"))
         {
-            tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = wallDownLeftCorner;
+            tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.wallDownLeftCorner;
         }
         else if (CompareTag("Ground"))
         {
-            tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = groundDownLeftCorner;
+            tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.groundDownLeftCorner;
         }
         if (leftNeighbour != null && downNeighbour != null && leftNeighbour.CompareTag(gameObject.tag) && downNeighbour.CompareTag(gameObject.tag))
         {
@@ -419,15 +424,15 @@ public class CornersAndBordersController : MonoBehaviour {
         /////////////////////////////////////////////////////////////
         if (CompareTag("Border"))
         {
-            tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = borderDownRightCorner;
+            tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.borderDownRightCorner;
         }
         else if (CompareTag("Wall"))
         {
-            tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = wallDownRightCorner;
+            tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.wallDownRightCorner;
         }
         else if (CompareTag("Ground"))
         {
-            tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = groundDownRightCorner;
+            tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.groundDownRightCorner;
         }
         if (rightNeighbour != null && downNeighbour != null && rightNeighbour.CompareTag(gameObject.tag) && downNeighbour.CompareTag(gameObject.tag))
         {
@@ -445,23 +450,23 @@ public class CornersAndBordersController : MonoBehaviour {
         {
             if (CompareTag("Border") && downRightNeighbour != null && downRightNeighbour.CompareTag(gameObject.tag))
             {
-                tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = borderUpRightCorner;
+                tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.borderUpRightCorner;
                 Instantiate(tileCornerUpRight, transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, transform);
 
-                tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = borderDownLeftCorner;
+                tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.borderDownLeftCorner;
                 Instantiate(tileCornerDownLeft, transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, transform);
             }
             else if (CompareTag("Wall") && downRightNeighbour != null && downRightNeighbour.CompareTag(gameObject.tag))
             {
                 if (rightNeighbour == null || !rightNeighbour.CompareTag("Border"))
                 {
-                    tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = wallUpRightCorner;
+                    tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.wallUpRightCorner;
                     Instantiate(tileCornerUpRight, transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, transform);
                 }
 
                 if (downNeighbour == null || !downNeighbour.CompareTag("Border"))
                 {
-                    tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = wallDownLeftCorner;
+                    tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.wallDownLeftCorner;
                     Instantiate(tileCornerDownLeft, transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, transform);
                 }
             }
@@ -469,13 +474,13 @@ public class CornersAndBordersController : MonoBehaviour {
             {
                 if (rightNeighbour == null || (!rightNeighbour.CompareTag("Border") && !rightNeighbour.CompareTag("Wall")))
                 {
-                    tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = groundUpRightCorner;
+                    tileCornerUpRight.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.groundUpRightCorner;
                     Instantiate(tileCornerUpRight, transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, transform);
                 }
 
                 if (downNeighbour == null || (!downNeighbour.CompareTag("Border") && !downNeighbour.CompareTag("Wall")))
                 {
-                    tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = groundDownLeftCorner;
+                    tileCornerDownLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.groundDownLeftCorner;
                     Instantiate(tileCornerDownLeft, transform.position + new Vector3(0.5f, -0.5f, 0f), Quaternion.identity, transform);
                 }
             }
@@ -487,23 +492,23 @@ public class CornersAndBordersController : MonoBehaviour {
             //var downLeftNeighbour = tiles.Find(item => (item.x == thisTile.x - 1) && (item.y == thisTile.y - 1));
             if (CompareTag("Border") && downLeftNeighbour != null && downLeftNeighbour.CompareTag(gameObject.tag))
             {
-                tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = borderUpLeftCorner;
+                tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.borderUpLeftCorner;
                 Instantiate(tileCornerUpLeft, transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, transform);
 
-                tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = borderDownRightCorner;
+                tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.borderDownRightCorner;
                 Instantiate(tileCornerDownRight, transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, transform);
             }
             else if (CompareTag("Wall") && downLeftNeighbour != null && downLeftNeighbour.CompareTag(gameObject.tag))
             {
                 if (leftNeighbour == null || !leftNeighbour.CompareTag("Border"))
                 {
-                    tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = wallUpLeftCorner;
+                    tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.wallUpLeftCorner;
                     Instantiate(tileCornerUpLeft, transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, transform);
                 }
 
                 if (downNeighbour == null || !downNeighbour.CompareTag("Border"))
                 {
-                    tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = wallDownRightCorner;
+                    tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.wallDownRightCorner;
                     Instantiate(tileCornerDownRight, transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, transform);
                 }
             }
@@ -511,13 +516,13 @@ public class CornersAndBordersController : MonoBehaviour {
             {
                 if (leftNeighbour == null || (!leftNeighbour.CompareTag("Border") && !leftNeighbour.CompareTag("Wall")))
                 {
-                    tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = groundUpLeftCorner;
+                    tileCornerUpLeft.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.groundUpLeftCorner;
                     Instantiate(tileCornerUpLeft, transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, transform);
                 }
 
                 if (downNeighbour == null || (!downNeighbour.CompareTag("Border") && !downNeighbour.CompareTag("Wall")))
                 {
-                    tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = groundDownRightCorner;
+                    tileCornerDownRight.GetComponent<SpriteRenderer>().sprite = currentBiom.cornerSprites.groundDownRightCorner;
                     Instantiate(tileCornerDownRight, transform.position + new Vector3(-0.5f, -0.5f, 0f), Quaternion.identity, transform);
                 }
             }

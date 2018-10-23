@@ -42,8 +42,9 @@ public static class Constants
 		public const string Mineral = "M";
 		public const string Enemy = "E";
 		public const string Player = "P";
-		public const string Ballon = "B";
-	}
+        public const string Ballon = "B";
+        public const string Switcher = "C";
+    }
 
 	public struct BiomType
 	{
@@ -143,7 +144,7 @@ public class LevelBuilder : MonoBehaviour
 
 
 
-	public BorderSprites borderSprites;
+	//public BorderSprites borderSprites;
 
 
 	//tiles;
@@ -159,6 +160,7 @@ public class LevelBuilder : MonoBehaviour
 	public GameObject tileCornerUpRight;
 	public GameObject tileCornerDownLeft;
 	public GameObject tileCornerDownRight;
+    public GameObject gravitySwitcher;
 	//moving objects
 	public GameObject stone;
 	public GameObject activeBomb;
@@ -182,6 +184,11 @@ public class LevelBuilder : MonoBehaviour
 	private List<Tile> tiles;
 	private Biom currentBiom;
 	private int numOfCrystalsToExit = 0;
+
+    public Biom GetCurrentBiom()
+    {
+        return currentBiom;
+    }
     
 
 	public List<Tile> ReadFile ()
@@ -381,7 +388,7 @@ public class LevelBuilder : MonoBehaviour
 
 	private void SetBordersAndAngles (Tile thisTile, GameObject thisGO)
 	{
-		
+        return;
 
 
 
@@ -752,9 +759,13 @@ public class LevelBuilder : MonoBehaviour
 				GOTile = wall;
 				GOTile.GetComponent<SpriteRenderer> ().sprite = currentBiom.walls [Random.Range (0, currentBiom.walls.Length)];
 				break;
-       
-                
-			}
+            case Constants.TileType.Switcher:
+                    GOTile = gravitySwitcher;
+                    //GOTile.GetComponent<SpriteRenderer>().sprite = currentBiom.walls[Random.Range(0, currentBiom.walls.Length)];
+                    break;
+
+
+            }
 			if (GOTile != null) {
 				newObject = Instantiate (GOTile, new Vector3 (tile.x, tile.y, 0f), Quaternion.identity);
 				newObject.transform.SetParent (gameObject.transform);
@@ -766,7 +777,8 @@ public class LevelBuilder : MonoBehaviour
 
 	private void Awake ()
 	{
-        
+
+        ApplicationController.levelBuilder = this;
 
 
 		BackgroundController bc = background.GetComponent<BackgroundController> ();
@@ -787,7 +799,16 @@ public class LevelBuilder : MonoBehaviour
 		bombCtrl.destroyDelayTime = ApplicationController.startingParams.bomb.destroyDelayTime;
 		bombCtrl.explosionLengthTime = ApplicationController.startingParams.bomb.explosionLenghtTime;
 
-		MovingObjectController crystalMOC = crystal.GetComponent<MovingObjectController> ();
+        BombMOC = deactiveBomb.GetComponent<MovingObjectController>();
+        BombMOC.canRoll = ApplicationController.startingParams.bomb.canRoll;
+        BombMOC.rotationSpeed = ApplicationController.startingParams.bomb.rotationSpeed;
+        BombMOC.moveTime = ApplicationController.startingParams.bomb.moveTime;
+        BombMOC.canKill = ApplicationController.startingParams.bomb.canKill;
+        bombCtrl = deactiveBomb.GetComponent<BombController>();
+        bombCtrl.destroyDelayTime = ApplicationController.startingParams.bomb.destroyDelayTime;
+        bombCtrl.explosionLengthTime = ApplicationController.startingParams.bomb.explosionLenghtTime;
+
+        MovingObjectController crystalMOC = crystal.GetComponent<MovingObjectController> ();
 		crystalMOC.canRoll = ApplicationController.startingParams.crystal.canRoll;
 		crystalMOC.rotationSpeed = ApplicationController.startingParams.crystal.rotationSpeed;
 		crystalMOC.moveTime = ApplicationController.startingParams.crystal.moveTime;

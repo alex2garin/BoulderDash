@@ -137,7 +137,7 @@ public struct StartingParameters
 public class ApplicationController : MonoBehaviour
 {
 
-
+    public static LevelBuilder levelBuilder;
     public static TextAsset[] fileLevels;
     public TextAsset[] FileLevels;
     public static TextAsset SelectedFile;

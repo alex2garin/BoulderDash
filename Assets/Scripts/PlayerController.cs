@@ -379,6 +379,11 @@ public class PlayerController : MovingObject
 
         Collider2D directionObject = Physics2D.OverlapBox(endDir, new Vector2(.9f, .9f), 0);
 
+        if (directionObject != null && directionObject.gameObject.CompareTag("GravitySwitcher"))
+        {
+            directionObject.gameObject.GetComponent<GravitySwitcher>().ChangeGravity(-direction);
+            return Vector3.zero;
+        }
 
         if (directionObject != null && 1 << directionObject.gameObject.layer == blockingLayer.value)
         {
@@ -389,6 +394,7 @@ public class PlayerController : MovingObject
             if (!MOCStone.Push(direction)) return Vector3.zero;
             else if (control) return Vector3.zero;
         }
+
 
         if (directionObject != null && 1 << directionObject.gameObject.layer == pickUpLayer.value)
         {

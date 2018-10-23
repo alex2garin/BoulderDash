@@ -17,6 +17,7 @@ TagManager:
   - BombPickUp
   - debug
   - MineralSprite
+  - GravitySwitcher
   layers:
   - Default
   - TransparentFX
