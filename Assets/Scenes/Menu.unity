@@ -538,10 +538,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FileLevels:
-  - {fileID: 4900000, guid: 6a462e985982aa0488383d570931fdac, type: 3}
   - {fileID: 4900000, guid: f01f1980493e00e47b91da7c875a2b86, type: 3}
-  - {fileID: 4900000, guid: bce6526b39380374a9a96f240651d780, type: 3}
-  - {fileID: 4900000, guid: e913979a5633bd146b0bbae5253e7380, type: 3}
+  - {fileID: 4900000, guid: e4e17e883fc630641b649108bad8ef39, type: 3}
+  - {fileID: 4900000, guid: bebfa49da22ef5840956c4b04d3d0568, type: 3}
+  - {fileID: 0}
   iniFilePath: config.ini
 --- !u!4 &1243635573
 Transform:
