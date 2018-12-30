@@ -328,24 +328,22 @@ public class MovingObjectController : MovingObject
         bomb = gameObject.GetComponent<Bomb>();
         //if (bomb != null) Debug.Log(bomb);
     }
-    private static RotationSide GetRotationSide(Vector3 direction)
+    private static int GetRotationSide(Vector3 direction)
     {
-        if (direction.x < 0) return RotationSide.left;
-        else if (direction.x > 0) return RotationSide.right;
-        else return RotationSide.norotation;
+        if (direction.x * ApplicationController.gravity.x + direction.y * ApplicationController.gravity.y != 0) return 0;
+        return (int)(-ApplicationController.gravity.x * direction.y + ApplicationController.gravity.y * direction.x);
+        //if (direction.x < 0) return RotationSide.left;
+        //else if (direction.x > 0) return RotationSide.right;
+        //else return RotationSide.norotation;
 
     }
-    private IEnumerator Rotate(RotationSide side)
+    private IEnumerator Rotate(int sign)//RotationSide side)
     {
 
-        float angle = 0;
-        int sign = 0;
-        if (side == RotationSide.left) sign = 1;
-        else if (side == RotationSide.right) sign = -1;
         if (!canRoll || sign == 0) yield break;
 
+        float angle = 0;
         float endAngle = childSprite.transform.rotation.eulerAngles.z + sign * rotationSpeed;
-
         while (angle < rotationSpeed)
         {
             angle += angularSpeed * Time.deltaTime;
@@ -353,6 +351,22 @@ public class MovingObjectController : MovingObject
             else childSprite.transform.Rotate(new Vector3(0f, 0f, sign * angularSpeed) * Time.deltaTime);
             yield return null;
         }
+
+        //float angle = 0;
+        //int sign = 0;
+        //if (side == RotationSide.left) sign = 1;
+        //else if (side == RotationSide.right) sign = -1;
+        //if (!canRoll || sign == 0) yield break;
+
+        //float endAngle = childSprite.transform.rotation.eulerAngles.z + sign * rotationSpeed;
+
+        //while (angle < rotationSpeed)
+        //{
+        //    angle += angularSpeed * Time.deltaTime;
+        //    if (angle >= rotationSpeed) childSprite.transform.rotation = Quaternion.Euler(0f, 0f, endAngle);
+        //    else childSprite.transform.Rotate(new Vector3(0f, 0f, sign * angularSpeed) * Time.deltaTime);
+        //    yield return null;
+        //}
 
     }
 
@@ -456,7 +470,8 @@ public class MovingObjectController : MovingObject
     }
     protected override void RotationStart()
     {
-        StartCoroutine(Rotate(GetRotationSide(end - transform.position)));
+        StartCoroutine(Rotate(GetRotationSide(destVect)));
+        //StartCoroutine(Rotate(GetRotationSide(end - transform.position)));
     }
     protected override void BeforeFixedUpdate()
     {

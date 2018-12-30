@@ -385,7 +385,7 @@ public class LevelBuilder : MonoBehaviour
 		return newTiles;
 
 	}
-
+    
 	private void SetBordersAndAngles (Tile thisTile, GameObject thisGO)
 	{
         return;

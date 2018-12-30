@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class MovingObject : MonoBehaviour {
 
-    public enum RotationSide { left, right, norotation };
+    //public enum RotationSide { left, right, norotation };
 
     public float moveTime = 2f;
 
