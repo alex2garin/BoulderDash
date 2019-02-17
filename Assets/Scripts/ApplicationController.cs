@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class InputController
 {
@@ -114,6 +115,7 @@ public struct StartingParameters
         public float moveTime;
         public int secondsForBallon;
         public int startingSecondsOfOxygen;
+        public int deathDelay;
     }
     public struct StoneParams
     {
@@ -136,6 +138,7 @@ public struct StartingParameters
 
 public class ApplicationController : MonoBehaviour
 {
+    public static ApplicationController instance;
 
     public static LevelBuilder levelBuilder;
     public static TextAsset[] fileLevels;
@@ -198,6 +201,7 @@ public class ApplicationController : MonoBehaviour
     public string iniFilePath = "config.ini";
 
 	public static StartingParameters startingParams;
+    
 
     // Use this for initialization
     void Awake()
@@ -206,6 +210,7 @@ public class ApplicationController : MonoBehaviour
         inputCTRL = new InputController();
 		ReadIniFile (iniFilePath);
         fileLevels = FileLevels;
+        instance = this;
     }
 
 
@@ -302,7 +307,11 @@ public class ApplicationController : MonoBehaviour
 			iniFR.GetParameter("Player", "startingSecondsOfOxygen", out value);
 			int.TryParse(value, out startingParams.player.startingSecondsOfOxygen);
 
-			value = null;
+            value = null;
+            iniFR.GetParameter("Player", "deathDelaySeconds", out value);
+            int.TryParse(value, out startingParams.player.deathDelay);
+
+            value = null;
 			iniFR.GetParameter("Stone", "moveTime", out value);
 			float.TryParse(value, out startingParams.stone.moveTime);
 
@@ -318,5 +327,16 @@ public class ApplicationController : MonoBehaviour
 			iniFR.GetParameter("Stone", "canKill", out value);
 			bool.TryParse(value, out startingParams.stone.canKill);
         }
+    }
+
+    private static IEnumerator DeathDelay()
+    {
+        yield return new WaitForSeconds(startingParams.player.deathDelay);
+        SceneManager.LoadScene("Menu");
+    }
+    public static void PlayerDeathDelay()
+    {
+        if (instance!=null)
+        instance.StartCoroutine(DeathDelay());
     }
 }

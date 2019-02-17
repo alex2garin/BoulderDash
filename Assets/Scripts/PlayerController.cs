@@ -354,7 +354,7 @@ public class PlayerController : MovingObject
 
     void OnDestroy()
     {
-        SceneManager.LoadScene("Menu");
+        ApplicationController.PlayerDeathDelay();
     }
 
     protected override Vector3 GetDestination()

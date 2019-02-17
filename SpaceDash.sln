@@ -1,13 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceDash", "SpaceDash.csproj", "{7B0F7377-2320-EF6F-1ECF-3987F561881E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceDash", "SpaceDash.csproj", "{7B0F7377-2320-EF6F-1ECF-3987F561881E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceDash.Editor", "SpaceDash.Editor.csproj", "{E3E79756-5814-B59D-F503-48FDF2D130EC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceDash.Editor", "SpaceDash.Editor.csproj", "{E3E79756-5814-B59D-F503-48FDF2D130EC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceDash.Editor", "SpaceDash.Editor.csproj", "{E3E79756-5814-B59D-F503-48FDF2D130EC}"
 EndProject
@@ -21,18 +17,6 @@ Global
 		{7B0F7377-2320-EF6F-1ECF-3987F561881E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B0F7377-2320-EF6F-1ECF-3987F561881E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B0F7377-2320-EF6F-1ECF-3987F561881E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B0F7377-2320-EF6F-1ECF-3987F561881E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B0F7377-2320-EF6F-1ECF-3987F561881E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B0F7377-2320-EF6F-1ECF-3987F561881E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B0F7377-2320-EF6F-1ECF-3987F561881E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E3E79756-5814-B59D-F503-48FDF2D130EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E3E79756-5814-B59D-F503-48FDF2D130EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E3E79756-5814-B59D-F503-48FDF2D130EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E3E79756-5814-B59D-F503-48FDF2D130EC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E3E79756-5814-B59D-F503-48FDF2D130EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E3E79756-5814-B59D-F503-48FDF2D130EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E3E79756-5814-B59D-F503-48FDF2D130EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E3E79756-5814-B59D-F503-48FDF2D130EC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E3E79756-5814-B59D-F503-48FDF2D130EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E3E79756-5814-B59D-F503-48FDF2D130EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3E79756-5814-B59D-F503-48FDF2D130EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -40,5 +24,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {82F9900B-E762-4418-87BD-500451359DD6}
 	EndGlobalSection
 EndGlobal
