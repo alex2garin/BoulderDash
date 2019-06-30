@@ -745,7 +745,7 @@ public class LevelBuilder : MonoBehaviour
 			case Constants.TileType.Player:
 				GOTile = player;
 				GOTile.GetComponentInChildren<SpriteRenderer> ().sprite = currentBiom.players [Random.Range (0, currentBiom.players.Length)];
-				GOTile.GetComponent<PlayerController> ().SetNumCrystalsToExit (numOfCrystalsToExit);
+				GOTile.GetComponent<PlayerController> ().SetNumCrystalsToExit (numOfCrystalsToExit);            
 				break;
 			case Constants.TileType.Portal:
 				GOTile = portal;

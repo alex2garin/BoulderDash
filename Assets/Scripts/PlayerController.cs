@@ -271,6 +271,7 @@ public class PlayerController : MovingObject
     public int startingSecondsOfOxygen = 60;
     public GameObject bombGO;
     public int numOfCrysrtalsToExit;
+    public int GetCrystalsNum() { return crystals; }
 
     private int bombs = 0;
     private int crystals = 0;
@@ -283,6 +284,7 @@ public class PlayerController : MovingObject
     private Text crystalsToExitText;
     private GameObject plantedBomb;
     private bool switcher = false;
+    private bool controlHoldFirstButtonDown = true;
 
     public void SetNumCrystalsToExit(int num)
     {
@@ -299,6 +301,7 @@ public class PlayerController : MovingObject
         oxygenText = GameObject.Find("Oxygen").GetComponent<Text>();
         crystalsToExitText = GameObject.Find("CrystalsToExit").GetComponent<Text>();
         crystalsToExitText.text = "Crystals To Exit: " + numOfCrysrtalsToExit;
+        ApplicationController.playerController = this;
 
         StartCoroutine(OxygenFlow());
     }
@@ -363,6 +366,8 @@ public class PlayerController : MovingObject
         float verticalInput = ApplicationController.inputCTRL.VerticalMovement();
         Vector3 direction;
 
+        bool firstButtonDown = false;
+
         bool control = ApplicationController.inputCTRL.ActionWithoutMoving();
 
         bool space = ApplicationController.inputCTRL.PlantBomb();
@@ -376,6 +381,8 @@ public class PlayerController : MovingObject
 
         Vector3 endDir = transform.position + direction;
 
+        if (control && controlHoldFirstButtonDown && direction != Vector3.zero) { controlHoldFirstButtonDown = false; firstButtonDown = true; }
+        else if (!controlHoldFirstButtonDown && direction == Vector3.zero) { controlHoldFirstButtonDown = true; firstButtonDown = false; }
 
         Collider2D directionObject = Physics2D.OverlapBox(endDir, new Vector2(.9f, .9f), 0);
 
@@ -413,13 +420,17 @@ public class PlayerController : MovingObject
 
                 if (control)
                 {
-                    if (directionObject.gameObject.CompareTag("Ballon")) PickUpOxygen();
-                    else if (directionObject.gameObject.CompareTag("BombPickUp")) PickUpBomb();
-                    else if (directionObject.gameObject.CompareTag("Crystal")) PickUpCrystals();
-                    else if (directionObject.gameObject.CompareTag("Mineral")) PickUpMinerals(0);
+                    if (firstButtonDown)
+                    {
+                        if (directionObject.gameObject.CompareTag("Ballon")) PickUpOxygen();
+                        else if (directionObject.gameObject.CompareTag("BombPickUp")) PickUpBomb();
+                        else if (directionObject.gameObject.CompareTag("Crystal")) PickUpCrystals();
+                        else if (directionObject.gameObject.CompareTag("Mineral")) PickUpMinerals(1);
 
-                    Destroy(directionObject.gameObject);
-                    return Vector3.zero;
+                        Destroy(directionObject.gameObject);
+                        return Vector3.zero;
+                    }
+                    else return Vector3.zero;
                 }
             }
             else return Vector3.zero;
