@@ -202,7 +202,8 @@ public class ApplicationController : MonoBehaviour
     public string iniFilePath = "config.ini";
 
 	public static StartingParameters startingParams;
-    
+    public RandomLevelGenerator randomLevelGenerator;
+
 
     // Use this for initialization
     void Awake()

@@ -178,7 +178,7 @@ public class LevelBuilder : MonoBehaviour
 	//public TextAsset fileLevel;
 	//public TextAsset ini;
 
-	public RandomLevelGenerator randomLevelGenerator;
+	private RandomLevelGenerator randomLevelGenerator;
     
 
 	private List<Tile> tiles;
@@ -779,6 +779,7 @@ public class LevelBuilder : MonoBehaviour
 	{
 
         ApplicationController.levelBuilder = this;
+        randomLevelGenerator = ApplicationController.instance.randomLevelGenerator;
 
 
 		BackgroundController bc = background.GetComponent<BackgroundController> ();
